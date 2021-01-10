@@ -555,8 +555,9 @@
 <!-- Data Table End -->
 
 <!-- Alert Part Start -->
-<script>
+
   @if(Session::has('message'))
+  <script>
     var type = "{{ Session::get('alert-type', 'info') }}";
     switch(type){
         case 'info':
@@ -575,15 +576,17 @@
             toastr.error("{{ Session::get('message') }}");
             break;
     }
+    </script>
   @endif
-</script>
-<script>
+
         @if($errors->any())
           @foreach($errors->all()  as $error)
-          toastr.info("{{$error}}");
+          <script>
+            toastr.info("{{$error}}");
+          </script>
           @endforeach
         @endif
-</script>
+
 
 
 <!-- Alert Part End -->
