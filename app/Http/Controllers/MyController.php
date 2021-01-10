@@ -15,6 +15,10 @@ class MyController extends Controller
 public function HomePage(){
         return view('Dashboard');
     }
+    
+public function Contact(){
+        return view('Pages.contact');
+    }
 
     public function ClassForm(){
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
