@@ -41,12 +41,16 @@ public function Contact(){
         $req->validate([
             'CName'=>'required|min:4',
             'CType'=>'required',
+            'CStatus'=>'required',
         ],[
             //Class name Add
             'CName.required'=>'Class Name is must',
             'CName.min'=>'Class Name Minimum 4 letters must',
             //Class Type Add
             'CType.required'=>'Please select Class Type',
+
+             //Class Status Add
+            'CStatus.required'=>'Please select Class Status',
         ]);
 
         $cnt = count(DB::table('clas')->get());
@@ -54,6 +58,8 @@ public function Contact(){
         $cls = new clas;
         $cls->class_name = $req->CName;
         $cls->class_type = $req->CType;
+        $cls->class_status = $req->CStatus;
+        
 
         $cls->save();
 
@@ -70,6 +76,7 @@ public function Contact(){
         $req->validate([
             'ECName'=>'required|min:4',
             'ECType'=>'required',
+            'CStatus'=>'required',
             
         ],[
             //Class name Add
@@ -78,12 +85,15 @@ public function Contact(){
 
             //Class Type Add
             'ECType.required'=>'Please select Class Type',
+
+            //Class Status Add
+            'CStatus.required'=>'Please select Class Status',
         ]);
 
         DB::table('clas')->where('id' , $req->ECId)->update([
             'class_name' => $req->ECName,
             'class_type' => $req->ECType,
-            
+            'class_status' => $req->CStatus,
         ]);
 
         $notification = array(

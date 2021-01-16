@@ -17,6 +17,7 @@ class CreateClasTable extends Migration
             $table->id();
             $table->string('class_name');
             $table->string('class_type');
+            $table->string('class_status');
             $table->timestamps();
         });
     }

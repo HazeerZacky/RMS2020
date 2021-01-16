@@ -36,7 +36,7 @@
         <a href="/" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
+        <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
       </li>
     </ul>
 
@@ -330,6 +330,7 @@
                             <label for="exampleInputText" class="form-label">Class Name</label>
                             <input type="text" class="form-control"name="CName" placeholder="Enter class name">
                         </div>
+                        <div class="form-group">
                         <label>Class Type</label>
                             <select class="custom-select" name="CType">
                                 <option value="" selected disabled hidden>(select one option)</option>
@@ -338,7 +339,19 @@
                                 <option value="SecondaryLevel"><b>Secondary Level</b></option>
                                 <option value="PrimaryLevel"><b>Primary Level</b></option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputText" class="form-label">Class Status</label><br>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline1">Active</label>
                             </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
+                            </div>
+                        </div>
+            </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary ">Save changes</button>
@@ -372,7 +385,8 @@
                             <label for="exampleInputText" class="form-label">Class Name</label>
                             <input type="text" class="form-control" id="ECName" name="ECName" placeholder="Enter class name">
                         </div>
-                        <label>Class Type</label>
+                        <div class="form-group">
+                            <label>Class Type</label>
                             <select class="custom-select" id="ECType" name="ECType">
                                 <option value="" selected disabled hidden>(select one option)</option>
                                 <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
@@ -380,7 +394,20 @@
                                 <option value="SecondaryLevel"><b>Secondary Level</b></option>
                                 <option value="PrimaryLevel"><b>Primary Level</b></option>
                             </select>
+                        </div>
+                            
+                        <div class="form-group">
+                            <label for="exampleInputText" class="form-label">Class Status</label><br>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline1">Active</label>
                             </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
+                            </div>
+                        </div>
+              </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -396,10 +423,12 @@
             var id = document.getElementById('id' +i).value;
             var name = document.getElementById('name' +i).value;
             var type = document.getElementById('type' +i).value;
+            var status = document.getElementById('status' +i).value;
 
             document.getElementById('ECId').value = id;
             document.getElementById('ECName').value = name;
             document.getElementById('ECType').value = type;
+            document.getElementById('ECStatus').value = status;
           }
         </script>
         <!-- Edit Model Get Function End-->
@@ -445,6 +474,7 @@
                     <th scope="col">Class ID</th>
                     <th scope="col">Class Name</th>
                     <th scope="col">Class Type</th>
+                    <th scope="col">Class Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </thead>
@@ -455,10 +485,12 @@
                         <th>{{$cls->id}}</th>
                         <th>{{$cls->class_name}}</th>
                         <th>{{$cls->class_type}}</th>
+                        <th>{{$cls->class_status}}</th>
                         <td>
                           <input type="hidden" id="id<?php echo $k; ?>" value="{{$cls->id}}">
                           <input type="hidden" id="name<?php echo $k; ?>" value="{{$cls->class_name}}">
                           <input type="hidden" id="type<?php echo $k; ?>" value="{{$cls->class_type}}">
+                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$cls->class_status}}">
                             
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteClass">Delete</button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditClass">Edit</button>
@@ -496,6 +528,7 @@
                     <th scope="col">Class ID</th>
                     <th scope="col">Class Name</th>
                     <th scope="col">Class Type</th>
+                    <th scope="col">Class Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </tfoot>
