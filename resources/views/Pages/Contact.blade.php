@@ -127,8 +127,8 @@
             </a>
           </li>
           <li class="nav-header">SUPER ADMIN</li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Forms
@@ -137,7 +137,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link active">
+                <a href="/Class" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
@@ -311,131 +311,6 @@
     <!-- -------------------------------------------Sidebar Navigation Part End --------------------------------- -->
   </aside>
 
-  <!-- Model Start   -->
-  <!-- Add Model Start -->
-        <div class="modal fade" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <!-- form start -->
-                    <form role="form" action="/addclass" method="post">
-                    @csrf
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Name</label>
-                            <input type="text" class="form-control"name="CName" placeholder="Enter class name">
-                        </div>
-                        <div class="form-group">
-                        <label>Class Type</label>
-                            <select class="custom-select" name="CType">
-                                <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                <option value="PrimaryLevel"><b>Primary Level</b></option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Status</label><br>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline1">Active</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
-                            </div>
-                        </div>
-            </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary ">Save changes</button>
-                                </div> 
-                            </div>
-                    </form>
-            
-        </div>
-        </div>
-  <!-- Add Model End -->
-
-  <!-- Edit Model Start -->
-  <div class="modal fade" id="EditClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <!-- form start -->
-                    <form role="form" action="/editclass" method="post">
-                    @csrf
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class ID</label>
-                            <input type="text" class="form-control" id="ECId" name="ECId" placeholder="Enter class name" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Name</label>
-                            <input type="text" class="form-control" id="ECName" name="ECName" placeholder="Enter class name">
-                        </div>
-                        <div class="form-group">
-                            <label>Class Type</label>
-                            <select class="custom-select" id="ECType" name="ECType">
-                                <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                <option value="PrimaryLevel"><b>Primary Level</b></option>
-                            </select>
-                        </div>
-                            
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Status</label><br>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline1">Active</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
-                            </div>
-                        </div>
-              </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div> 
-                            </div>
-                    </form>
-        </div>
-        </div>
-
-        <!-- Edit Model Get Function Start-->
-        <script>
-          function edit(i) {
-            var id = document.getElementById('id' +i).value;
-            var name = document.getElementById('name' +i).value;
-            var type = document.getElementById('type' +i).value;
-            var status = document.getElementById('status' +i).value;
-
-            document.getElementById('ECId').value = id;
-            document.getElementById('ECName').value = name;
-            document.getElementById('ECType').value = type;
-            document.getElementById('ECStatus').value = status;
-          }
-        </script>
-        <!-- Edit Model Get Function End-->
-
-  <!-- Edit Model End -->
-  <!-- Model End   -->
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -443,12 +318,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">&#9745; <b>Class Page</b></h1>
+            <h1 class="m-0 text-dark">&#9745; <b>Contact Page</b></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Class</li>
+              <li class="breadcrumb-item active">Contact</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -459,82 +334,36 @@
     <!-- Class Page Full Front View Part Start -->
     <div class="card">
               <!-- Table part start -->
-              <div class="card-body">
-                <!-- Add Button Part Start -->
-                <div class="row">
-                            <div class="col-md-12 text-end">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddClass">Add New Class</button>
-                            </div>
-                </div>
-                <br>
-                <!-- Add Button Part End -->
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type</th>
-                    <th scope="col">Class Status</th>
-                    <th style="width:  12%">Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <?php $k = 0; ?> <!-- identify row number -->
-                      @foreach($class as $cls)
-                      <tr>
-                        <th>{{$cls->id}}</th>
-                        <th>{{$cls->class_name}}</th>
-                        <th>{{$cls->class_type}}</th>
-                        <th>{{$cls->class_status}}</th>
-                        <td>
-                          <input type="hidden" id="id<?php echo $k; ?>" value="{{$cls->id}}">
-                          <input type="hidden" id="name<?php echo $k; ?>" value="{{$cls->class_name}}">
-                          <input type="hidden" id="type<?php echo $k; ?>" value="{{$cls->class_type}}">
-                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$cls->class_status}}">
-                            
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteClass">Delete</button>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditClass">Edit</button>
-                        </td>
-                      </tr>
-                      <?php $k++; ?>
-                        <!-- Delete Conformation Model Start -->
-                        <div class="modal fade" id="DeleteClass">
-                                <div class="modal-dialog modal-sm">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h4 class="modal-title">&#11088;Delete Confirmation</h4>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <p><b>Are you sure you want to delete?</b></p>
-                                    </div>
-                                    <div class="modal-footer justify-content-between">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                      <a  href="{{route('delete',$cls->id)}}" class="btn btn-danger">Yes</a> <!-- $cls->id = passing variable-->
-                                    </div>
-                                  </div>
-                                  <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                              </div>
-                              <!-- /.modal -->
-                          <!-- Delete Conformation Model End-->
-                      @endforeach
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type</th>
-                    <th scope="col">Class Status</th>
-                    <th style="width:  12%">Action</th>
-                  </tr>
-                  </tfoot>
-                </table>
+            <div class="card-body">
+              <h1 align="center"><b>Welcome to Reselect</b></h1>
+              <div align="center">
+                <p>This is our test contact page.</p>
               </div>
-              <!-- /.card-body -->
+              <div>
+                  <p align="justify">
+                    The Concept of Information Communication Technology (ICT)
+                    The term information and communication technology (ICT) is 
+                    a convergence from information technology (IT) and communication 
+                    technology (CT). According to Khan et al. [5], information communication 
+                    technology (ICT) refers to technologies that provide access to 
+                    information through communications. Khan et al. [5] added that ICT 
+                    stands for information and communications technology. Also, ICT is an 
+                    umbrella term that includes any communication device, encompassing 
+                    radio, television, cell phones, computer and network hardware, 
+                    satellite systems and so on, as well as the various services and 
+                    appliance with them such as video conferencing and distance learning. 
+                    Information and communication technology (ICT) have been touted as 
+                    potentially powerful enabling tools for educational change and reform. 
+                    A more pertinent role of information and communication technology (ICT) 
+                    is the transmitting, transferring, inculcating desirable goals and values 
+                    through education that cannot be overemphasized in any society. In an 
+                    educational system, ICT is a driving force in the process of transferring 
+                    of worthwhile goals from a teacher to expected learners that would make 
+                    them to be useful to themselves and the society at large. ICT is a new 
+                    innovation that is yet to be properly unraveled in the educational 
+                    system of the third world countries/least developed countries.
+                  </p>
+              </div>
             </div>
             <!-- /.card -->
   </div>

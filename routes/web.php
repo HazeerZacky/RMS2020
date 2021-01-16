@@ -25,18 +25,18 @@ use App\Http\Controllers\MyController;
 |--------------------------------------------------------------------------
 */
 Route::get('/',[MyController::class, 'HomePage']);
+Route::get('/Contact',[MyController::class, 'Contact']);
 //Form List
-Route::get('/class',[MyController::class, 'ClassForm']);
-Route::get('/teacher',[MyController::class, 'teacher']);
-Route::get('/student',[MyController::class, 'student']);
-Route::get('/subject',[MyController::class, 'subject']);
-Route::get('/results',[MyController::class, 'results']);
+Route::get('/Class',[MyController::class, 'ClassForm']);
+Route::get('/Users',[MyController::class, 'Users']);
+Route::get('/Student',[MyController::class, 'Student']);
+Route::get('/Subject',[MyController::class, 'Subject']);
+
 
 
 Route::get('/result',[MyController::class, 'result']);
 Route::get('/admin',[MyController::class, 'admin']);
 Route::get('/about',[MyController::class, 'about']);
-Route::get('/contact',[MyController::class, 'contact']);
 
 
 //Data Connection============================================
