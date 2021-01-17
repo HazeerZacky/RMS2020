@@ -27,9 +27,9 @@ use App\Http\Controllers\MyController;
 Route::get('/',[MyController::class, 'HomePage']);
 Route::get('/Contact',[MyController::class, 'Contact']);
 //Form List
-Route::get('/Class',[MyController::class, 'ClassForm']);
+Route::get('/Class',[MyController::class, 'ClassForm']); //Done
 Route::get('/Users',[MyController::class, 'Users']);
-Route::get('/Student',[MyController::class, 'Student']);
+Route::get('/Student',[MyController::class, 'StudentForm']); //Done
 Route::get('/Subject',[MyController::class, 'Subject']);
 
 
