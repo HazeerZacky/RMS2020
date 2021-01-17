@@ -25,7 +25,8 @@ public function Contact(){
     
     public function StudentForm(){
         $student = DB::table('students')->get();  //Get All student table contants from student table(DB)
-        return view('Pages.Student',compact('student'));  //send all student details to student page(student.blad.php)
+        $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
+        return view('Pages.Student',compact('student','cls'));  //send all student details to student page(student.blad.php)
     }
 
 

@@ -344,13 +344,13 @@
                         </div>
                         
                         <div class="form-group">
-                        <label>Class ID</label>
+                        <label>Class Name</label>
                             <select class="custom-select" name="CType">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                <option value="PrimaryLevel"><b>Primary Level</b></option>
+                                @foreach($cls as $cl)
+                                  <option value="{{$cl->class_name}}"><b>{{$cl->class_name}}</b></option>
+                                @endforeach
+                               
                             </select>
                         </div>
             </div>
