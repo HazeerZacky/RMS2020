@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\clas;
+use App\Models\student;
 //=========================================================================================================
-
-
 class MyController extends Controller
 {
 //==========================================================    Navigation parts    =======================
-
 public function HomePage(){
         return view('Dashboard');
     }
@@ -24,11 +22,15 @@ public function Contact(){
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
         return view('Pages.Class',compact('class'));  //send all class details to class page(class.blad.php)
     }
+    
+    public function StudentForm(){
+        $student = DB::table('students')->get();  //Get All student table contants from student table(DB)
+        return view('Pages.Student',compact('student'));  //send all student details to student page(student.blad.php)
+    }
 
 
 //==========================================================================================================
-
-//==========================================================    Database Connections    ====================
+//=============================================     Class Table Database Connections    ====================
 
     public function getclass(){
         $cs = DB::table('clas')->get();
@@ -114,6 +116,15 @@ public function Contact(){
         );
 
         return redirect()->back()->with($notification);
+    }
+
+//==========================================================================================================
+
+//=============================================     Student Table Database Connections    ====================
+    public function getstudent(){
+        $cs = DB::table('students')->get();
+
+        return view('viewstudent',compact('st'));
     }
 
 //==========================================================================================================

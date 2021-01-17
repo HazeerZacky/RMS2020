@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- daterange picker -->
+<link rel="stylesheet" href="{{asset('template')}}plugins/daterangepicker/daterangepicker.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -137,7 +139,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link active">
+                <a href="/Class" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
@@ -149,7 +151,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Student" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
@@ -327,28 +329,31 @@
                     <form role="form" action="/addclass" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Name</label>
-                            <input type="text" class="form-control"name="CName" placeholder="Enter class name">
+                            <label for="exampleInputText" class="form-label">Index Number</label>
+                            <input type="text" class="form-control"name="SINo" placeholder="Enter student index number">
                         </div>
                         <div class="form-group">
-                        <label>Class Type</label>
-                            <select class="custom-select" name="CType">
-                                <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                <option value="PrimaryLevel"><b>Primary Level</b></option>
-                            </select>
+                            <label for="exampleInputText" class="form-label">Full Name</label>
+                            <input type="text" class="form-control"name="SName" placeholder="Enter student name">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Status</label><br>
+                            <label for="exampleInputText" class="form-label">Student Status</label><br>
                             <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
+                              <input type="radio" id="customRadioInline1" value="Active" name="SStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline1">Active</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
+                              <input type="radio" id="customRadioInline2" value="Deactive" name="SStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline2">Deactive</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        <label>Date:</label>
+                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
                             </div>
                         </div>
             </div>
@@ -396,15 +401,17 @@
                             </select>
                         </div>
                             
-                        <label for="exampleInputText">Class Status</label><br>
-                            
-                              <input type="radio" id="customRadioInline3"  value="Active" name="CStatus" >
-                              <label >Active</label>
-                            
-                            
-                              <input type="radio" id="customRadioInline4" value="Deactive" name="CStatus" >
-                              <label >Deactive</label>
-                            
+                        <div class="form-group">
+                            <label for="exampleInputText" class="form-label">Class Status</label><br>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline1">Active</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
+                            </div>
+                        </div>
               </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -426,14 +433,7 @@
             document.getElementById('ECId').value = id;
             document.getElementById('ECName').value = name;
             document.getElementById('ECType').value = type;
-       
-            if(status == "Active"){
-              document.getElementById('customRadioInline3').checked = true;
-              document.getElementById('customRadioInline4').checked = false;
-            }else{
-              document.getElementById('customRadioInline4').checked = true;
-              document.getElementById('customRadioInline3').checked = false;
-            }
+            document.getElementById('ECStatus').value = status;
           }
         </script>
         <!-- Edit Model Get Function End-->
@@ -448,12 +448,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">&#9745; <b>Class Page</b></h1>
+            <h1 class="m-0 text-dark">&#9745; <b>Student Page</b></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Class</li>
+              <li class="breadcrumb-item active">Student</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -468,7 +468,7 @@
                 <!-- Add Button Part Start -->
                 <div class="row">
                             <div class="col-md-12 text-end">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddClass">Add New Class</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddClass">Add New Student</button>
                             </div>
                 </div>
                 <br>
@@ -476,26 +476,30 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type</th>
-                    <th scope="col">Class Status</th>
+                    <th scope="col">Index No</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Date of birth</th>
+                    <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                     <?php $k = 0; ?> <!-- identify row number -->
-                      @foreach($class as $cls)
+                      @foreach($student as $stu)
                       <tr>
-                        <th>{{$cls->id}}</th>
-                        <th>{{$cls->class_name}}</th>
-                        <th>{{$cls->class_type}}</th>
-                        <th>{{$cls->class_status}}</th>
+                        <th>{{$stu->index_no}}</th>
+                        <th>{{$stu->student_name}}</th>
+                        <th>{{$stu->gender}}</th>
+                        <th>{{$stu->dob}}</th>
+                        <th>{{$stu->student_status}}</th>
+                        
                         <td>
-                          <input type="hidden" id="id<?php echo $k; ?>" value="{{$cls->id}}">
-                          <input type="hidden" id="name<?php echo $k; ?>" value="{{$cls->class_name}}">
-                          <input type="hidden" id="type<?php echo $k; ?>" value="{{$cls->class_type}}">
-                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$cls->class_status}}">
+                          <input type="hidden" id="index_no<?php echo $k; ?>" value="{{$stu->index_no}}">
+                          <input type="hidden" id="student_name<?php echo $k; ?>" value="{{$stu->student_name}}">
+                          <input type="hidden" id="gender<?php echo $k; ?>" value="{{$stu->gender}}">
+                          <input type="hidden" id="dob<?php echo $k; ?>" value="{{$stu->dob}}">
+                          <input type="hidden" id="student_status<?php echo $k; ?>" value="{{$stu->student_status}}">
                             
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteClass">Delete</button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditClass">Edit</button>
@@ -517,7 +521,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                      <a  href="{{route('delete',$cls->id)}}" class="btn btn-danger">Yes</a> <!-- $cls->id = passing variable-->
+                                      <a  href="{{route('delete',$stu->index_no)}}" class="btn btn-danger">Yes</a> <!-- $stu->id = passing variable-->
                                     </div>
                                   </div>
                                   <!-- /.modal-content -->
@@ -530,10 +534,11 @@
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type</th>
-                    <th scope="col">Class Status</th>
+                    <th scope="col">Index No</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Date of birth</th>
+                    <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </tfoot>
@@ -583,6 +588,8 @@
 <script src="{{asset('template')}}/dist/js/demo.js"></script>
 <!-- Toastr -->
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
+<!-- daterange-picker -->
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
@@ -640,10 +647,82 @@
           </script>
           @endforeach
         @endif
-
-
-
 <!-- Alert Part End -->
+<!-- datepicker start-->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+
+    //Timepicker
+    $('#timepicker').datetimepicker({
+      format: 'LT'
+    })
+    
+    //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    });
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+
+  })
+</script>
+<!-- datepicker end-->
 <!-- page script Part End-->
 </body>
 </html>
