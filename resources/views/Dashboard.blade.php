@@ -28,6 +28,15 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+ <!-- PRE LOADER -->
+     <section c>
+          <div class="fa-spinner">
+
+             <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+<span class="sr-only">Loading...</span>
+               
+          </div>
+     </section>
 <div class="wrapper">
 
   <!-- Navbar -->
