@@ -396,17 +396,15 @@
                             </select>
                         </div>
                             
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Status</label><br>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline1">Active</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
-                            </div>
-                        </div>
+                        <label for="exampleInputText">Class Status</label><br>
+                            
+                              <input type="radio" id="customRadioInline3"  value="Active" name="CStatus" >
+                              <label >Active</label>
+                            
+                            
+                              <input type="radio" id="customRadioInline4" value="Deactive" name="CStatus" >
+                              <label >Deactive</label>
+                            
               </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -428,7 +426,14 @@
             document.getElementById('ECId').value = id;
             document.getElementById('ECName').value = name;
             document.getElementById('ECType').value = type;
-            document.getElementById('ECStatus').value = status;
+       
+            if(status == "Active"){
+              document.getElementById('customRadioInline3').checked = true;
+              document.getElementById('customRadioInline4').checked = false;
+            }else{
+              document.getElementById('customRadioInline4').checked = true;
+              document.getElementById('customRadioInline3').checked = false;
+            }
           }
         </script>
         <!-- Edit Model Get Function End-->
