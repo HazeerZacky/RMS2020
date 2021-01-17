@@ -397,14 +397,14 @@
                         </div>
                             
                         <label for="exampleInputText">Class Status</label><br>
-                            
-                              <input type="radio" id="customRadioInline3"  value="Active" name="CStatus" >
-                              <label >Active</label>
-                            
-                            
-                              <input type="radio" id="customRadioInline4" value="Deactive" name="CStatus" >
-                              <label >Deactive</label>
-                            
+                          <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline3"  value="Active" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline3">Active</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline4" value="Deactive" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline4">Deactive</label>
+                          </div>
               </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
