@@ -143,7 +143,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/usersform.html" class="nav-link">
+                <a href="/Users" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
@@ -398,7 +398,7 @@
                             
                         <label for="exampleInputText">Class Status</label><br>
                           <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline3"  value="Active" name="CStatus" class="custom-control-input">
+                              <input type="radio" id="customRadioInline3"  value="Active" name="ECStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline3">Active</label>
                           </div>
                           <div class="custom-control custom-radio custom-control-inline">
