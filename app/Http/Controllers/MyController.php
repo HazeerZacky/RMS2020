@@ -86,7 +86,6 @@ public function Contact(){
         $req->validate([
             'ECName'=>'required|min:4',
             'ECType'=>'required',
-            'CStatus'=>'required',
             
         ],[
             //Class name Add
@@ -95,15 +94,11 @@ public function Contact(){
 
             //Class Type Add
             'ECType.required'=>'Please select Class Type',
-
-            //Class Status Add
-            'CStatus.required'=>'Please select Class Status',
         ]);
 
         DB::table('clas')->where('id' , $req->ECId)->update([
             'class_name' => $req->ECName,
             'class_type' => $req->ECType,
-            'class_status' => $req->ECStatus,
         ]);
 
         $notification = array(
@@ -114,7 +109,7 @@ public function Contact(){
         return redirect()->back()->with($notification);
     }
 
-    public function delete($i)  //passing variable
+    public function deleteclass($i)  //passing variable
     {
         DB::table('clas')->where('id',$i)->delete();
         
@@ -126,6 +121,20 @@ public function Contact(){
         return redirect()->back()->with($notification);
     }
 
+    public function changeclassstatus($id){  //STATUS BUTTON PART ================
+
+        $status = DB::table('clas')->where('id',$id)->value('class_status');
+        if($status ==  "Active"){
+            DB::table('clas')->where('id',$id)->update([
+                'class_status'=>'Deactive'
+            ]);
+        }else{
+            DB::table('clas')->where('id',$id)->update([
+                'class_status'=>'Active'
+            ]);
+        }
+        return redirect()->back();
+    }
 //==========================================================================================================
 
 //=============================================     User Table Database Connections    ====================
@@ -135,8 +144,33 @@ public function Contact(){
         return view('viewusers',compact('us'));
     }
 
-    public function adduser(Request $req)
+    public function adduser(Request $req)  //Daa USER ======================
     {
+
+        $req->validate([
+            'UName'=>'required|min:8',
+            'UEmail'=>'required|min:12',
+            'UPassword'=>'required|min:8',
+            'USubject'=>'required',
+            'URole'=>'required',
+            'UStatus'=>'required',
+        ],[
+            //User name Add
+            'UName.required'=>'User Name is must',
+            'UName.min'=>'User Name Minimum 8 letters must',
+            //User Email Add
+            'UEmail.required'=>'User E-mail is must',
+            'UEmail.min'=>'User E-mail Minimum 12 letters must',
+            //User Email Add
+            'UPassword.required'=>'User Password is must',
+            'UPassword.min'=>'User Name Password Minimum 8 letters must',
+            //Class Type Add
+            'USubject.required'=>'Please select a class',
+            //Class Type Add
+            'URole.required'=>'Please select a role',
+             //Class Status Add
+            'UStatus.required'=>'Please select a status',
+        ]);
 
         $cnt = count(DB::table('users')->get());
         
@@ -158,7 +192,29 @@ public function Contact(){
         return redirect()->back()->with($notification);
     }
 
-    public function edituser(Request $req) {
+    public function edituser(Request $req) { //EDIT USER =======================
+
+        $req->validate([
+            'EUName'=>'required|min:8',
+            'EUEmail'=>'required|min:12',
+            'EUPassword'=>'required|min:8',
+            'EUSubject'=>'required',
+            'EURole'=>'required',
+        ],[
+            //User name Add
+            'EUName.required'=>'User Name is must',
+            'EUName.min'=>'User Name Minimum 8 letters must',
+            //User Email Add
+            'EUEmail.required'=>'User E-mail is must',
+            'EUEmail.min'=>'User E-mail Minimum 12 letters must',
+            //User Email Add
+            'EUPassword.required'=>'User Password is must',
+            'EUPassword.min'=>'User Name Password Minimum 8 letters must',
+            //Class Type Add
+            'EUSubject.required'=>'Please select a class',
+            //Class Type Add
+            'EURole.required'=>'Please select a role',
+        ]);
 
         DB::table('users')->where('id' , $req->EUID)->update([
             'name' => $req->EUName,
@@ -175,6 +231,33 @@ public function Contact(){
 
         return redirect()->back()->with($notification);
     }
+
+    public function deleteuser($i)  //DELETE USER ==========================
+    {
+        DB::table('users')->where('id',$i)->delete();
+        
+        $notification = array(
+            'message' => 'Successfully Deleted', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function changeusersstatus($id){  //STATUS BUTTON PART ================
+
+        $status = DB::table('users')->where('id',$id)->value('user_status');
+        if($status ==  "Active"){
+            DB::table('users')->where('id',$id)->update([
+                'user_status'=>'Deactive'
+            ]);
+        }else{
+            DB::table('users')->where('id',$id)->update([
+                'user_status'=>'Active'
+            ]);
+        }
+        return redirect()->back();
+    }
 //==========================================================================================================
 //=============================================     Student Table Database Connections    ====================
     public function getstudent(){
@@ -185,18 +268,5 @@ public function Contact(){
 
 //==========================================================================================================
 
-public function changestatus($id){
-    $status = DB::table('users')->where('id',$id)->value('user_status');
-    if($status ==  "Active"){
-        DB::table('users')->where('id',$id)->update([
-            'user_status'=>'Deactive'
-        ]);
-    }else{
-        DB::table('users')->where('id',$id)->update([
-            'user_status'=>'Active'
-        ]);
-    }
-    return redirect()->back();
-}
 
 }

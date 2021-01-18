@@ -55,16 +55,18 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-      <p id="time"></p>
-      <script>
-        setInterval(function() {
-      var today = new Date();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-      document.getElementById('time').innerHTML = time + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"+date;
-        }, 1000);
 
-      </script>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a  class="nav-link"><b><p id="time"></p></b></a>
+        <script>
+                setInterval(function() {
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+            document.getElementById('time').innerHTML = time + " &nbsp; &nbsp;"+date;
+                }, 1000);
+        </script>
+      </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
@@ -327,7 +329,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Users Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -356,7 +358,7 @@
                         <label>Role</label>
                             <select class="custom-select" name="URole">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="Teachr"><b>Teachr</b></option>
+                                <option value="Teacher"><b>Teacher</b></option>
                                 <option value="Admin"><b>Admin</b></option>
                             </select>
                         </div>
@@ -388,7 +390,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Users Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -514,11 +516,11 @@
                         <td>{{$use->password}}</td>
                         <td>{{$use->subject}}</td>
                         <td>{{$use->role}}</td>
-                        <td>{{$use->user_status}}
+                        <td>
                           @if($use->user_status == "Deactive")
-                          <a type = "button" href = "{{route('changestatus',$use->id)}}"  class ="btn btn-success">Active</a>
+                          <a type = "button" href = "{{route('changeusersstatus',$use->id)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
                           @else
-                          <a type = "button" href = "{{route('changestatus',$use->id)}}" class ="btn btn-danger">Deactive</a>
+                          <a type = "button" href = "{{route('changeusersstatus',$use->id)}}" class ="btn btn-danger btn-sm">Deactive</a>
                           @endif
                         
                         </td>
@@ -531,13 +533,13 @@
                           <input type="hidden" id="type<?php echo $k; ?>" value="{{$use->role}}">
                           <input type="hidden" id="status<?php echo $k; ?>" value="{{$use->user_status}}">
                             
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteClass">Delete</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteUser">Delete</button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditUser">Edit</button>
                         </td>
                       </tr>
                       <?php $k++; ?>
                         <!-- Delete Conformation Model Start -->
-                        <div class="modal fade" id="DeleteClass">
+                        <div class="modal fade" id="DeleteUser">
                                 <div class="modal-dialog modal-sm">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -550,8 +552,8 @@
                                       <p><b>Are you sure you want to delete?</b></p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                      <a  href="{{route('delete',$use->id)}}" class="btn btn-danger">Yes</a> <!-- $cls->id = passing variable-->
+                                      <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+                                      <a  href="{{route('deleteuser',$use->id)}}" class="btn btn-danger btn-sm">Yes</a> <!-- $cls->id = passing variable-->
                                     </div>
                                   </div>
                                   <!-- /.modal-content -->

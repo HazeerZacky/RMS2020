@@ -56,6 +56,17 @@
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item d-none d-sm-inline-block">
+        <a  class="nav-link"><b><p id="time"></p></b></a>
+        <script>
+                setInterval(function() {
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+            document.getElementById('time').innerHTML = time + " &nbsp; &nbsp;"+date;
+                }, 1000);
+        </script>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
       <li class="nav-item">
@@ -341,7 +352,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Status</label><br>
+                            <label for="exampleInputText" class="form-label">Status</label><br>
                             <div class="custom-control custom-radio custom-control-inline">
                               <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline1">Active</label>
@@ -396,15 +407,7 @@
                             </select>
                         </div>
                             
-                        <label for="exampleInputText">Class Status</label><br>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline3"  value="Active" name="ECStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline3">Active</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline4" value="Deactive" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline4">Deactive</label>
-                          </div>
+                        
               </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -479,7 +482,7 @@
                     <th scope="col">Class ID</th>
                     <th scope="col">Class Name</th>
                     <th scope="col">Class Type</th>
-                    <th scope="col">Class Status</th>
+                    <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </thead>
@@ -487,10 +490,17 @@
                     <?php $k = 0; ?> <!-- identify row number -->
                       @foreach($class as $cls)
                       <tr>
-                        <th>{{$cls->id}}</th>
-                        <th>{{$cls->class_name}}</th>
-                        <th>{{$cls->class_type}}</th>
-                        <th>{{$cls->class_status}}</th>
+                        <td>{{$cls->id}}</td>
+                        <td>{{$cls->class_name}}</td>
+                        <td>{{$cls->class_type}}</td>
+                        <td>
+                          @if($cls->class_status == "Deactive")
+                          <a type = "button" href = "{{route('changeclassstatus',$cls->id)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
+                          @else
+                          <a type = "button" href = "{{route('changeclassstatus',$cls->id)}}" class ="btn btn-danger btn-sm">Deactive</a>
+                          @endif
+                        
+                        </td>
                         <td>
                           <input type="hidden" id="id<?php echo $k; ?>" value="{{$cls->id}}">
                           <input type="hidden" id="name<?php echo $k; ?>" value="{{$cls->class_name}}">
@@ -517,7 +527,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                      <a  href="{{route('delete',$cls->id)}}" class="btn btn-danger">Yes</a> <!-- $cls->id = passing variable-->
+                                      <a  href="{{route('deleteclass',$cls->id)}}" class="btn btn-danger">Yes</a> <!-- $cls->id = passing variable-->
                                     </div>
                                   </div>
                                   <!-- /.modal-content -->
@@ -533,7 +543,7 @@
                     <th scope="col">Class ID</th>
                     <th scope="col">Class Name</th>
                     <th scope="col">Class Type</th>
-                    <th scope="col">Class Status</th>
+                    <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </tfoot>

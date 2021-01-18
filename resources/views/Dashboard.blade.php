@@ -68,6 +68,17 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+    <li class="nav-item d-none d-sm-inline-block">
+        <a  class="nav-link"><b><p id="time"></p></b></a>
+        <script>
+                setInterval(function() {
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+            document.getElementById('time').innerHTML = time + " &nbsp; &nbsp;"+date;
+                }, 1000);
+        </script>
+      </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
@@ -150,7 +161,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/usersform.html" class="nav-link">
+                <a href="/Users" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>

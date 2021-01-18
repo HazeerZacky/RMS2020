@@ -37,15 +37,17 @@ Route::get('/admin',[MyController::class, 'admin']);
 Route::get('/about',[MyController::class, 'about']);
 
 
-//Data Connection============================================
+//Data Connection= Class Table ===========================================
 Route::post('addclass',[MyController::class,'addclass']);
 Route::post('editclass',[MyController::class,'editclass']);
-Route::get('delete/{c}',[MyController::class,'delete'])->name('delete'); //{c} = Passing variable
+Route::get('changeclassstatus/{c}',[MyController::class, 'changeclassstatus'])->name('changeclassstatus'); //Active Deactive Button
+Route::get('deleteclass/{c}',[MyController::class,'deleteclass'])->name('deleteclass'); //{c} = Passing variable
 
 
-//Data Connection============================================
+//Data Connection= User Table ===========================================
 Route::post('adduser',[MyController::class,'adduser']);
 Route::post('edituser',[MyController::class,'edituser']);
+Route::get('changeusersstatus/{c}',[MyController::class, 'changeusersstatus'])->name('changeusersstatus'); //Active Deactive Button
+Route::get('deleteuser/{c}',[MyController::class,'deleteuser'])->name('deleteuser'); //{c} = Passing variable
 
 
-Route::get('changestatus/{c}',[MyController::class, 'changestatus'])->name('changestatus');
