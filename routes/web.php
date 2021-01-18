@@ -46,3 +46,6 @@ Route::get('delete/{c}',[MyController::class,'delete'])->name('delete'); //{c} =
 //Data Connection============================================
 Route::post('adduser',[MyController::class,'adduser']);
 Route::post('edituser',[MyController::class,'edituser']);
+
+
+Route::get('changestatus/{c}',[MyController::class, 'changestatus'])->name('changestatus');

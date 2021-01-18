@@ -55,6 +55,16 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
+      <p id="time"></p>
+      <script>
+        setInterval(function() {
+      var today = new Date();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      document.getElementById('time').innerHTML = time + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"+date;
+        }, 1000);
+
+      </script>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
@@ -430,10 +440,18 @@
           function edit(i) {
             var id = document.getElementById('id' +i).value;
             var name = document.getElementById('name' +i).value;
+            var email = document.getElementById('email' +i).value;
+            var pw = document.getElementById('pw' +i).value;
+            var subj = document.getElementById('subj' +i).value;
+            var type = document.getElementById('type' +i).value;
 
 
             document.getElementById('EUID').value = id;
             document.getElementById('EUName').value = name;
+            document.getElementById('EUEmail').value = email;
+            document.getElementById('EUPassword').value = pw;
+            document.getElementById('EUSubject').value = subj;
+            document.getElementById('EURole').value = type;
           }
         </script>
         <!-- Edit Model Get Function End-->
@@ -490,19 +508,26 @@
                     <?php $k = 0; ?> <!-- identify row number -->
                       @foreach($users as $use)
                       <tr>
-                        <th>{{$use->id}}</th>
-                        <th>{{$use->name}}</th>
-                        <th>{{$use->email}}</th>
-                        <th>{{$use->password}}</th>
-                        <th>{{$use->subject}}</th>
-                        <th>{{$use->role}}</th>
-                        <th>{{$use->user_status}}</th>
+                        <td>{{$use->id}}</td>
+                        <td>{{$use->name}}</td>
+                        <td>{{$use->email}}</td>
+                        <td>{{$use->password}}</td>
+                        <td>{{$use->subject}}</td>
+                        <td>{{$use->role}}</td>
+                        <td>{{$use->user_status}}
+                          @if($use->user_status == "Deactive")
+                          <a type = "button" href = "{{route('changestatus',$use->id)}}"  class ="btn btn-success">Active</a>
+                          @else
+                          <a type = "button" href = "{{route('changestatus',$use->id)}}" class ="btn btn-danger">Deactive</a>
+                          @endif
+                        
+                        </td>
                         <td>
                           <input type="hidden" id="id<?php echo $k; ?>" value="{{$use->id}}">
                           <input type="hidden" id="name<?php echo $k; ?>" value="{{$use->name}}">
-                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$use->email}}">
-                          <input type="hidden" id="id<?php echo $k; ?>" value="{{$use->password}}">
-                          <input type="hidden" id="name<?php echo $k; ?>" value="{{$use->subject}}">
+                          <input type="hidden" id="email<?php echo $k; ?>" value="{{$use->email}}">
+                          <input type="hidden" id="pw<?php echo $k; ?>" value="{{$use->password}}">
+                          <input type="hidden" id="subj<?php echo $k; ?>" value="{{$use->subject}}">
                           <input type="hidden" id="type<?php echo $k; ?>" value="{{$use->role}}">
                           <input type="hidden" id="status<?php echo $k; ?>" value="{{$use->user_status}}">
                             

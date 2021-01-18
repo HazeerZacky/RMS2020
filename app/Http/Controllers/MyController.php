@@ -185,4 +185,18 @@ public function Contact(){
 
 //==========================================================================================================
 
+public function changestatus($id){
+    $status = DB::table('users')->where('id',$id)->value('user_status');
+    if($status ==  "Active"){
+        DB::table('users')->where('id',$id)->update([
+            'user_status'=>'Deactive'
+        ]);
+    }else{
+        DB::table('users')->where('id',$id)->update([
+            'user_status'=>'Active'
+        ]);
+    }
+    return redirect()->back();
+}
+
 }
