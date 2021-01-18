@@ -28,11 +28,9 @@ Route::get('/',[MyController::class, 'HomePage']);
 Route::get('/Contact',[MyController::class, 'Contact']);
 //Form List
 Route::get('/Class',[MyController::class, 'ClassForm']); //Done
-Route::get('/Users',[MyController::class, 'Users']);
+Route::get('/Users',[MyController::class, 'UsersForm']);
 Route::get('/Student',[MyController::class, 'StudentForm']); //Done
 Route::get('/Subject',[MyController::class, 'Subject']);
-
-
 
 Route::get('/result',[MyController::class, 'result']);
 Route::get('/admin',[MyController::class, 'admin']);
@@ -43,3 +41,8 @@ Route::get('/about',[MyController::class, 'about']);
 Route::post('addclass',[MyController::class,'addclass']);
 Route::post('editclass',[MyController::class,'editclass']);
 Route::get('delete/{c}',[MyController::class,'delete'])->name('delete'); //{c} = Passing variable
+
+
+//Data Connection============================================
+Route::post('adduser',[MyController::class,'adduser']);
+Route::post('edituser',[MyController::class,'edituser']);

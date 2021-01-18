@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\clas;
 use App\Models\student;
+use App\Models\User;
+use App\Models\users;
 //=========================================================================================================
 class MyController extends Controller
 {
@@ -21,6 +23,11 @@ public function Contact(){
     public function ClassForm(){
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
         return view('Pages.Class',compact('class'));  //send all class details to class page(class.blad.php)
+    }
+
+    public function UsersForm(){
+        $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
+        return view('Pages.Users',compact('users'));  //send all class details to class page(class.blad.php)
     }
     
     public function StudentForm(){
@@ -96,7 +103,7 @@ public function Contact(){
         DB::table('clas')->where('id' , $req->ECId)->update([
             'class_name' => $req->ECName,
             'class_type' => $req->ECType,
-            'class_status' => $req->CStatus,
+            'class_status' => $req->ECStatus,
         ]);
 
         $notification = array(
@@ -121,12 +128,61 @@ public function Contact(){
 
 //==========================================================================================================
 
+//=============================================     User Table Database Connections    ====================
+    public function getusers(){
+        $us = DB::table('users')->get();
+
+        return view('viewusers',compact('us'));
+    }
+
+    public function adduser(Request $req)
+    {
+
+        $cnt = count(DB::table('users')->get());
+        
+        $use = new users;
+        $use->name = $req->UName;
+        $use->email = $req->UEmail;
+        $use->password = $req->UPassword;
+        $use->subject = $req->USubject;
+        $use->role = $req->URole;
+        $use->user_status = $req->UStatus;
+
+        $use->save();
+
+        $notification = array(
+            'message' => 'Successfully Saved', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function edituser(Request $req) {
+
+        DB::table('users')->where('id' , $req->EUID)->update([
+            'name' => $req->EUName,
+            'email' => $req->EUEmail,
+            'password' => $req->EUPassword,
+            'subject' => $req->EUSubject,
+            'role' => $req->EURole,
+        ]);
+
+        $notification = array(
+            'message' => 'Successfully Updated', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+//==========================================================================================================
 //=============================================     Student Table Database Connections    ====================
     public function getstudent(){
-        $cs = DB::table('students')->get();
+        $st = DB::table('students')->get();
 
         return view('viewstudent',compact('st'));
     }
 
 //==========================================================================================================
+
 }

@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('gender');
             $table->string('dob');
             $table->string('student_status');
-            // $table->integer('class_id');
+            $table->integer('class_id');
             $table->timestamps();
 
 
