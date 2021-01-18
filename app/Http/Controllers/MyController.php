@@ -35,7 +35,7 @@ public function Contact(){
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
         return view('Pages.Student',compact('student','cls'));  //send all student details to student page(student.blad.php)
     }
-
+//=========================================================================================================
 
 //==========================================================================================================
 //=============================================     Class Table Database Connections    ====================
@@ -137,7 +137,7 @@ public function Contact(){
     }
 //==========================================================================================================
 
-//=============================================     User Table Database Connections    ====================
+//=============================================     Users Table Database Connections    ====================
     public function getusers(){
         $us = DB::table('users')->get();
 
@@ -161,14 +161,14 @@ public function Contact(){
             //User Email Add
             'UEmail.required'=>'User E-mail is must',
             'UEmail.min'=>'User E-mail Minimum 12 letters must',
-            //User Email Add
+            //User Password Add
             'UPassword.required'=>'User Password is must',
             'UPassword.min'=>'User Name Password Minimum 8 letters must',
-            //Class Type Add
+            //User Subject Add
             'USubject.required'=>'Please select a class',
-            //Class Type Add
+            //User Role Add
             'URole.required'=>'Please select a role',
-             //Class Status Add
+             //User Status Add
             'UStatus.required'=>'Please select a status',
         ]);
 
@@ -207,12 +207,12 @@ public function Contact(){
             //User Email Add
             'EUEmail.required'=>'User E-mail is must',
             'EUEmail.min'=>'User E-mail Minimum 12 letters must',
-            //User Email Add
+            //User Password Add
             'EUPassword.required'=>'User Password is must',
             'EUPassword.min'=>'User Name Password Minimum 8 letters must',
-            //Class Type Add
+            //User Subject Add
             'EUSubject.required'=>'Please select a class',
-            //Class Type Add
+            //User Role Add
             'EURole.required'=>'Please select a role',
         ]);
 
