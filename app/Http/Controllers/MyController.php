@@ -262,7 +262,6 @@ public function Contact(){
 //=============================================     Student Table Database Connections    ====================
     public function getstudent(){
         $st = DB::table('students')->get();
-
         return view('viewstudent',compact('st'));
     }
 

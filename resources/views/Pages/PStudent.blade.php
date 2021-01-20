@@ -55,18 +55,6 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-
-      <li class="nav-item d-none d-sm-inline-block">
-        <a  class="nav-link"><b><p id="time"></p></b></a>
-        <script>
-                setInterval(function() {
-            var today = new Date();
-            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
-            document.getElementById('time').innerHTML = time + " &nbsp; &nbsp;"+date;
-                }, 1000);
-        </script>
-      </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
@@ -149,19 +137,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link">
+                <a href="/Class" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Users" class="nav-link active">
+                <a href="/Users" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Student" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
@@ -325,53 +313,50 @@
 
   <!-- Model Start   -->
   <!-- Add Model Start -->
-        <div class="modal fade" id="AddUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Users Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
             <!-- form start -->
-                    <form role="form" action="/adduser" method="post">
+                    <form role="form" action="/addclass" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="UName" class="form-label">Name</label>
-                            <input type="text" class="form-control"name="UName" placeholder="Enter full name">
+                            <label for="exampleInputText" class="form-label">Index Number</label>
+                            <input type="text" class="form-control"name="SINo" placeholder="Enter student index number">
                         </div>
                         <div class="form-group">
-                            <label for="UEmail" class="form-label">E-mail</label>
-                            <input type="email" class="form-control"name="UEmail" placeholder="Enter e-mail address">
+                            <label for="exampleInputText" class="form-label">Full Name</label>
+                            <input type="text" class="form-control"name="SName" placeholder="Enter student name">
                         </div>
                         <div class="form-group">
-                            <label for="UPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control"name="UPassword" placeholder="Enter password">
+                            <label for="exampleInputText" class="form-label">Gender</label>
+                            <input type="text" class="form-control"name="SName" placeholder="Enter gender">
                         </div>
                         <div class="form-group">
-                            <label for="USubject" class="form-label">Subject</label>
-                            <input type="text" class="form-control"name="USubject" placeholder="Enter subject">
+                        <label for="exampleInputText" class="form-label">Date of birth</label>
+                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
                         </div>
+                        
                         <div class="form-group">
-                        <label for="URole" class="form-label">Role</label>
-                            <select class="custom-select" name="URole">
+                        <label>Class Name</label>
+                            <select class="custom-select" name="CType">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="Teacher"><b>Teacher</b></option>
-                                <option value="Admin"><b>Admin</b></option>
+                                @foreach($cls as $cl)
+                                  <option value="{{$cl->class_name}}"><b>{{$cl->class_name}}</b></option>
+                                @endforeach
+                               
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="UStatus" class="form-label">User Status</label><br>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="UStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline1">Active</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="UStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
-                            </div>
                         </div>
             </div>
                                 <div class="modal-footer">
@@ -386,46 +371,48 @@
   <!-- Add Model End -->
 
   <!-- Edit Model Start -->
-  <div class="modal fade" id="EditUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="EditClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Users Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
             <!-- form start -->
-                    <form role="form" action="/edituser" method="post">
+                    <form role="form" action="/editclass" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">ID</label>
-                            <input type="text" class="form-control" id="EUID" name="EUID" placeholder="Enter class name" readonly>
+                            <label for="exampleInputText" class="form-label">Class ID</label>
+                            <input type="text" class="form-control" id="ECId" name="ECId" placeholder="Enter class name" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="EUName" name="EUName" placeholder="Enter name">
+                            <label for="exampleInputText" class="form-label">Class Name</label>
+                            <input type="text" class="form-control" id="ECName" name="ECName" placeholder="Enter class name">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="EUEmail" name="EUEmail" placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                            <label for="EUPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="EUPassword" name="EUPassword" placeholder="Enter password">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="EUSubject" name="EUSubject" placeholder="Enter subject">
-                        </div>
-                        <div class="form-group">
-                            <label>Role</label>
-                            <select class="custom-select" id="EURole" name="EURole">
+                            <label>Class Type</label>
+                            <select class="custom-select" id="ECType" name="ECType">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="Teachr"><b>Teachr</b></option>
-                                <option value="Admin"><b>Admin</b></option>
+                                <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
+                                <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
+                                <option value="SecondaryLevel"><b>Secondary Level</b></option>
+                                <option value="PrimaryLevel"><b>Primary Level</b></option>
                             </select>
+                        </div>
+                            
+                        <div class="form-group">
+                            <label for="exampleInputText" class="form-label">Class Status</label><br>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline1">Active</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
+                            </div>
                         </div>
               </div>
                                 <div class="modal-footer">
@@ -442,18 +429,13 @@
           function edit(i) {
             var id = document.getElementById('id' +i).value;
             var name = document.getElementById('name' +i).value;
-            var email = document.getElementById('email' +i).value;
-            var pw = document.getElementById('pw' +i).value;
-            var subj = document.getElementById('subj' +i).value;
             var type = document.getElementById('type' +i).value;
+            var status = document.getElementById('status' +i).value;
 
-
-            document.getElementById('EUID').value = id;
-            document.getElementById('EUName').value = name;
-            document.getElementById('EUEmail').value = email;
-            document.getElementById('EUPassword').value = pw;
-            document.getElementById('EUSubject').value = subj;
-            document.getElementById('EURole').value = type;
+            document.getElementById('ECId').value = id;
+            document.getElementById('ECName').value = name;
+            document.getElementById('ECType').value = type;
+            document.getElementById('ECStatus').value = status;
           }
         </script>
         <!-- Edit Model Get Function End-->
@@ -468,12 +450,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">&#9745; <b>Users Page</b></h1>
+            <h1 class="m-0 text-dark">&#9745; <b>Student Page</b></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item active">Student</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -488,7 +470,7 @@
                 <!-- Add Button Part Start -->
                 <div class="row">
                             <div class="col-md-12 text-end">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddUser">Add New User</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddClass">Add New Student</button>
                             </div>
                 </div>
                 <br>
@@ -496,50 +478,42 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Role</th>
+                    <th scope="col">Index No</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Date of birth</th>
+                    <th scope="col">Class Name</th>
                     <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </thead>
                   <tbody>
                     <?php $k = 0; ?> <!-- identify row number -->
-                      @foreach($users as $use)
+                      @foreach($student as $stu)
+                      
                       <tr>
-                        <td>{{$use->id}}</td>
-                        <td>{{$use->name}}</td>
-                        <td>{{$use->email}}</td>
-                        <td><b><center><i class='fas fa-eye-slash'></i></center></b></td> <!-- {{$use->password}} -->
-                        <td>{{$use->subject}}</td>
-                        <td>{{$use->role}}</td>
-                        <td>
-                          @if($use->user_status == "Deactive")
-                          <a type = "button" href = "{{route('changeusersstatus',$use->id)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
-                          @else
-                          <a type = "button" href = "{{route('changeusersstatus',$use->id)}}" class ="btn btn-danger btn-sm">Deactive</a>
-                          @endif
+                        <th>{{$stu->index_no}}</th>
+                        <th>{{$stu->student_name}}</th>
+                        <th>{{$stu->gender}}</th>
+                        <th>{{$stu->dob}}</th>
+                        <th>{{$cl->class_name}}</th>
+                        <th>{{$stu->student_status}}</th>
                         
-                        </td>
                         <td>
-                          <input type="hidden" id="id<?php echo $k; ?>" value="{{$use->id}}">
-                          <input type="hidden" id="name<?php echo $k; ?>" value="{{$use->name}}">
-                          <input type="hidden" id="email<?php echo $k; ?>" value="{{$use->email}}">
-                          <input type="hidden" id="pw<?php echo $k; ?>" value="{{$use->password}}">
-                          <input type="hidden" id="subj<?php echo $k; ?>" value="{{$use->subject}}">
-                          <input type="hidden" id="type<?php echo $k; ?>" value="{{$use->role}}">
-                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$use->user_status}}">
+                          <input type="hidden" id="index_no<?php echo $k; ?>" value="{{$stu->index_no}}">
+                          <input type="hidden" id="student_name<?php echo $k; ?>" value="{{$stu->student_name}}">
+                          <input type="hidden" id="gender<?php echo $k; ?>" value="{{$stu->gender}}">
+                          <input type="hidden" id="dob<?php echo $k; ?>" value="{{$stu->dob}}">
+                          <input type="hidden" id="dob<?php echo $k; ?>" value="{{$cl->class_name}}">
+                          <input type="hidden" id="student_status<?php echo $k; ?>" value="{{$stu->student_status}}">
                             
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteUser">Delete</button>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditUser">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteClass">Delete</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditClass">Edit</button>
                         </td>
                       </tr>
                       <?php $k++; ?>
                         <!-- Delete Conformation Model Start -->
-                        <div class="modal fade" id="DeleteUser">
+                        <div class="modal fade" id="DeleteClass">
                                 <div class="modal-dialog modal-sm">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -552,8 +526,8 @@
                                       <p><b>Are you sure you want to delete?</b></p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                      <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
-                                      <a  href="{{route('deleteuser',$use->id)}}" class="btn btn-danger btn-sm">Yes</a> <!-- $cls->id = passing variable-->
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                      <a  href="{{route('delete',$stu->index_no)}}" class="btn btn-danger">Yes</a> <!-- $stu->id = passing variable-->
                                     </div>
                                   </div>
                                   <!-- /.modal-content -->
@@ -563,15 +537,14 @@
                               <!-- /.modal -->
                           <!-- Delete Conformation Model End-->
                       @endforeach
+                      
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Role</th>
+                    <th scope="col">Index No</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Date of birth</th>
                     <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
@@ -678,9 +651,81 @@
             toastr.info("{{$error}}");
           </script>
           @endforeach
-        @endif
+  @endif
 
+  <script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
 
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY hh:mm A'
+      }
+    })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+
+    //Timepicker
+    $('#timepicker').datetimepicker({
+      format: 'LT'
+    })
+    
+    //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    });
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+
+  })
+</script>
 
 <!-- Alert Part End -->
 <!-- page script Part End-->
