@@ -155,13 +155,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Users" class="nav-link active">
+                <a href="/Users" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Student" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
@@ -325,51 +325,51 @@
 
   <!-- Model Start   -->
   <!-- Add Model Start -->
-        <div class="modal fade" id="AddUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="AddStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Users Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Student Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
             <!-- form start -->
-                    <form role="form" action="/adduser" method="post">
+                    <form role="form" action="/addstudent" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="UName" class="form-label">Name</label>
-                            <input type="text" class="form-control"name="UName" placeholder="Enter full name">
+                            <label for="SIndexNo" class="form-label">Index No</label>
+                            <input type="text" class="form-control"name="SIndexNo" placeholder="Enter index no">
                         </div>
                         <div class="form-group">
-                            <label for="UEmail" class="form-label">E-mail</label>
-                            <input type="email" class="form-control"name="UEmail" placeholder="Enter e-mail address">
+                            <label for="SName" class="form-label">Student Name</label>
+                            <input type="text" class="form-control"name="SName" placeholder="Enter student name">
                         </div>
                         <div class="form-group">
-                            <label for="UPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control"name="UPassword" placeholder="Enter password">
-                        </div>
-                        <div class="form-group">
-                            <label for="USubject" class="form-label">Subject</label>
-                            <input type="text" class="form-control"name="USubject" placeholder="Enter subject">
-                        </div>
-                        <div class="form-group">
-                        <label for="URole" class="form-label">Role</label>
-                            <select class="custom-select" name="URole">
+                        <label for="SGender" class="form-label">Gender</label>
+                            <select class="custom-select" name="SGender">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="Teacher"><b>Teacher</b></option>
-                                <option value="Admin"><b>Admin</b></option>
+                                <option value="Male"><b>Male</b></option>
+                                <option value="Female"><b>Female</b></option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="UStatus" class="form-label">User Status</label><br>
+                            <label for="SDOB" class="form-label">Date of birth</label>
+                            <input type="text" class="form-control"name="SDOB" placeholder="Enter date of birth">
+                        </div>
+                        <div class="form-group">
+                            <label for="SName" class="form-label">Class Name</label>
+                            <input type="text" class="form-control"name="SCName" placeholder="Enter class name">
+                        </div>
+                        <div class="form-group">
+                            <label for="SStatus" class="form-label">Student Status</label><br>
                             <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="UStatus" class="custom-control-input">
+                              <input type="radio" id="customRadioInline1" value="Active" name="SStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline1">Active</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="UStatus" class="custom-control-input">
+                              <input type="radio" id="customRadioInline2" value="Deactive" name="SStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline2">Deactive</label>
                             </div>
                         </div>
@@ -386,46 +386,42 @@
   <!-- Add Model End -->
 
   <!-- Edit Model Start -->
-  <div class="modal fade" id="EditUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="EditStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Users Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Student Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
             <!-- form start -->
-                    <form role="form" action="/edituser" method="post">
+                    <form role="form" action="/editstudent" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">ID</label>
-                            <input type="text" class="form-control" id="EUID" name="EUID" placeholder="Enter class name" readonly>
+                            <label for="ESIndexNo" class="form-label">Index No</label>
+                            <input type="text" class="form-control" id="ESIndexNo" name="ESIndexNo" placeholder="Enter index no" >
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="EUName" name="EUName" placeholder="Enter name">
+                            <label for="ESName" class="form-label">Student Name</label>
+                            <input type="text" class="form-control" id="ESName" name="ESName" placeholder="Enter student name">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="EUEmail" name="EUEmail" placeholder="Enter email">
-                        </div>
-                        <div class="form-group">
-                            <label for="EUPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="EUPassword" name="EUPassword" placeholder="Enter password">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="EUSubject" name="EUSubject" placeholder="Enter subject">
-                        </div>
-                        <div class="form-group">
-                            <label>Role</label>
-                            <select class="custom-select" id="EURole" name="EURole">
+                        <label class="form-label">Gender</label>
+                            <select class="custom-select" id="ESGender" name="ESGender">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="Teachr"><b>Teachr</b></option>
-                                <option value="Admin"><b>Admin</b></option>
+                                <option value="Male" ><b>Male</b></option>
+                                <option value="Female" ><b>Female</b></option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ESDOB" class="form-label">Date of birth</label>
+                            <input type="text" class="form-control" id="ESDOB" name="ESDOB" placeholder="Enter date of birth">
+                        </div>
+                        <div class="form-group">
+                            <label for="ESCName" class="form-label">Class Name</label>
+                            <input type="text" class="form-control" id="ESCName" name="ESCName" placeholder="Enter class name">
                         </div>
               </div>
                                 <div class="modal-footer">
@@ -440,20 +436,18 @@
         <!-- Edit Model Get Function Start-->
         <script>
           function edit(i) {
-            var id = document.getElementById('id' +i).value;
-            var name = document.getElementById('name' +i).value;
-            var email = document.getElementById('email' +i).value;
-            var pw = document.getElementById('pw' +i).value;
-            var subj = document.getElementById('subj' +i).value;
-            var type = document.getElementById('type' +i).value;
+            var index_no = document.getElementById('index_no' +i).value;
+            var student_name = document.getElementById('student_name' +i).value;
+            var gender = document.getElementById('gender' +i).value;
+            var dob = document.getElementById('dob' +i).value;
+            var class_name = document.getElementById('class_name' +i).value;
 
 
-            document.getElementById('EUID').value = id;
-            document.getElementById('EUName').value = name;
-            document.getElementById('EUEmail').value = email;
-            document.getElementById('EUPassword').value = pw;
-            document.getElementById('EUSubject').value = subj;
-            document.getElementById('EURole').value = type;
+            document.getElementById('ESIndexNo').value = index_no;
+            document.getElementById('ESName').value = student_name;
+            document.getElementById('ESGender').value = gender;
+            document.getElementById('ESDOB').value = dob;
+            document.getElementById('ESCName').value = class_name;
           }
         </script>
         <!-- Edit Model Get Function End-->
@@ -468,12 +462,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">&#9745; <b>Users Page</b></h1>
+            <h1 class="m-0 text-dark">&#9745; <b>Student Page</b></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item active">Student</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -488,36 +482,88 @@
                 <!-- Add Button Part Start -->
                 <div class="row">
                             <div class="col-md-12 text-end">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddUser">Add New User</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddStudent">Add New Student</button>
                             </div>
                 </div>
                 <br>
                 <!-- Add Button Part End -->
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Status</th>
-                    <th style="width:  12%">Action</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Date of birth</th>
+                        <th scope="col">Class Name</th>
+                        <th scope="col">Status</th>
+                        <th style="width:  12%">Action</th>
+                    </tr>
                   </thead>
-                  
+                  <tbody>
+                    <?php $k = 0; ?> <!-- identify row number -->
+                      @foreach($students as $stu)
+                      <tr>
+                        <td>{{$stu->index_no}}</td>
+                        <td>{{$stu->student_name}}</td>
+                        <td>{{$stu->gender}}</td>
+                        <td>{{$stu->dob}}</td>
+                        <td>{{$stu->class_name}}</td>
+                        <td>
+                          @if($stu->student_status == "Deactive")
+                          <a type = "button" href = "{{route('changestudentstatus',$stu->index_no)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
+                          @else
+                          <a type = "button" href = "{{route('changestudentstatus',$stu->index_no)}}" class ="btn btn-danger btn-sm">Deactive</a>
+                          @endif
+                        
+                        </td>
+                        <td>
+                          <input type="hidden" id="index_no<?php echo $k; ?>" value="{{$stu->index_no}}">
+                          <input type="hidden" id="student_name<?php echo $k; ?>" value="{{$stu->student_name}}">
+                          <input type="hidden" id="gender<?php echo $k; ?>" value="{{$stu->gender}}">
+                          <input type="hidden" id="dob<?php echo $k; ?>" value="{{$stu->dob}}">
+                          <input type="hidden" id="class_name<?php echo $k; ?>" value="{{$stu->class_name}}">
+                            
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteStudent">Delete</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditStudent">Edit</button>
+                        </td>
+                      </tr>
+                      <?php $k++; ?>
+                        <!-- Delete Conformation Model Start -->
+                        <div class="modal fade" id="DeleteStudent">
+                                <div class="modal-dialog modal-sm">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">&#11088;Delete Confirmation</h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p><b>Are you sure you want to delete?</b></p>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                      <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+                                      <a  href="{{route('deletestudent',$stu->index_no)}}" class="btn btn-danger btn-sm">Yes</a> <!-- $cls->id = passing variable-->
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                              </div>
+                              <!-- /.modal -->
+                          <!-- Delete Conformation Model End-->
+                      @endforeach
+                  </tbody>
                   <tfoot>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Status</th>
-                    <th style="width:  12%">Action</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Date of birth</th>
+                        <th scope="col">Class Name</th>
+                        <th scope="col">Status</th>
+                        <th style="width:  12%">Action</th>
+                    </tr>
                   </tfoot>
                 </table>
               </div>

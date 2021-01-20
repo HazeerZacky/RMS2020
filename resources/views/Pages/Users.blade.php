@@ -423,7 +423,7 @@
                             <label>Role</label>
                             <select class="custom-select" id="EURole" name="EURole">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="Teachr"><b>Teachr</b></option>
+                                <option value="Teacher"><b>Teacher</b></option>
                                 <option value="Admin"><b>Admin</b></option>
                             </select>
                         </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\clas;
-use App\Models\student;
+use App\Models\students;
 use App\Models\User;
 use App\Models\users;
 //=========================================================================================================
@@ -31,9 +31,9 @@ public function Contact(){
     }
     
     public function StudentForm(){
-        $student = DB::table('students')->get();  //Get All student table contants from student table(DB)
+        $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
-        return view('Pages.Student',compact('student','cls'));  //send all student details to student page(student.blad.php)
+        return view('Pages.Student',compact('students','cls'));  //send all student details to student page(student.blad.php)
     }
 //=========================================================================================================
 
@@ -265,6 +265,76 @@ public function Contact(){
         return view('viewstudent',compact('st'));
     }
 
+    public function addstudent(Request $req)  //Daa USER ======================
+    {
+
+        $cnt = count(DB::table('students')->get());
+        
+        $stu = new students;
+        $stu->index_no = $req->SIndexNo;
+        $stu->student_name = $req->SName;
+        $stu->gender = $req->SGender;
+        $stu->dob = $req->SDOB;
+        $stu->student_status = $req->SStatus;
+        $stu->class_name = $req->SCName;
+
+
+
+        $stu->save();
+
+        $notification = array(
+            'message' => 'Successfully Saved', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function editstudent(Request $req) { //EDIT USER =======================
+
+       
+
+        DB::table('students')->where('index_no' , $req->ESIndexNo)->update([
+            'student_name' => $req->ESName,
+            'gender' => $req->ESGender,
+            'dob' => $req->ESDOB,
+            'index_no' => $req->ESCName,
+        ]);
+
+        $notification = array(
+            'message' => 'Successfully Updated', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function deletestudent($i)  //DELETE USER ==========================
+    {
+        DB::table('students')->where('index_no',$i)->delete();
+        
+        $notification = array(
+            'message' => 'Successfully Deleted', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function changestudentstatus($index_no){  //STATUS BUTTON PART ================
+
+        $status = DB::table('students')->where('index_no',$index_no)->value('student_status');
+        if($status ==  "Active"){
+            DB::table('students')->where('index_no',$index_no)->update([
+                'student_status'=>'Deactive'
+            ]);
+        }else{
+            DB::table('students')->where('index_no',$index_no)->update([
+                'student_status'=>'Active'
+            ]);
+        }
+        return redirect()->back();
+    }
 //==========================================================================================================
 
 

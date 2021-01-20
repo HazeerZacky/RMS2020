@@ -390,14 +390,14 @@
                     @csrf
                         <div class="form-group">
                             <label for="exampleInputText" class="form-label">Class ID</label>
-                            <input type="text" class="form-control" id="ECId" name="ECId" placeholder="Enter class name" readonly>
+                            <input type="text" class="form-control" id="ECId" name="ECId" placeholder="Enter class id" readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputText" class="form-label">Class Name</label>
                             <input type="text" class="form-control" id="ECName" name="ECName" placeholder="Enter class name">
                         </div>
                         <div class="form-group">
-                            <label>Class Type</label>
+                            <label class="form-label">Class Type</label>
                             <select class="custom-select" id="ECType" name="ECType">
                                 <option value="" selected disabled hidden>(select one option)</option>
                                 <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
@@ -430,13 +430,13 @@
             document.getElementById('ECName').value = name;
             document.getElementById('ECType').value = type;
        
-            if(status == "Active"){
-              document.getElementById('customRadioInline3').checked = true;
-              document.getElementById('customRadioInline4').checked = false;
-            }else{
-              document.getElementById('customRadioInline4').checked = true;
-              document.getElementById('customRadioInline3').checked = false;
-            }
+            // if(status == "Active"){
+            //   document.getElementById('customRadioInline3').checked = true;
+            //   document.getElementById('customRadioInline4').checked = false;
+            // }else{
+            //   document.getElementById('customRadioInline4').checked = true;
+            //   document.getElementById('customRadioInline3').checked = false;
+            // }
           }
         </script>
         <!-- Edit Model Get Function End-->
