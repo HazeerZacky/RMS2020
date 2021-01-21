@@ -507,7 +507,7 @@
                         <td>{{$stu->student_name}}</td>
                         <td>{{$stu->gender}}</td>
                         <td>{{$stu->dob}}</td>
-                        <td>{{$stu->class_name}}</td>
+                        <td>{{$stu->class_id}}</td>
                         <td>
                           @if($stu->student_status == "Deactive")
                           <a type = "button" href = "{{route('changestudentstatus',$stu->index_no)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
@@ -521,7 +521,7 @@
                           <input type="hidden" id="student_name<?php echo $k; ?>" value="{{$stu->student_name}}">
                           <input type="hidden" id="gender<?php echo $k; ?>" value="{{$stu->gender}}">
                           <input type="hidden" id="dob<?php echo $k; ?>" value="{{$stu->dob}}">
-                          <input type="hidden" id="class_name<?php echo $k; ?>" value="{{$stu->class_name}}">
+                          <input type="hidden" id="class_name<?php echo $k; ?>" value="{{$stu->class_id}}">
                             
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteStudent">Delete</button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditStudent">Edit</button>

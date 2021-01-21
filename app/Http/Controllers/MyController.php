@@ -276,7 +276,7 @@ public function Contact(){
         $stu->gender = $req->SGender;
         $stu->dob = $req->SDOB;
         $stu->student_status = $req->SStatus;
-        $stu->class_name = $req->SCName;
+        $stu->class_id = $req->SCName;
 
 
 
@@ -298,7 +298,7 @@ public function Contact(){
             'student_name' => $req->ESName,
             'gender' => $req->ESGender,
             'dob' => $req->ESDOB,
-            'index_no' => $req->ESCName,
+            
         ]);
 
         $notification = array(
