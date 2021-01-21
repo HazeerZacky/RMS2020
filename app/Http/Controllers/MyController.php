@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\clas;
-use App\Models\student;
+use App\Models\students;
 use App\Models\User;
 use App\Models\users;
 //=========================================================================================================
@@ -31,11 +31,11 @@ public function Contact(){
     }
     
     public function StudentForm(){
-        $student = DB::table('students')->get();  //Get All student table contants from student table(DB)
+        $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
-        return view('Pages.Student',compact('student','cls'));  //send all student details to student page(student.blad.php)
+        return view('Pages.Student',compact('students','cls'));  //send all student details to student page(student.blad.php)
     }
-
+//=========================================================================================================
 
 //==========================================================================================================
 //=============================================     Class Table Database Connections    ====================
@@ -137,7 +137,7 @@ public function Contact(){
     }
 //==========================================================================================================
 
-//=============================================     User Table Database Connections    ====================
+//=============================================     Users Table Database Connections    ====================
     public function getusers(){
         $us = DB::table('users')->get();
 
@@ -161,14 +161,14 @@ public function Contact(){
             //User Email Add
             'UEmail.required'=>'User E-mail is must',
             'UEmail.min'=>'User E-mail Minimum 12 letters must',
-            //User Email Add
+            //User Password Add
             'UPassword.required'=>'User Password is must',
             'UPassword.min'=>'User Name Password Minimum 8 letters must',
-            //Class Type Add
+            //User Subject Add
             'USubject.required'=>'Please select a class',
-            //Class Type Add
+            //User Role Add
             'URole.required'=>'Please select a role',
-             //Class Status Add
+             //User Status Add
             'UStatus.required'=>'Please select a status',
         ]);
 
@@ -207,12 +207,12 @@ public function Contact(){
             //User Email Add
             'EUEmail.required'=>'User E-mail is must',
             'EUEmail.min'=>'User E-mail Minimum 12 letters must',
-            //User Email Add
+            //User Password Add
             'EUPassword.required'=>'User Password is must',
             'EUPassword.min'=>'User Name Password Minimum 8 letters must',
-            //Class Type Add
+            //User Subject Add
             'EUSubject.required'=>'Please select a class',
-            //Class Type Add
+            //User Role Add
             'EURole.required'=>'Please select a role',
         ]);
 
@@ -262,10 +262,79 @@ public function Contact(){
 //=============================================     Student Table Database Connections    ====================
     public function getstudent(){
         $st = DB::table('students')->get();
-
         return view('viewstudent',compact('st'));
     }
 
+    public function addstudent(Request $req)  //Daa USER ======================
+    {
+
+        $cnt = count(DB::table('students')->get());
+        
+        $stu = new students;
+        $stu->index_no = $req->SIndexNo;
+        $stu->student_name = $req->SName;
+        $stu->gender = $req->SGender;
+        $stu->dob = $req->SDOB;
+        $stu->student_status = $req->SStatus;
+        $stu->class_name = $req->SCName;
+
+
+
+        $stu->save();
+
+        $notification = array(
+            'message' => 'Successfully Saved', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function editstudent(Request $req) { //EDIT USER =======================
+
+       
+
+        DB::table('students')->where('index_no' , $req->ESIndexNo)->update([
+            'student_name' => $req->ESName,
+            'gender' => $req->ESGender,
+            'dob' => $req->ESDOB,
+            'index_no' => $req->ESCName,
+        ]);
+
+        $notification = array(
+            'message' => 'Successfully Updated', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function deletestudent($i)  //DELETE USER ==========================
+    {
+        DB::table('students')->where('index_no',$i)->delete();
+        
+        $notification = array(
+            'message' => 'Successfully Deleted', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function changestudentstatus($index_no){  //STATUS BUTTON PART ================
+
+        $status = DB::table('students')->where('index_no',$index_no)->value('student_status');
+        if($status ==  "Active"){
+            DB::table('students')->where('index_no',$index_no)->update([
+                'student_status'=>'Deactive'
+            ]);
+        }else{
+            DB::table('students')->where('index_no',$index_no)->update([
+                'student_status'=>'Active'
+            ]);
+        }
+        return redirect()->back();
+    }
 //==========================================================================================================
 
 

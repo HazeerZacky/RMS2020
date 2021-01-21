@@ -55,6 +55,18 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
+
+      <li class="nav-item d-none d-sm-inline-block">
+        <a  class="nav-link"><b><p id="time"></p></b></a>
+        <script>
+                setInterval(function() {
+            var today = new Date();
+            var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            var date = today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear();
+            document.getElementById('time').innerHTML = time + " &nbsp; &nbsp;"+date;
+                }, 1000);
+        </script>
+      </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
@@ -137,7 +149,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link ">
+                <a href="/Class" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
@@ -313,50 +325,53 @@
 
   <!-- Model Start   -->
   <!-- Add Model Start -->
-        <div class="modal fade" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="AddStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Student Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
             <!-- form start -->
-                    <form role="form" action="/addclass" method="post">
+                    <form role="form" action="/addstudent" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Index Number</label>
-                            <input type="text" class="form-control"name="SINo" placeholder="Enter student index number">
+                            <label for="SIndexNo" class="form-label">Index No</label>
+                            <input type="text" class="form-control"name="SIndexNo" placeholder="Enter index no">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Full Name</label>
+                            <label for="SName" class="form-label">Student Name</label>
                             <input type="text" class="form-control"name="SName" placeholder="Enter student name">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Gender</label>
-                            <input type="text" class="form-control"name="SName" placeholder="Enter gender">
-                        </div>
-                        <div class="form-group">
-                        <label for="exampleInputText" class="form-label">Date of birth</label>
-                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                        <label>Class Name</label>
-                            <select class="custom-select" name="CType">
+                        <label for="SGender" class="form-label">Gender</label>
+                            <select class="custom-select" name="SGender">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                @foreach($cls as $cl)
-                                  <option value="{{$cl->class_name}}"><b>{{$cl->class_name}}</b></option>
-                                @endforeach
-                               
+                                <option value="Male"><b>Male</b></option>
+                                <option value="Female"><b>Female</b></option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="SDOB" class="form-label">Date of birth</label>
+                            <input type="text" class="form-control"name="SDOB" placeholder="Enter date of birth">
+                        </div>
+                        <div class="form-group">
+                            <label for="SName" class="form-label">Class Name</label>
+                            <input type="text" class="form-control"name="SCName" placeholder="Enter class name">
+                        </div>
+                        <div class="form-group">
+                            <label for="SStatus" class="form-label">Student Status</label><br>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline1" value="Active" name="SStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline1">Active</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline2" value="Deactive" name="SStatus" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
+                            </div>
                         </div>
             </div>
                                 <div class="modal-footer">
@@ -371,48 +386,42 @@
   <!-- Add Model End -->
 
   <!-- Edit Model Start -->
-  <div class="modal fade" id="EditClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="EditStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Student Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
             <!-- form start -->
-                    <form role="form" action="/editclass" method="post">
+                    <form role="form" action="/editstudent" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class ID</label>
-                            <input type="text" class="form-control" id="ECId" name="ECId" placeholder="Enter class name" readonly>
+                            <label for="ESIndexNo" class="form-label">Index No</label>
+                            <input type="text" class="form-control" id="ESIndexNo" name="ESIndexNo" placeholder="Enter index no" >
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Name</label>
-                            <input type="text" class="form-control" id="ECName" name="ECName" placeholder="Enter class name">
+                            <label for="ESName" class="form-label">Student Name</label>
+                            <input type="text" class="form-control" id="ESName" name="ESName" placeholder="Enter student name">
                         </div>
                         <div class="form-group">
-                            <label>Class Type</label>
-                            <select class="custom-select" id="ECType" name="ECType">
+                        <label class="form-label">Gender</label>
+                            <select class="custom-select" id="ESGender" name="ESGender">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                <option value="PrimaryLevel"><b>Primary Level</b></option>
+                                <option value="Male" ><b>Male</b></option>
+                                <option value="Female" ><b>Female</b></option>
                             </select>
                         </div>
-                            
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Status</label><br>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline1">Active</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
-                            </div>
+                            <label for="ESDOB" class="form-label">Date of birth</label>
+                            <input type="text" class="form-control" id="ESDOB" name="ESDOB" placeholder="Enter date of birth">
+                        </div>
+                        <div class="form-group">
+                            <label for="ESCName" class="form-label">Class Name</label>
+                            <input type="text" class="form-control" id="ESCName" name="ESCName" placeholder="Enter class name">
                         </div>
               </div>
                                 <div class="modal-footer">
@@ -427,15 +436,18 @@
         <!-- Edit Model Get Function Start-->
         <script>
           function edit(i) {
-            var id = document.getElementById('id' +i).value;
-            var name = document.getElementById('name' +i).value;
-            var type = document.getElementById('type' +i).value;
-            var status = document.getElementById('status' +i).value;
+            var index_no = document.getElementById('index_no' +i).value;
+            var student_name = document.getElementById('student_name' +i).value;
+            var gender = document.getElementById('gender' +i).value;
+            var dob = document.getElementById('dob' +i).value;
+            var class_name = document.getElementById('class_name' +i).value;
 
-            document.getElementById('ECId').value = id;
-            document.getElementById('ECName').value = name;
-            document.getElementById('ECType').value = type;
-            document.getElementById('ECStatus').value = status;
+
+            document.getElementById('ESIndexNo').value = index_no;
+            document.getElementById('ESName').value = student_name;
+            document.getElementById('ESGender').value = gender;
+            document.getElementById('ESDOB').value = dob;
+            document.getElementById('ESCName').value = class_name;
           }
         </script>
         <!-- Edit Model Get Function End-->
@@ -470,50 +482,54 @@
                 <!-- Add Button Part Start -->
                 <div class="row">
                             <div class="col-md-12 text-end">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddClass">Add New Student</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddStudent">Add New Student</button>
                             </div>
                 </div>
                 <br>
                 <!-- Add Button Part End -->
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    <th scope="col">Index No</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Date of birth</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Status</th>
-                    <th style="width:  12%">Action</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Date of birth</th>
+                        <th scope="col">Class Name</th>
+                        <th scope="col">Status</th>
+                        <th style="width:  12%">Action</th>
+                    </tr>
                   </thead>
                   <tbody>
                     <?php $k = 0; ?> <!-- identify row number -->
-                      @foreach($student as $stu)
-                      
+                      @foreach($students as $stu)
                       <tr>
-                        <th>{{$stu->index_no}}</th>
-                        <th>{{$stu->student_name}}</th>
-                        <th>{{$stu->gender}}</th>
-                        <th>{{$stu->dob}}</th>
-                        <th>{{$cl->class_name}}</th>
-                        <th>{{$stu->student_status}}</th>
+                        <td>{{$stu->index_no}}</td>
+                        <td>{{$stu->student_name}}</td>
+                        <td>{{$stu->gender}}</td>
+                        <td>{{$stu->dob}}</td>
+                        <td>{{$stu->class_name}}</td>
+                        <td>
+                          @if($stu->student_status == "Deactive")
+                          <a type = "button" href = "{{route('changestudentstatus',$stu->index_no)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
+                          @else
+                          <a type = "button" href = "{{route('changestudentstatus',$stu->index_no)}}" class ="btn btn-danger btn-sm">Deactive</a>
+                          @endif
                         
+                        </td>
                         <td>
                           <input type="hidden" id="index_no<?php echo $k; ?>" value="{{$stu->index_no}}">
                           <input type="hidden" id="student_name<?php echo $k; ?>" value="{{$stu->student_name}}">
                           <input type="hidden" id="gender<?php echo $k; ?>" value="{{$stu->gender}}">
                           <input type="hidden" id="dob<?php echo $k; ?>" value="{{$stu->dob}}">
-                          <input type="hidden" id="dob<?php echo $k; ?>" value="{{$cl->class_name}}">
-                          <input type="hidden" id="student_status<?php echo $k; ?>" value="{{$stu->student_status}}">
+                          <input type="hidden" id="class_name<?php echo $k; ?>" value="{{$stu->class_name}}">
                             
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteClass">Delete</button>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditClass">Edit</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteStudent">Delete</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditStudent">Edit</button>
                         </td>
                       </tr>
                       <?php $k++; ?>
                         <!-- Delete Conformation Model Start -->
-                        <div class="modal fade" id="DeleteClass">
+                        <div class="modal fade" id="DeleteStudent">
                                 <div class="modal-dialog modal-sm">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -526,8 +542,8 @@
                                       <p><b>Are you sure you want to delete?</b></p>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                      <a  href="{{route('delete',$stu->index_no)}}" class="btn btn-danger">Yes</a> <!-- $stu->id = passing variable-->
+                                      <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">No</button>
+                                      <a  href="{{route('deletestudent',$stu->index_no)}}" class="btn btn-danger btn-sm">Yes</a> <!-- $cls->id = passing variable-->
                                     </div>
                                   </div>
                                   <!-- /.modal-content -->
@@ -537,17 +553,17 @@
                               <!-- /.modal -->
                           <!-- Delete Conformation Model End-->
                       @endforeach
-                      
                   </tbody>
                   <tfoot>
-                  <tr>
-                    <th scope="col">Index No</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Date of birth</th>
-                    <th scope="col">Status</th>
-                    <th style="width:  12%">Action</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Date of birth</th>
+                        <th scope="col">Class Name</th>
+                        <th scope="col">Status</th>
+                        <th style="width:  12%">Action</th>
+                    </tr>
                   </tfoot>
                 </table>
               </div>
@@ -651,81 +667,9 @@
             toastr.info("{{$error}}");
           </script>
           @endforeach
-  @endif
+        @endif
 
-  <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
 
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Timepicker
-    $('#timepicker').datetimepicker({
-      format: 'LT'
-    })
-    
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    $('.my-colorpicker2').on('colorpickerChange', function(event) {
-      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-    });
-
-    $("input[data-bootstrap-switch]").each(function(){
-      $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    });
-
-  })
-</script>
 
 <!-- Alert Part End -->
 <!-- page script Part End-->

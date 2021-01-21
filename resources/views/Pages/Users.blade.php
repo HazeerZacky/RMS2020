@@ -339,23 +339,23 @@
                     <form role="form" action="/adduser" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Name</label>
+                            <label for="UName" class="form-label">Name</label>
                             <input type="text" class="form-control"name="UName" placeholder="Enter full name">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">E-mail</label>
-                            <input type="text" class="form-control"name="UEmail" placeholder="Enter e-mail address">
+                            <label for="UEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control"name="UEmail" placeholder="Enter e-mail address">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Password</label>
-                            <input type="text" class="form-control"name="UPassword" placeholder="Enter password">
+                            <label for="UPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control"name="UPassword" placeholder="Enter password">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Subject</label>
+                            <label for="USubject" class="form-label">Subject</label>
                             <input type="text" class="form-control"name="USubject" placeholder="Enter subject">
                         </div>
                         <div class="form-group">
-                        <label>Role</label>
+                        <label for="URole" class="form-label">Role</label>
                             <select class="custom-select" name="URole">
                                 <option value="" selected disabled hidden>(select one option)</option>
                                 <option value="Teacher"><b>Teacher</b></option>
@@ -363,7 +363,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">User Status</label><br>
+                            <label for="UStatus" class="form-label">User Status</label><br>
                             <div class="custom-control custom-radio custom-control-inline">
                               <input type="radio" id="customRadioInline1" value="Active" name="UStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline1">Active</label>
@@ -408,12 +408,12 @@
                             <input type="text" class="form-control" id="EUName" name="EUName" placeholder="Enter name">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">E-mail</label>
-                            <input type="text" class="form-control" id="EUEmail" name="EUEmail" placeholder="Enter email">
+                            <label for="exampleInputEmail1" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="EUEmail" name="EUEmail" placeholder="Enter email">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Password</label>
-                            <input type="text" class="form-control" id="EUPassword" name="EUPassword" placeholder="Enter password">
+                            <label for="EUPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="EUPassword" name="EUPassword" placeholder="Enter password">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputText" class="form-label">Subject</label>
@@ -423,7 +423,7 @@
                             <label>Role</label>
                             <select class="custom-select" id="EURole" name="EURole">
                                 <option value="" selected disabled hidden>(select one option)</option>
-                                <option value="Teachr"><b>Teachr</b></option>
+                                <option value="Teacher"><b>Teacher</b></option>
                                 <option value="Admin"><b>Admin</b></option>
                             </select>
                         </div>
@@ -513,7 +513,7 @@
                         <td>{{$use->id}}</td>
                         <td>{{$use->name}}</td>
                         <td>{{$use->email}}</td>
-                        <td>{{$use->password}}</td>
+                        <td><b><center><i class='fas fa-eye-slash'></i></center></b></td> <!-- {{$use->password}} -->
                         <td>{{$use->subject}}</td>
                         <td>{{$use->role}}</td>
                         <td>
