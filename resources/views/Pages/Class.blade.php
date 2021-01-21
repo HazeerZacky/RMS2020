@@ -17,8 +17,11 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -343,8 +346,8 @@
                         </div>
                         <div class="form-group">
                         <label>Class Type</label>
-                            <select class="custom-select" name="CType">
-                                <option value="" selected disabled hidden>(select one option)</option>
+                            <select class="form-control select2" name="CType" data-placeholder="Select an option">
+                                <option value="" selected disabled hidden>(select an option)</option>
                                 <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
                                 <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
                                 <option value="SecondaryLevel"><b>Secondary Level</b></option>
@@ -398,8 +401,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Class Type</label>
-                            <select class="custom-select" id="ECType" name="ECType">
-                                <option value="" selected disabled hidden>(select one option)</option>
+                            <select class="form-control select2" id="ECType" name="ECType">
                                 <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
                                 <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
                                 <option value="SecondaryLevel"><b>Secondary Level</b></option>
@@ -595,6 +597,8 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 <!-- page script Part Start-->
@@ -651,9 +655,21 @@
           @endforeach
         @endif
 
-
-
 <!-- Alert Part End -->
+<!-- select 2 script start -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'classic'
+    })
+
+  })
+</script>
+<!-- select 2 script end -->
 <!-- page script Part End-->
 </body>
 </html>

@@ -17,8 +17,11 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -348,19 +351,24 @@
                         </div>
                         <div class="form-group">
                         <label for="SGender" class="form-label">Gender</label>
-                            <select class="custom-select" name="SGender">
-                                <option value="" selected disabled hidden>(select one option)</option>
+                            <select class="form-control select2" data-placeholder="Select an option" name="SGender">
+                                <option value="" selected disabled hidden>(select an option)</option>
                                 <option value="Male"><b>Male</b></option>
                                 <option value="Female"><b>Female</b></option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="SDOB" class="form-label">Date of birth</label>
-                            <input type="text" class="form-control"name="SDOB" placeholder="Enter date of birth">
+                        <label for="SName" class="form-label">Class Name</label>
+                            <select class="custom-select select2" data-placeholder="Select an option" name="SCName">
+                                <option value="" selected disabled hidden>(select an option)</option>
+                                @foreach($cls as $cl)
+                                  <option value="{{$cl->class_name}}"><b>{{$cl->class_name}}</b></option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="SName" class="form-label">Class Name</label>
-                            <input type="text" class="form-control"name="SCName" placeholder="Enter class name">
+                            <label for="SDOB" class="form-label">Date of birth</label>
+                            <input type="text" class="form-control"name="SDOB" placeholder="Enter date of birth">
                         </div>
                         <div class="form-group">
                             <label for="SStatus" class="form-label">Student Status</label><br>
@@ -409,19 +417,22 @@
                         </div>
                         <div class="form-group">
                         <label class="form-label">Gender</label>
-                            <select class="custom-select" id="ESGender" name="ESGender">
-                                <option value="" selected disabled hidden>(select one option)</option>
+                            <select class="form-control select2" id="ESGender" name="ESGender">
                                 <option value="Male" ><b>Male</b></option>
                                 <option value="Female" ><b>Female</b></option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="ESDOB" class="form-label">Date of birth</label>
-                            <input type="text" class="form-control" id="ESDOB" name="ESDOB" placeholder="Enter date of birth">
+                        <label for="ESCName" class="form-label">Class Name</label>
+                            <select class="form-control select2" id="ESCName" name="ESCName">
+                                @foreach($cls as $cl)
+                                  <option value="{{$cl->class_name}}"><b>{{$cl->class_name}}</b></option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="ESCName" class="form-label">Class Name</label>
-                            <input type="text" class="form-control" id="ESCName" name="ESCName" placeholder="Enter class name">
+                            <label for="ESDOB" class="form-label">Date of birth</label>
+                            <input type="text" class="form-control" id="ESDOB" name="ESDOB" placeholder="Enter date of birth">
                         </div>
               </div>
                                 <div class="modal-footer">
@@ -507,7 +518,7 @@
                         <td>{{$stu->student_name}}</td>
                         <td>{{$stu->gender}}</td>
                         <td>{{$stu->dob}}</td>
-                        <td>{{$stu->class_id}}</td>
+                        <td>{{$stu->class_name}}</td>
                         <td>
                           @if($stu->student_status == "Deactive")
                           <a type = "button" href = "{{route('changestudentstatus',$stu->index_no)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
@@ -521,7 +532,7 @@
                           <input type="hidden" id="student_name<?php echo $k; ?>" value="{{$stu->student_name}}">
                           <input type="hidden" id="gender<?php echo $k; ?>" value="{{$stu->gender}}">
                           <input type="hidden" id="dob<?php echo $k; ?>" value="{{$stu->dob}}">
-                          <input type="hidden" id="class_name<?php echo $k; ?>" value="{{$stu->class_id}}">
+                          <input type="hidden" id="class_name<?php echo $k; ?>" value="{{$stu->class_name}}">
                             
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteStudent">Delete</button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditStudent">Edit</button>
@@ -613,6 +624,8 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 <!-- page script Part Start-->
@@ -669,9 +682,23 @@
           @endforeach
         @endif
 
-
-
 <!-- Alert Part End -->
+<!-- select 2 script start -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'classic'
+    })
+
+  })
+</script>
+<!-- select 2 script end -->
+
+
 <!-- page script Part End-->
 </body>
 </html>
