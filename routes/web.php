@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +31,7 @@ Route::get('/Contact',[MyController::class, 'Contact']);
 Route::get('/Class',[MyController::class, 'ClassForm']); //Done
 Route::get('/Users',[MyController::class, 'UsersForm']);
 Route::get('/Student',[MyController::class, 'StudentForm']); //Done
-Route::get('/Subject',[MyController::class, 'Subject']);
+Route::get('/Subject',[MyController::class, 'Subjectform']);//hanan
 
 Route::get('/result',[MyController::class, 'result']);
 Route::get('/admin',[MyController::class, 'admin']);
@@ -51,3 +52,5 @@ Route::get('changeusersstatus/{c}',[MyController::class, 'changeusersstatus'])->
 Route::get('deleteuser/{c}',[MyController::class,'deleteuser'])->name('deleteuser'); //{c} = Passing variable
 
 
+//Data connection=subject Table==========================================
+Route::post('addsubject',[MyController::class,'addsubject']);
