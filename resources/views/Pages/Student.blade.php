@@ -439,10 +439,6 @@
                         </div>
                         <div class="form-group">
                             <label for="ESDOB" class="form-label">Date of birth</label>
-                            <input type="text" class="form-control" id="ESDOB" name="ESDOB" placeholder="Enter date of birth">
-                        </div>
-                        <div class="form-group">
-                            <label for="ESDOB" class="form-label">Date of birth</label>
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
                               <input type="text" class="form-control datetimepicker-input" id="ESDOB" name="ESDOB" placeholder="Enter date of birth" data-target="#reservationdate"/>
                               <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">

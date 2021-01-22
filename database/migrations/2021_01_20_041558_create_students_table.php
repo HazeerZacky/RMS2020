@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->integer('index_no');
             $table->string('student_name');
             $table->string('gender');
-            $table->dateTime('dob');
+            $table->date('dob');
             $table->string('class_name');
             $table->string('student_status');
             $table->timestamps();
