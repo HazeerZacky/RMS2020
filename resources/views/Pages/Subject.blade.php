@@ -17,11 +17,8 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -141,8 +138,8 @@
             </a>
           </li>
           <li class="nav-header">SUPER ADMIN</li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Forms
@@ -151,13 +148,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link active">
+                <a href="/Class" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Users" class="nav-link">
+                <a href="{{asset('template')}}/pages/forms/usersform.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
@@ -325,43 +322,34 @@
     <!-- -------------------------------------------Sidebar Navigation Part End --------------------------------- -->
   </aside>
 
-  <!-- Model Start   -->
+ <!-- Model Start   -->
   <!-- Add Model Start -->
-        <div class="modal fade" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="AddSubject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Subject Form</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
             <!-- form start -->
-                    <form role="form" action="/addclass" method="post">
+                    <form role="form" action="/addsubject" method="post">
                     @csrf
                         <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Name</label>
-                            <input type="text" class="form-control"name="CName" placeholder="Enter class name">
+                            <label for="exampleInputText" class="form-label">Subject Name</label>
+                            <input type="text" class="form-control"name="SName" placeholder="Enter class name">
                         </div>
-                        <div class="form-group">
-                        <label>Class Type</label>
-                            <select class="form-control select2" name="CType" data-placeholder="Select an option">
-                                <option value="" selected disabled hidden>(select an option)</option>
-                                <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                <option value="PrimaryLevel"><b>Primary Level</b></option>
-                            </select>
-                        </div>
+                    
                         <div class="form-group">
                             <label for="exampleInputText" class="form-label">Status</label><br>
                             <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
+                              <input type="radio" id="customRadioInline1" value="Active" name="SStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline1">Active</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
+                              <input type="radio" id="customRadioInline2" value="Deactive" name="SStatus" class="custom-control-input">
                               <label class="custom-control-label" for="customRadioInline2">Deactive</label>
                             </div>
                         </div>
@@ -377,74 +365,7 @@
         </div>
   <!-- Add Model End -->
 
-  <!-- Edit Model Start -->
-  <div class="modal fade" id="EditClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <!-- form start -->
-                    <form role="form" action="/editclass" method="post">
-                    @csrf
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class ID</label>
-                            <input type="text" class="form-control" id="ECId" name="ECId" placeholder="Enter class id" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Class Name</label>
-                            <input type="text" class="form-control" id="ECName" name="ECName" placeholder="Enter class name">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Class Type</label>
-                            <select class="form-control select2" id="ECType" name="ECType">
-                                <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                <option value="PrimaryLevel"><b>Primary Level</b></option>
-                            </select>
-                        </div>
-                            
-                        
-              </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div> 
-                            </div>
-                    </form>
-        </div>
-        </div>
 
-        <!-- Edit Model Get Function Start-->
-        <script>
-          function edit(i) {
-            var id = document.getElementById('id' +i).value;
-            var name = document.getElementById('name' +i).value;
-            var type = document.getElementById('type' +i).value;
-            var status = document.getElementById('status' +i).value;
-
-            document.getElementById('ECId').value = id;
-            document.getElementById('ECName').value = name;
-            document.getElementById('ECType').value = type;
-       
-            // if(status == "Active"){
-            //   document.getElementById('customRadioInline3').checked = true;
-            //   document.getElementById('customRadioInline4').checked = false;
-            // }else{
-            //   document.getElementById('customRadioInline4').checked = true;
-            //   document.getElementById('customRadioInline3').checked = false;
-            // }
-          }
-        </script>
-        <!-- Edit Model Get Function End-->
-
-  <!-- Edit Model End -->
-  <!-- Model End   -->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -453,12 +374,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">&#9745; <b>Class Page</b></h1>
+            <h1 class="m-0 text-dark">&#9745; <b>Contact Page</b></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Class</li>
+              <li class="breadcrumb-item active">Contact</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -466,14 +387,20 @@
     </div>
     <!-- /.content-header -->
 
+
     <!-- Class Page Full Front View Part Start -->
-    <div class="card">
+   
+  <!-- Class Page Full Front View Part End -->
+  <!-- /.content-wrapper -->
+
+<!-- Class Page Full Front View Part Start -->
+<div class="card">
               <!-- Table part start -->
               <div class="card-body">
                 <!-- Add Button Part Start -->
                 <div class="row">
                             <div class="col-md-12 text-end">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddClass">Add New Class</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddSubject">Add New Subject</button>
                             </div>
                 </div>
                 <br>
@@ -488,58 +415,7 @@
                     <th style="width:  12%">Action</th>
                   </tr>
                   </thead>
-                  <tbody>
-                    <?php $k = 0; ?> <!-- identify row number -->
-                      @foreach($class as $cls)
-                      <tr>
-                        <td>{{$cls->id}}</td>
-                        <td>{{$cls->class_name}}</td>
-                        <td>{{$cls->class_type}}</td>
-                        <td>
-                          @if($cls->class_status == "Deactive")
-                          <a type = "button" href = "{{route('changeclassstatus',$cls->id)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
-                          @else
-                          <a type = "button" href = "{{route('changeclassstatus',$cls->id)}}" class ="btn btn-danger btn-sm">Deactive</a>
-                          @endif
-                        
-                        </td>
-                        <td>
-                          <input type="hidden" id="id<?php echo $k; ?>" value="{{$cls->id}}">
-                          <input type="hidden" id="name<?php echo $k; ?>" value="{{$cls->class_name}}">
-                          <input type="hidden" id="type<?php echo $k; ?>" value="{{$cls->class_type}}">
-                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$cls->class_status}}">
-                            
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteClass">Delete</button>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditClass">Edit</button>
-                        </td>
-                      </tr>
-                      <?php $k++; ?>
-                        <!-- Delete Conformation Model Start -->
-                        <div class="modal fade" id="DeleteClass">
-                                <div class="modal-dialog modal-sm">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h4 class="modal-title">&#11088;Delete Confirmation</h4>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <p><b>Are you sure you want to delete?</b></p>
-                                    </div>
-                                    <div class="modal-footer justify-content-between">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                      <a  href="{{route('deleteclass',$cls->id)}}" class="btn btn-danger">Yes</a> <!-- $cls->id = passing variable-->
-                                    </div>
-                                  </div>
-                                  <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                              </div>
-                              <!-- /.modal -->
-                          <!-- Delete Conformation Model End-->
-                      @endforeach
-                  </tbody>
+                  
                   <tfoot>
                   <tr>
                     <th scope="col">Class ID</th>
@@ -557,6 +433,11 @@
   </div>
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
+
+
+
+
+
 
   <!-- footer contant Start -->
   <footer class="main-footer">
@@ -597,8 +478,6 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- Select2 -->
-<script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 <!-- page script Part Start-->
@@ -655,21 +534,9 @@
           @endforeach
         @endif
 
+
+
 <!-- Alert Part End -->
-<!-- select 2 script start -->
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'classic'
-    })
-
-  })
-</script>
-<!-- select 2 script end -->
 <!-- page script Part End-->
 </body>
 </html>

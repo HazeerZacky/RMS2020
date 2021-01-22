@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\clas;
 use App\Models\students;
+use App\Models\subjects;
 use App\Models\User;
 use App\Models\users;
 //=========================================================================================================
@@ -24,6 +25,12 @@ public function Contact(){
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
         return view('Pages.Class',compact('class'));  //send all class details to class page(class.blad.php)
     }
+
+    public function Subjectform(){
+        $subject = DB::table('subjects')->get();  //Get All class table contants from subject table(DB)
+        return view('Pages.Subject',compact('subject'));  //send all class details to subject page(class.blad.php)
+    }
+
 
     public function UsersForm(){
         $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
@@ -298,7 +305,8 @@ public function Contact(){
             'student_name' => $req->ESName,
             'gender' => $req->ESGender,
             'dob' => $req->ESDOB,
-            'index_no' => $req->ESCName,
+            'class_name' => $req->ESCName,
+            
         ]);
 
         $notification = array(
@@ -336,6 +344,35 @@ public function Contact(){
         return redirect()->back();
     }
 //==========================================================================================================
+//===========================class subject==========================================================
+public function getSubject(){
+    $su = DB::table('subjects')->get();
+
+    return view('viewsubject',compact('su'));
+}
+
+public function addsubject(Request $req)
+{
+
+
+    $cnt = count(DB::table('subjects')->get());
+    
+    $sub = new subjects;
+    $sub->subjectname = $req->SName;
+    $sub->subjectstatus = $req->SStatus;
+    
+
+    $sub->save();
+
+    $notification = array(
+        'message' => 'Successfully Saved', 
+        'alert-type' => 'success'
+    );
+
+    return redirect()->back()->with($notification);
+}
+
+
 
 
 }
