@@ -371,7 +371,7 @@
                         <div class="form-group">
                             <label for="SDOB" class="form-label">Date of birth</label>
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" class="form-control datetimepicker-input" name="SDOB" placeholder="Enter date of birth" data-target="#reservationdate"/>
+                              <input type="date" class="form-control datetimepicker-input" name="SDOB" placeholder="Enter date of birth" data-target="#reservationdate"/>
                               <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
@@ -440,8 +440,7 @@
                         <div class="form-group">
                             <label for="ESDOB" class="form-label">Date of birth</label>
                             <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                              <input type="text" class="form-control datetimepicker-input" id="ESDOB" name="ESDOB" placeholder="Enter date of birth" data-target="#reservationdate"/>
-                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                              <input type="date" class="form-control datetimepicker-input" id="ESDOB" name="ESDOB" placeholder="Enter date of birth" data-target="#reservationdate"/>
                                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
                             </div>
