@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
   <!-- Select2 -->
@@ -368,7 +370,12 @@
                         </div>
                         <div class="form-group">
                             <label for="SDOB" class="form-label">Date of birth</label>
-                            <input type="text" class="form-control"name="SDOB" placeholder="Enter date of birth">
+                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                              <input type="text" class="form-control datetimepicker-input" name="SDOB" placeholder="Enter date of birth" data-target="#reservationdate"/>
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="SStatus" class="form-label">Student Status</label><br>
@@ -433,6 +440,15 @@
                         <div class="form-group">
                             <label for="ESDOB" class="form-label">Date of birth</label>
                             <input type="text" class="form-control" id="ESDOB" name="ESDOB" placeholder="Enter date of birth">
+                        </div>
+                        <div class="form-group">
+                            <label for="ESDOB" class="form-label">Date of birth</label>
+                            <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                              <input type="text" class="form-control datetimepicker-input" id="ESDOB" name="ESDOB" placeholder="Enter date of birth" data-target="#reservationdate"/>
+                              <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                            </div>
                         </div>
               </div>
                                 <div class="modal-footer">
@@ -620,12 +636,21 @@
 <script src="{{asset('template')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('template')}}/dist/js/demo.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="{{asset('template')}}/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
 <!-- Toastr -->
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- Select2 -->
 <script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="{{asset('template')}}/plugins/moment/moment.min.js"></script>
+<script src="{{asset('template')}}/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('template')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="{{asset('template')}}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 <!-- page script Part Start-->
@@ -698,6 +723,23 @@
 </script>
 <!-- select 2 script end -->
 
+<!-- date time picker start -->
+<script>
+  $(function () {
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservationdate').datetimepicker({
+        format: 'L'
+    });
+  })
+</script>
+<!-- date time picker End -->
 
 <!-- page script Part End-->
 </body>
