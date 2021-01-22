@@ -54,3 +54,5 @@ Route::get('deleteuser/{c}',[MyController::class,'deleteuser'])->name('deleteuse
 
 //Data connection=subject Table==========================================
 Route::post('addsubject',[MyController::class,'addsubject']);
+Route::post('editsubject',[MyController::class,'editsubject']);
+Route::get('changesubjectsstatus/{c}',[MyController::class, 'changesubjectsstatus'])->name('changesubjectsstatus'); //Active Deactive Button

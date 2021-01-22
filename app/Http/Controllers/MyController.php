@@ -274,7 +274,7 @@ public function Contact(){
     }
 
 //==========================================================================================================
-//===========================class subject==========================================================
+//===========================subject==========================================================
 public function getSubject(){
     $su = DB::table('subjects')->get();
 
@@ -302,7 +302,38 @@ public function addsubject(Request $req)
     return redirect()->back()->with($notification);
 }
 
+public function editsubject(Request $req)
+{
+ 
+DB::table('subjects')->where('id' , $req->ESId)->update([
+    'subjectname' => $req->ESName,
+    
+]);
 
+$notification = array(
+    'message' => 'Successfully Updated', 
+    'alert-type' => 'success'
+);
+
+return redirect()->back()->with($notification);
+}
+
+
+
+public function changesubjectsstatus($id){  //STATUS BUTTON PART ================
+
+    $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
+    if($status ==  "Active"){
+        DB::table('subjects')->where('id',$id)->update([
+            'subjectstatus'=>'Deactive'
+        ]);
+    }else{
+        DB::table('subjects')->where('id',$id)->update([
+            'subjectstatus'=>'Active'
+        ]);
+    }
+    return redirect()->back();
+}
 
 
 }
