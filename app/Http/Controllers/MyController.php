@@ -274,6 +274,33 @@ public function Contact(){
 
     public function addstudent(Request $req)  //Daa USER ======================
     {
+        $req->validate([
+            'SIndexNo'=>'required|digits:5',
+            'SName'=>'required|min:12',
+            'SGender'=>'required',
+            'SDOB'=>'required',
+            'SStatus'=>'required',
+            'SCName'=>'required',
+        ],[
+            //Student  name Add
+            'SIndexNo.required'=>'Index Number is must',
+            'SIndexNo.digits'=>'Index Number size 5',
+            // 'SIndexNo.digits'=>'Enter numeric Index Number',
+            'SIndexNo.unique'=>'Index Number not unique',
+            
+            //Student name Add
+            'SName.required'=>'Student name is must',
+            'SName.min'=>'Student name is minimum 12 leters',
+
+             //Student gender Add
+            'SGender.required'=>'Please select Student Gender',
+             //Student DOB Add
+            'SDOB.required'=>'Please select Student Date of birth',
+             //Student Status Add
+            'SStatus.required'=>'Please select Student Status',
+             //Student Class name Add
+            'SCName.required'=>'Please select Student Class name',
+        ]);
 
         $cnt = count(DB::table('students')->get());
         
@@ -299,7 +326,29 @@ public function Contact(){
 
     public function editstudent(Request $req) { //EDIT USER =======================
 
-       
+        $req->validate([
+            'ESIndexNo'=>'numeric|required|size:5|unique',
+            'ESName'=>'required|min:12',
+            'ESGender'=>'required',
+            'ESDOB'=>'required',
+            'ESCName'=>'required',
+        ],[
+            //Student  name Add
+            'ESIndexNo.required'=>'Index Number is must',
+            'ESIndexNo.numeric'=>'Enter numeric Index Number',
+            'ESIndexNo.size'=>'Index Number size 5',
+            'ESIndexNo.unique'=>'Enter unique index no',
+            //Student name Add
+            'ESName.required'=>'Student name is must',
+            'ESName.min'=>'Student name is minimum 12 leters',
+
+             //Student gender Add
+            'ESGender.required'=>'Please select Student Gender',
+             //Student DOB Add
+            'ESDOB.required'=>'Please select Student Date of birth',
+             //Student Class name Add
+            'ESCName.required'=>'Please select Student Class name',
+        ]);
 
         DB::table('students')->where('index_no' , $req->ESIndexNo)->update([
             'student_name' => $req->ESName,

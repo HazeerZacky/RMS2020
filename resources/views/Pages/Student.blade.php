@@ -438,7 +438,6 @@
                         <div class="form-group">
                             <label for="ESDOB" class="form-label">Date of birth</label>
                              <input type="date" class="form-control datetimepicker-input" id="ESDOB" name="ESDOB" placeholder="Enter date of birth" data-target="#reservationdate"/>
-                            
                         </div>
               </div>
                                 <div class="modal-footer">
