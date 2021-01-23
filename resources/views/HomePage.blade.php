@@ -44,7 +44,7 @@ https://templatemo.com/tm-535-softy-pinko
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="#" class="logo">
+                        <a href="/" class="logo">
                             <img src="{{asset('homepage')}}/images/logo.png" alt="Softy Pinko"/>
                         </a>
                         <!-- ***** Logo End ***** -->
@@ -189,7 +189,7 @@ https://templatemo.com/tm-535-softy-pinko
                 <div class="row">
                     <div class="offset-lg-3 col-lg-6">
                         <div class="info">
-                            <h1>Work Process</h1>
+                            <h1>Work Process (GitHub)</h1>
                             <p>Aenean nec tempor metus. Maecenas ligula dolor, commodo in imperdiet interdum, vehicula ut ex. Donec ante diam.</p>
                         </div>
                     </div>
@@ -254,26 +254,26 @@ https://templatemo.com/tm-535-softy-pinko
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-bottom">
-                            <strong>126</strong>
-                            <span>Projects</span>
+                            <strong>5</strong>
+                            <span>Total Branches</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-top">
                             <strong>63</strong>
-                            <span>Happy Clients</span>
+                            <span>Total Commits</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-bottom">
-                            <strong>18</strong>
-                            <span>Awards Wins</span>
+                            <strong>8000</strong>
+                            <span>Total Files</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item">
-                            <strong>27</strong>
-                            <span>Countries</span>
+                            <strong>92</strong>
+                            <span>Success Rate</span>
                         </div>
                     </div>
                 </div>
@@ -308,7 +308,7 @@ https://templatemo.com/tm-535-softy-pinko
                         </div>
                         <div class="blog-content">
                             <h3>
-                                <a href="#">Vivamus ac vehicula dui</a>
+                                <a href="#">Thanking</a>
                             </h3>
                             <div class="text">
                                Cras aliquet ligula dui, vitae fermentum velit tincidunt id. Praesent eu finibus nunc. Nulla in sagittis eros. Aliquam egestas augue.

@@ -83,7 +83,7 @@
 
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-purple elevation-4">
     <!-- Brand Logo -->
     <a href="{{asset('template')}}/index3.html" class="brand-link">
       <img src="{{asset('template')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -107,7 +107,7 @@
 
     <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
@@ -440,7 +440,7 @@
 
 
   <!-- footer contant Start -->
-  <footer class="main-footer">
+  <footer class="main-footer text-sm">
     <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
