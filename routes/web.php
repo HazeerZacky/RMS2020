@@ -25,13 +25,17 @@ use App\Http\Controllers\MyController;
 | Navigation Part
 |--------------------------------------------------------------------------
 */
+// Homepage Routes
 Route::get('/',[MyController::class, 'HomePage']);
+Route::get('/Dashboard',[MyController::class, 'Dashboard']);
 Route::get('/Contact',[MyController::class, 'Contact']);
+Route::get('/Results',[MyController::class, 'Results']);
+
 //Form List
-Route::get('/Class',[MyController::class, 'ClassForm']); //Done
-Route::get('/Users',[MyController::class, 'UsersForm']);
-Route::get('/Student',[MyController::class, 'StudentForm']); //Done
-Route::get('/Subject',[MyController::class, 'Subjectform']);//hanan
+Route::get('/Dashboard/ClassPage',[MyController::class, 'ClassForm']); //Done
+Route::get('/Dashboard/UsersPage',[MyController::class, 'UsersForm']);
+Route::get('/Dashboard/StudentPage',[MyController::class, 'StudentForm']); //Done
+Route::get('/Dashboard/SubjectPage',[MyController::class, 'Subjectform']);//hanan
 
 Route::get('/result',[MyController::class, 'result']);
 Route::get('/admin',[MyController::class, 'admin']);

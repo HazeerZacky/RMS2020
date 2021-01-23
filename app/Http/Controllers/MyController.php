@@ -14,9 +14,15 @@ class MyController extends Controller
 {
 //==========================================================    Navigation parts    =======================
 public function HomePage(){
+        return view('HomePage');
+    }
+public function Dashboard(){
         return view('Dashboard');
     }
-    
+public function Results(){
+        return view('Results');
+    }
+//==========================================
 public function Contact(){
         return view('Pages.contact');
     }
@@ -158,7 +164,7 @@ public function Contact(){
             'UName'=>'required|min:8',
             'UEmail'=>'required|min:12',
             'UPassword'=>'required|min:8',
-            'USubject'=>'required',
+            // 'USubject'=>'required', Nullable
             'URole'=>'required',
             'UStatus'=>'required',
         ],[
@@ -172,7 +178,7 @@ public function Contact(){
             'UPassword.required'=>'User Password is must',
             'UPassword.min'=>'User Name Password Minimum 8 letters must',
             //User Subject Add
-            'USubject.required'=>'Please select a class',
+            // 'USubject.required'=>'Please select a class', NULLable
             //User Role Add
             'URole.required'=>'Please select a role',
              //User Status Add

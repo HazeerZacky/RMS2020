@@ -24,20 +24,22 @@
   <link rel="stylesheet" href="{{asset('Template')}}/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/summernote/summernote-bs4.css">
+  <!-- Preloader CSS -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
  <!-- PRE LOADER -->
-     <section c>
-          <div class="fa-spinner">
-
-             <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-<span class="sr-only">Loading...</span>
-               
-          </div>
-     </section>
-<div class="wrapper">
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -47,7 +49,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
+        <a href="/Dashboard" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
@@ -155,25 +157,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link">
+                <a href="/Dashboard/ClassPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Users" class="nav-link">
+                <a href="/Dashboard/UsersPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Dashboard/StudentPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Subject" class="nav-link">
+                <a href="/Dashboard/SubjectPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Form</p>
                 </a>
@@ -989,5 +991,9 @@
 <script src="{{asset('template')}}/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('template')}}/dist/js/demo.js"></script>
+<!-- Plugins -->
+<script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
+<!-- Global Init -->
+<script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 </body>
 </html>

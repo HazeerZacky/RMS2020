@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
+  <!-- Preloader CSS -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -27,6 +29,16 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixedy layout-footer-fixed layout-navbar-fixed">
 
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+         <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>  
+<!-- ***** Preloader End ***** -->
+
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -36,7 +48,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
+        <a href="/Dashboard" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
@@ -151,25 +163,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link active">
+                <a href="/Dashboard/ClassPage" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Users" class="nav-link">
+                <a href="/Dashboard/UsersPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Dashboard/StudentPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/subjectform.html" class="nav-link">
+                <a href="/Dashboard/SubjectPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Form</p>
                 </a>
@@ -457,7 +469,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
               <li class="breadcrumb-item active">Class</li>
             </ol>
           </div><!-- /.col -->
@@ -599,6 +611,10 @@
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- Select2 -->
 <script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
+<!-- Plugins -->
+<script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
+<!-- Global Init -->
+<script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 <!-- page script Part Start-->
