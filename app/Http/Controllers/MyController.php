@@ -13,13 +13,21 @@ use App\Models\users;
 class MyController extends Controller
 {
 //==========================================================    Navigation parts    =======================
-public function HomePage(){
-        return view('Dashboard');
-    }
-    
-public function Contact(){
-        return view('Pages.contact');
-    }
+    // =============HOME PAGE FUNCTIONS================
+        public function HomePage(){
+                return view('HomePage');
+            }
+        public function Dashboard(){
+                return view('Dashboard');
+            }
+        public function Results(){
+                return view('Results');
+            }
+    //==========================================
+
+    public function Contact(){
+            return view('Pages.contact');
+        }
 
     public function ClassForm(){
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
@@ -31,7 +39,6 @@ public function Contact(){
         return view('Pages.Subject',compact('subject'));  //send all class details to subject page(class.blad.php)
     }
 
-
     public function UsersForm(){
         $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
         return view('Pages.Users',compact('users'));  //send all class details to class page(class.blad.php)
@@ -41,6 +48,18 @@ public function Contact(){
         $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
         return view('Pages.Student',compact('students','cls'));  //send all student details to student page(student.blad.php)
+    }
+
+    public function EnterResults(){
+        return view('Pages.EnterResults');
+    }
+
+    public function TeachersReport(){
+        return view('Pages.TeachersReport');
+    }
+
+    public function TeachersProfile(){
+        return view('Pages.TeachersProfile');
     }
 //=========================================================================================================
 
@@ -158,7 +177,7 @@ public function Contact(){
             'UName'=>'required|min:8',
             'UEmail'=>'required|min:12',
             'UPassword'=>'required|min:8',
-            'USubject'=>'required',
+            // 'USubject'=>'required', Nullable
             'URole'=>'required',
             'UStatus'=>'required',
         ],[
@@ -172,7 +191,7 @@ public function Contact(){
             'UPassword.required'=>'User Password is must',
             'UPassword.min'=>'User Name Password Minimum 8 letters must',
             //User Subject Add
-            'USubject.required'=>'Please select a class',
+            // 'USubject.required'=>'Please select a class', NULLable
             //User Role Add
             'URole.required'=>'Please select a role',
              //User Status Add
@@ -393,35 +412,93 @@ public function Contact(){
         return redirect()->back();
     }
 //==========================================================================================================
-//===========================class subject==========================================================
-public function getSubject(){
-    $su = DB::table('subjects')->get();
+//=============================================     Subject Table Database Connections    ====================
+    public function getSubject(){
+        $su = DB::table('subjects')->get();
 
-    return view('viewsubject',compact('su'));
-}
+        return view('viewsubject',compact('su'));
+    }
 
-public function addsubject(Request $req)
-{
+    public function addsubject(Request $req)
+    {
 
+        $req->validate([
+            'SName'=>'required|min:3',
+            'SStatus'=>'required',
+        ],[
+            //Student name Add
+            'SName.required'=>'Subject name is must',
+            'SName.min'=>'Subject name is minimum 3 leters',
+             //Student Status Add
+            'SStatus.required'=>'Please select Subject Status',
+        ]);
 
-    $cnt = count(DB::table('subjects')->get());
+        $cnt = count(DB::table('subjects')->get());
+        
+        $sub = new subjects;
+        $sub->subjectname = $req->SName;
+        $sub->subjectstatus = $req->SStatus;
+
+        $sub->save();
+
+        $notification = array(
+            'message' => 'Successfully Saved', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function editsubject(Request $req)
+    {
     
-    $sub = new subjects;
-    $sub->subjectname = $req->SName;
-    $sub->subjectstatus = $req->SStatus;
+        $req->validate([
+            'ESName'=>'required|min:3',
+        ],[
+            //Student name Add
+            'ESName.required'=>'Subject name is must',
+            'ESName.min'=>'Subject name is minimum 3 leters',
+        ]);
     
-
-    $sub->save();
+    DB::table('subjects')->where('id' , $req->ESId)->update([
+        'subjectname' => $req->ESName,
+        
+    ]);
 
     $notification = array(
-        'message' => 'Successfully Saved', 
+        'message' => 'Successfully Updated', 
         'alert-type' => 'success'
     );
 
     return redirect()->back()->with($notification);
-}
+    }
 
+    public function deletesubject($i)  //passing variable
+    {
+        DB::table('subjects')->where('id',$i)->delete();
+        
+        $notification = array(
+            'message' => 'Successfully Deleted', 
+            'alert-type' => 'success'
+        );
 
+        return redirect()->back()->with($notification);
+    }
 
+    public function changesubjectsstatus($id){  //STATUS BUTTON PART ================
+
+        $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
+        if($status ==  "Active"){
+            DB::table('subjects')->where('id',$id)->update([
+                'subjectstatus'=>'Deactive'
+            ]);
+        }else{
+            DB::table('subjects')->where('id',$id)->update([
+                'subjectstatus'=>'Active'
+            ]);
+        }
+        return redirect()->back();
+    }
+//==========================================================================================================
 
 }

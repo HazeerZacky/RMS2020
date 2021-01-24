@@ -22,10 +22,22 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Preloader CSS -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixedy layout-footer-fixed layout-navbar-fixed">
+
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+         <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>  
+<!-- ***** Preloader End ***** -->
 
 <div class="wrapper">
   <!-- Navbar -->
@@ -36,7 +48,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
+        <a href="/Dashboard" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
@@ -87,7 +99,7 @@
 
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-purple elevation-4">
     <!-- Brand Logo -->
     <a href="{{asset('template')}}/index3.html" class="brand-link">
       <img src="{{asset('template')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -111,7 +123,7 @@
 
     <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
@@ -124,19 +136,19 @@
           </li>
           <li class="nav-header">ADMIN</li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/EnterResults" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/TeachersReport" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/TeachersProfile" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>Profile</p>
             </a>
@@ -152,25 +164,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link">
+                <a href="/Dashboard/ClassPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Users" class="nav-link active">
+                <a href="/Dashboard/UsersPage" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Dashboard/StudentPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/subjectform.html" class="nav-link">
+                <a href="/Dashboard/SubjectPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Form</p>
                 </a>
@@ -416,7 +428,7 @@
                         </div>
                         <div class="form-group">
                             <label for="EUPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="EUPassword" name="EUPassword" placeholder="Enter password">
+                            <input type="password" class="form-control" id="EUPassword" name="EUPassword" placeholder="Enter password" readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputText" class="form-label">Subject</label>
@@ -474,7 +486,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
               <li class="breadcrumb-item active">Users</li>
             </ol>
           </div><!-- /.col -->
@@ -588,7 +600,7 @@
   <!-- /.content-wrapper -->
 
   <!-- footer contant Start -->
-  <footer class="main-footer">
+  <footer class="main-footer text-sm">
     <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
@@ -628,6 +640,11 @@
 <script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Plugins -->
+<script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
+<!-- Global Init -->
+<script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
+
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 <!-- page script Part Start-->

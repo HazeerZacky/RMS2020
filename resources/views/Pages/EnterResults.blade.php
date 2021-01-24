@@ -17,10 +17,10 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Preloader CSS -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -45,7 +45,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
+        <a href="/Dashboard" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
@@ -131,8 +131,8 @@
             </a>
           </li>
           <li class="nav-header">ADMIN</li>
-          <li class="nav-item has-treeview">
-            <a href="/Dashboard/EnterResults" class="nav-link">
+          <li class="nav-item has-treeview ">
+            <a href="/Dashboard/EnterResults" class="nav-link active">
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
             </a>
@@ -160,25 +160,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link">
+                <a href="/Dashboard/ClassPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/usersform.html" class="nav-link">
+                <a href="/Dashboard/UsersPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Dashboard/StudentPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/subjectform.html" class="nav-link">
+                <a href="/Dashboard/SubjectPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Form</p>
                 </a>
@@ -334,94 +334,6 @@
     <!-- -------------------------------------------Sidebar Navigation Part End --------------------------------- -->
   </aside>
 
- <!-- Model Start   -->
-  <!-- Add Model Start -->
-  <div class="modal fade" id="AddSubject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Subject Form</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <!-- form start -->
-                    <form role="form" action="/addsubject" method="post">
-                    @csrf
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Subject Name</label>
-                            <input type="text" class="form-control"name="SName" placeholder="Enter class name">
-                        </div>
-                    
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Status</label><br>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline1" value="Active" name="SStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline1">Active</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                              <input type="radio" id="customRadioInline2" value="Deactive" name="SStatus" class="custom-control-input">
-                              <label class="custom-control-label" for="customRadioInline2">Deactive</label>
-                            </div>
-                        </div>
-            </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary ">Save changes</button>
-                                </div> 
-                            </div>
-                    </form>
-            
-        </div>
-        </div>
-  <!-- Add Model End -->
-
- <!-- Edit Model Start -->
- <div class="modal fade" id="editsubject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">&#9776; Subject Form</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <!-- form start -->
-                    <form role="form" action="/editsubject" method="post">
-                    @csrf
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Subject ID</label>
-                            <input type="text" class="form-control" id="ESId" name="ESId" placeholder="Enter Subject Id" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputText" class="form-label">Subject Name</label>
-                            <input type="text" class="form-control" id="ESName" name="ESName" placeholder="Enter Subject Name">
-                        </div>
-              </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div> 
-                            </div>
-                    </form>
-        </div>
-        </div>
-
-        <!-- Edit Model Get Function Start-->
-        <script>
-          function edit(i) {
-            var id = document.getElementById('id' +i).value;
-            var subjectname = document.getElementById('subjectname' +i).value;
-
-
-            document.getElementById('ESId').value = id;
-            document.getElementById('ESName').value = subjectname;
-          }
-        </script>
-        <!-- Edit Model Get Function End-->
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -429,12 +341,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">&#9745; <b>Subject Page</b></h1>
+            <h1 class="m-0 text-dark">&#9745; <b>Enter Results Page</b></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Subject</li>
+              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Enter Results</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -442,105 +354,16 @@
     </div>
     <!-- /.content-header -->
 
-
     <!-- Class Page Full Front View Part Start -->
-   
-  <!-- Class Page Full Front View Part End -->
-  <!-- /.content-wrapper -->
-
-<!-- Class Page Full Front View Part Start -->
-<div class="card">
+    <div class="card">
               <!-- Table part start -->
-              <div class="card-body">
-                <!-- Add Button Part Start -->
-                <div class="row">
-                            <div class="col-md-12 text-end">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddSubject">Add New Subject</button>
-                            </div>
-                </div>
-                <br>
-                <!-- Add Button Part End -->
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th scope="col">Subject ID</th>
-                    <th scope="col">Subject Name</th>
-                    <th scope="col">Status</th>
-                    <th style="width:  12%">Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <?php $k = 0; ?> <!-- identify row number -->
-                      @foreach($subject as $sub)
-                      <tr>
-                        <td>{{$sub->id}}</td>
-                        <td>{{$sub->subjectname}}</td>
-                    
-                        <td>
-                          @if($sub->subjectstatus== "Deactive")
-                          <a type = "button" href = "{{route('changesubjectsstatus',$sub->id)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
-                          @else
-                          <a type = "button" href = "{{route('changesubjectsstatus',$sub->id)}}" class ="btn btn-danger btn-sm">Deactive</a>
-                          @endif
-                        
-                        </td>
-                        <td>
-                          <input type="hidden" id="id<?php echo $k; ?>" value="{{$sub->id}}">
-                          <input type="hidden" id="subjectname<?php echo $k; ?>" value="{{$sub->subjectname}}">
-                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$sub->subjectstatus}}">
-                            
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deletesubject">Delete</button>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#editsubject">Edit</button>
-                        </td>
-                      </tr>
-                      <?php $k++; ?>
-                        <!-- Delete Conformation Model Start -->
-                        <div class="modal fade" id="deletesubject">
-                                <div class="modal-dialog modal-sm">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h4 class="modal-title">&#11088;Delete Confirmation</h4>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <p><b>Are you sure you want to delete?</b></p>
-                                    </div>
-                                    <div class="modal-footer justify-content-between">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                      <a  href="{{route('deletesubject',$sub->id)}}" class="btn btn-danger">Yes</a> <!-- $sub->id = passing variable-->
-                                    </div>
-                                  </div>
-                                  <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                              </div>
-                              <!-- /.modal -->
-                          <!-- Delete Conformation Model End-->
-                      @endforeach
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th scope="col">Subject ID</th>
-                    <th scope="col">Subject Name</th>
-                    <th scope="col">Status</th>
-                    <th style="width:  12%">Action</th>
-                  </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <!-- /.card-body -->
+            <div class="card-body">
+              <h1 align="center"><b><i class="fas fa-tools"></i> UNDER CONSTRUCTION <i class="fas fa-tools"></i></b></h1>
             </div>
             <!-- /.card -->
   </div>
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
-
-
-
-
-
 
   <!-- footer contant Start -->
   <footer class="main-footer text-sm">
@@ -568,11 +391,6 @@
 <script src="{{asset('template')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('template')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script src="{{asset('template')}}/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="{{asset('template')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('template')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -587,63 +405,5 @@
 <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
-<!-- page script Part Start-->
-<!-- Data Table Start -->
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-<!-- Data Table End -->
-
-<!-- Alert Part Start -->
-
-  @if(Session::has('message'))
-  <script>
-    var type = "{{ Session::get('alert-type', 'info') }}";
-    switch(type){
-        case 'info':
-            toastr.info("{{ Session::get('message') }}");
-            break;
-        
-        case 'warning':
-            toastr.warning("{{ Session::get('message') }}");
-            break;
-
-        case 'success':
-            toastr.success("{{ Session::get('message') }}");
-            break;
-
-        case 'error':
-            toastr.error("{{ Session::get('message') }}");
-            break;
-    }
-    </script>
-  @endif
-
-        @if($errors->any())
-          @foreach($errors->all()  as $error)
-          <script>
-            toastr.info("{{$error}}");
-          </script>
-          @endforeach
-        @endif
-
-
-
-<!-- Alert Part End -->
-<!-- page script Part End-->
 </body>
 </html>
