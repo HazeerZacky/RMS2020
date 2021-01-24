@@ -466,13 +466,13 @@
                           <input type="hidden" id="name<?php echo $k; ?>" value="{{$sub->subjectname}}">
                           <input type="hidden" id="status<?php echo $k; ?>" value="{{$sub->subjectstatus}}">
                             
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#DeleteClass">Delete</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deletesubject">Delete</button>
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#editsubject">Edit</button>
                         </td>
                       </tr>
                       <?php $k++; ?>
                         <!-- Delete Conformation Model Start -->
-                        <div class="modal fade" id="DeleteClass">
+                        <div class="modal fade" id="deletesubject">
                                 <div class="modal-dialog modal-sm">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -486,7 +486,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                                      <a  href="{{route('deleteclass',$sub->id)}}" class="btn btn-danger">Yes</a> <!-- $sub->id = passing variable-->
+                                      <a  href="{{route('deletesubject',$sub->id)}}" class="btn btn-danger">Yes</a> <!-- $sub->id = passing variable-->
                                     </div>
                                   </div>
                                   <!-- /.modal-content -->

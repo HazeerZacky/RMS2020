@@ -56,3 +56,4 @@ Route::get('deleteuser/{c}',[MyController::class,'deleteuser'])->name('deleteuse
 Route::post('addsubject',[MyController::class,'addsubject']);
 Route::post('editsubject',[MyController::class,'editsubject']);
 Route::get('changesubjectsstatus/{c}',[MyController::class, 'changesubjectsstatus'])->name('changesubjectsstatus'); //Active Deactive Button
+Route::get('deletesubject/{c}',[MyController::class,'deletesubject'])->name('deletesubject'); //{c} = Passing variable

@@ -318,6 +318,18 @@ $notification = array(
 return redirect()->back()->with($notification);
 }
 
+public function deletesubject($i)  //passing variable
+{
+    DB::table('subjects')->where('id',$i)->delete();
+    
+    $notification = array(
+        'message' => 'Successfully Deleted', 
+        'alert-type' => 'success'
+    );
+
+    return redirect()->back()->with($notification);
+}
+
 
 
 public function changesubjectsstatus($id){  //STATUS BUTTON PART ================
