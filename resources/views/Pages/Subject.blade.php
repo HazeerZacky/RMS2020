@@ -365,7 +365,39 @@
         </div>
   <!-- Add Model End -->
 
-
+ <!-- Edit Model Start -->
+ <div class="modal fade" id="editsubject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Subject Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <!-- form start -->
+                    <form role="form" action="/editsubject" method="post">
+                    @csrf
+                        <div class="form-group">
+                            <label for="exampleInputText" class="form-label">Subject ID</label>
+                            <input type="text" class="form-control" id="ESId" name="ESId" placeholder="Enter Subject Id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputText" class="form-label">Subject Name</label>
+                            <input type="text" class="form-control" id="ESName" name="ESName" placeholder="Enter Subject Name">
+                        </div>
+                            
+                        
+              </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div> 
+                            </div>
+                    </form>
+        </div>
+        </div>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -408,19 +440,67 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type</th>
+                    <th scope="col">Subject ID</th>
+                    <th scope="col">Subject Name</th>
                     <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </thead>
-                  
+                  <tbody>
+                    <?php $k = 0; ?> <!-- identify row number -->
+                      @foreach($subject as $sub)
+                      <tr>
+                        <td>{{$sub->id}}</td>
+                        <td>{{$sub->subjectname}}</td>
+                    
+                        <td>
+                          @if($sub->subjectstatus== "Deactive")
+                          <a type = "button" href = "{{route('changesubjectsstatus',$sub->id)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
+                          @else
+                          <a type = "button" href = "{{route('changesubjectsstatus',$sub->id)}}" class ="btn btn-danger btn-sm">Deactive</a>
+                          @endif
+                        
+                        </td>
+                        <td>
+                          <input type="hidden" id="id<?php echo $k; ?>" value="{{$sub->id}}">
+                          <input type="hidden" id="name<?php echo $k; ?>" value="{{$sub->subjectname}}">
+                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$sub->subjectstatus}}">
+                            
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deletesubject">Delete</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#editsubject">Edit</button>
+                        </td>
+                      </tr>
+                      <?php $k++; ?>
+                        <!-- Delete Conformation Model Start -->
+                        <div class="modal fade" id="deletesubject">
+                                <div class="modal-dialog modal-sm">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">&#11088;Delete Confirmation</h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p><b>Are you sure you want to delete?</b></p>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                      <a  href="{{route('deletesubject',$sub->id)}}" class="btn btn-danger">Yes</a> <!-- $sub->id = passing variable-->
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                              </div>
+                              <!-- /.modal -->
+                          <!-- Delete Conformation Model End-->
+                      @endforeach
+                  </tbody>
                   <tfoot>
                   <tr>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type</th>
+                    <th scope="col">Subject ID</th>
+                    <th scope="col">Subject Name</th>
                     <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
