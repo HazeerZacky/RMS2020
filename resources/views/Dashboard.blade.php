@@ -129,19 +129,19 @@
           </li>
           <li class="nav-header">ADMIN</li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/EnterResults" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/TeacherReport" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/TeacherProfile" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>Profile</p>
             </a>

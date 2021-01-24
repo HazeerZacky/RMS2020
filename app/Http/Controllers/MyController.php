@@ -13,19 +13,21 @@ use App\Models\users;
 class MyController extends Controller
 {
 //==========================================================    Navigation parts    =======================
-public function HomePage(){
-        return view('HomePage');
-    }
-public function Dashboard(){
-        return view('Dashboard');
-    }
-public function Results(){
-        return view('Results');
-    }
-//==========================================
-public function Contact(){
-        return view('Pages.contact');
-    }
+    // =============HOME PAGE FUNCTIONS================
+        public function HomePage(){
+                return view('HomePage');
+            }
+        public function Dashboard(){
+                return view('Dashboard');
+            }
+        public function Results(){
+                return view('Results');
+            }
+    //==========================================
+
+    public function Contact(){
+            return view('Pages.contact');
+        }
 
     public function ClassForm(){
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
@@ -37,7 +39,6 @@ public function Contact(){
         return view('Pages.Subject',compact('subject'));  //send all class details to subject page(class.blad.php)
     }
 
-
     public function UsersForm(){
         $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
         return view('Pages.Users',compact('users'));  //send all class details to class page(class.blad.php)
@@ -47,6 +48,18 @@ public function Contact(){
         $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
         return view('Pages.Student',compact('students','cls'));  //send all student details to student page(student.blad.php)
+    }
+
+    public function EnterResults(){
+        return view('Pages.EnterResults');
+    }
+
+    public function TeachersReport(){
+        return view('Pages.TeachersReport');
+    }
+
+    public function TeachersProfile(){
+        return view('Pages.TeachersProfile');
     }
 //=========================================================================================================
 
@@ -399,78 +412,76 @@ public function Contact(){
         return redirect()->back();
     }
 //==========================================================================================================
-//===========================subject==========================================================
-public function getSubject(){
-    $su = DB::table('subjects')->get();
+//=============================================     Subject Table Database Connections    ====================
+    public function getSubject(){
+        $su = DB::table('subjects')->get();
 
-    return view('viewsubject',compact('su'));
-}
-
-public function addsubject(Request $req)
-{
-
-
-    $cnt = count(DB::table('subjects')->get());
-    
-    $sub = new subjects;
-    $sub->subjectname = $req->SName;
-    $sub->subjectstatus = $req->SStatus;
-    
-
-    $sub->save();
-
-    $notification = array(
-        'message' => 'Successfully Saved', 
-        'alert-type' => 'success'
-    );
-
-    return redirect()->back()->with($notification);
-}
-
-public function editsubject(Request $req)
-{
- 
-DB::table('subjects')->where('id' , $req->ESId)->update([
-    'subjectname' => $req->ESName,
-    
-]);
-
-$notification = array(
-    'message' => 'Successfully Updated', 
-    'alert-type' => 'success'
-);
-
-return redirect()->back()->with($notification);
-}
-
-public function deletesubject($i)  //passing variable
-{
-    DB::table('subjects')->where('id',$i)->delete();
-    
-    $notification = array(
-        'message' => 'Successfully Deleted', 
-        'alert-type' => 'success'
-    );
-
-    return redirect()->back()->with($notification);
-}
-
-
-
-public function changesubjectsstatus($id){  //STATUS BUTTON PART ================
-
-    $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
-    if($status ==  "Active"){
-        DB::table('subjects')->where('id',$id)->update([
-            'subjectstatus'=>'Deactive'
-        ]);
-    }else{
-        DB::table('subjects')->where('id',$id)->update([
-            'subjectstatus'=>'Active'
-        ]);
+        return view('viewsubject',compact('su'));
     }
-    return redirect()->back();
-}
 
+    public function addsubject(Request $req)
+    {
+
+
+        $cnt = count(DB::table('subjects')->get());
+        
+        $sub = new subjects;
+        $sub->subjectname = $req->SName;
+        $sub->subjectstatus = $req->SStatus;
+        
+
+        $sub->save();
+
+        $notification = array(
+            'message' => 'Successfully Saved', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function editsubject(Request $req)
+    {
+    
+    DB::table('subjects')->where('id' , $req->ESId)->update([
+        'subjectname' => $req->ESName,
+        
+    ]);
+
+    $notification = array(
+        'message' => 'Successfully Updated', 
+        'alert-type' => 'success'
+    );
+
+    return redirect()->back()->with($notification);
+    }
+
+    public function deletesubject($i)  //passing variable
+    {
+        DB::table('subjects')->where('id',$i)->delete();
+        
+        $notification = array(
+            'message' => 'Successfully Deleted', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function changesubjectsstatus($id){  //STATUS BUTTON PART ================
+
+        $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
+        if($status ==  "Active"){
+            DB::table('subjects')->where('id',$id)->update([
+                'subjectstatus'=>'Deactive'
+            ]);
+        }else{
+            DB::table('subjects')->where('id',$id)->update([
+                'subjectstatus'=>'Active'
+            ]);
+        }
+        return redirect()->back();
+    }
+//==========================================================================================================
 
 }
