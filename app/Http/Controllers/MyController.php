@@ -422,13 +422,22 @@ class MyController extends Controller
     public function addsubject(Request $req)
     {
 
+        $req->validate([
+            'SName'=>'required|min:3',
+            'SStatus'=>'required',
+        ],[
+            //Student name Add
+            'SName.required'=>'Subject name is must',
+            'SName.min'=>'Subject name is minimum 3 leters',
+             //Student Status Add
+            'SStatus.required'=>'Please select Subject Status',
+        ]);
 
         $cnt = count(DB::table('subjects')->get());
         
         $sub = new subjects;
         $sub->subjectname = $req->SName;
         $sub->subjectstatus = $req->SStatus;
-        
 
         $sub->save();
 
@@ -442,6 +451,14 @@ class MyController extends Controller
 
     public function editsubject(Request $req)
     {
+    
+        $req->validate([
+            'ESName'=>'required|min:3',
+        ],[
+            //Student name Add
+            'ESName.required'=>'Subject name is must',
+            'ESName.min'=>'Subject name is minimum 3 leters',
+        ]);
     
     DB::table('subjects')->where('id' , $req->ESId)->update([
         'subjectname' => $req->ESName,
