@@ -347,7 +347,7 @@ class MyController extends Controller
     public function editstudent(Request $req) { //EDIT USER =======================
 
         $req->validate([
-            'ESIndexNo'=>'numeric|required|size:5|unique',
+            'ESIndexNo'=>'numeric|required|digits:5',
             'ESName'=>'required|min:12',
             'ESGender'=>'required',
             'ESDOB'=>'required',
@@ -355,9 +355,7 @@ class MyController extends Controller
         ],[
             //Student  name Add
             'ESIndexNo.required'=>'Index Number is must',
-            'ESIndexNo.numeric'=>'Enter numeric Index Number',
-            'ESIndexNo.size'=>'Index Number size 5',
-            'ESIndexNo.unique'=>'Enter unique index no',
+            'ESIndexNo.digits:5'=>'Index Number size 5',
             //Student name Add
             'ESName.required'=>'Student name is must',
             'ESName.min'=>'Student name is minimum 12 leters',

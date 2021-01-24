@@ -166,7 +166,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{/Dashboard/UsersPage" class="nav-link">
+                <a href="/Dashboard/UsersPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
