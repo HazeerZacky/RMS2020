@@ -41,7 +41,8 @@ class MyController extends Controller
 
     public function UsersForm(){
         $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
-        return view('Pages.Users',compact('users'));  //send all class details to class page(class.blad.php)
+        $subj = DB::table('subjects')->where('subjectstatus','Active')->orderBy('subjectname','asc')->get();
+        return view('Pages.Users',compact('users','subj'));  //send all class details to class page(class.blad.php)
     }
     
     public function StudentForm(){
@@ -177,7 +178,7 @@ class MyController extends Controller
             'UName'=>'required|min:8',
             'UEmail'=>'required|min:12',
             'UPassword'=>'required|min:8',
-            // 'USubject'=>'required', Nullable
+            'USubject'=>'required', //Nullable
             'URole'=>'required',
             'UStatus'=>'required',
         ],[
@@ -204,7 +205,7 @@ class MyController extends Controller
         $use->name = $req->UName;
         $use->email = $req->UEmail;
         $use->password = $req->UPassword;
-        $use->subject = $req->USubject;
+        $use->subjectname = $req->USubject;
         $use->role = $req->URole;
         $use->user_status = $req->UStatus;
 
@@ -246,7 +247,7 @@ class MyController extends Controller
             'name' => $req->EUName,
             'email' => $req->EUEmail,
             'password' => $req->EUPassword,
-            'subject' => $req->EUSubject,
+            'subjectname' => $req->EUSubject,
             'role' => $req->EURole,
         ]);
 

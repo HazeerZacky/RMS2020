@@ -367,7 +367,12 @@
                         </div>
                         <div class="form-group">
                             <label for="USubject" class="form-label">Subject</label>
-                            <input type="text" class="form-control"name="USubject" placeholder="Enter subject">
+                            <select class="custom-select select2" data-placeholder="Select an option" name="USubject">
+                                <option value="" selected disabled hidden>(select an option)</option>
+                                @foreach($subj as $su)
+                                  <option value="{{$su->subjectname}}"><b>{{$su->subjectname}}</b></option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                         <label for="URole" class="form-label">Role</label>
@@ -432,7 +437,11 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputText" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="EUSubject" name="EUSubject" placeholder="Enter subject">
+                            <select class="form-control select2" id="EUSubject" name="EUSubject">
+                                @foreach($subj as $su)
+                                  <option value="{{$su->subjectname}}"><b>{{$su->subjectname}}</b></option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Role</label>
@@ -458,7 +467,7 @@
             var name = document.getElementById('name' +i).value;
             var email = document.getElementById('email' +i).value;
             var pw = document.getElementById('pw' +i).value;
-            var subj = document.getElementById('subj' +i).value;
+            var subjectname = document.getElementById('subjectname' +i).value;
             var type = document.getElementById('type' +i).value;
 
 
@@ -466,7 +475,7 @@
             document.getElementById('EUName').value = name;
             document.getElementById('EUEmail').value = email;
             document.getElementById('EUPassword').value = pw;
-            document.getElementById('EUSubject').value = subj;
+            document.getElementById('EUSubject').value = subjectname;
             document.getElementById('EURole').value = type;
           }
         </script>
@@ -528,7 +537,7 @@
                         <td>{{$use->name}}</td>
                         <td>{{$use->email}}</td>
                         <td><b><center><i class='fas fa-eye-slash'></i></center></b></td> <!-- {{$use->password}} -->
-                        <td>{{$use->subject}}</td>
+                        <td>{{$use->subjectname}}</td>
                         <td>{{$use->role}}</td>
                         <td>
                           @if($use->user_status == "Deactive")
@@ -543,7 +552,7 @@
                           <input type="hidden" id="name<?php echo $k; ?>" value="{{$use->name}}">
                           <input type="hidden" id="email<?php echo $k; ?>" value="{{$use->email}}">
                           <input type="hidden" id="pw<?php echo $k; ?>" value="{{$use->password}}">
-                          <input type="hidden" id="subj<?php echo $k; ?>" value="{{$use->subject}}">
+                          <input type="hidden" id="subjectname<?php echo $k; ?>" value="{{$use->subjectname}}">
                           <input type="hidden" id="type<?php echo $k; ?>" value="{{$use->role}}">
                           <input type="hidden" id="status<?php echo $k; ?>" value="{{$use->user_status}}">
                             
