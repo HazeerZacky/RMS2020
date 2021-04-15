@@ -150,8 +150,8 @@
             </a>
           </li>
           <li class="nav-header">SUPER ADMIN</li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Forms
@@ -178,7 +178,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/subjectform.html" class="nav-link">
+                <a href="/Dashboard/SubjectPage" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Form</p>
                 </a>
