@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>AdminLTE 3 | DataTables</title>
@@ -19,6 +18,9 @@
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
   <!-- Preloader CSS -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -340,6 +342,120 @@
     <!-- -------------------------------------------Sidebar Navigation Part End --------------------------------- -->
   </aside>
 
+    <!-- Model Start   -->
+      <!-- Add Model Start -->
+      <div class="modal fade" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">&#9776; Add Class Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <!-- form start -->
+                        <form role="form" action="/addclasstoteacher" method="post"> <!--Add new class to teacher-->
+                        @csrf
+                            <div class="form-group">
+                                <label for="exampleInputText" class="form-label">Teacher Name</label>
+                                <input type="text" class="form-control" name="CName" placeholder="Enter class name">
+                            </div>
+                            <div class="form-group">
+                            <label>Class Type</label>
+                                <select class="form-control select2" name="CType" data-placeholder="Select an option">
+                                    <option value="" selected disabled hidden>(select an option)</option>
+                                    <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
+                                    <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
+                                    <option value="SecondaryLevel"><b>Secondary Level</b></option>
+                                    <option value="PrimaryLevel"><b>Primary Level</b></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputText" class="form-label">Status</label><br>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                  <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
+                                  <label class="custom-control-label" for="customRadioInline1">Active</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                  <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
+                                  <label class="custom-control-label" for="customRadioInline2">Deactive</label>
+                                </div>
+                            </div>
+                </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary ">Save changes</button>
+                                    </div> 
+                                </div>
+                        </form>
+                
+            </div>
+            </div>
+      <!-- Add Model End -->
+
+
+      <!-- Edit Model Start -->
+      <div class="modal fade" id="EditClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <!-- form start -->
+                        <form role="form" action="/editclass" method="post">
+                        @csrf
+                            <div class="form-group">
+                                <label for="exampleInputText" class="form-label">Class ID</label>
+                                <input type="text" class="form-control" id="ECId" name="ECId" placeholder="Enter class id" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputText" class="form-label">Class Name</label>
+                                <input type="text" class="form-control" id="ECName" name="ECName" placeholder="Enter class name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Class Type</label>
+                                <select class="form-control select2" id="ECType" name="ECType">
+                                    <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
+                                    <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
+                                    <option value="SecondaryLevel"><b>Secondary Level</b></option>
+                                    <option value="PrimaryLevel"><b>Primary Level</b></option>
+                                </select>
+                            </div>
+                                
+                            
+                  </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div> 
+                                </div>
+                        </form>
+            </div>
+            </div>
+            <!-- Edit Model Get Function Start-->
+            <script>
+              function edit(i) {
+                var id = document.getElementById('id' +i).value;
+                var name = document.getElementById('name' +i).value;
+                var type = document.getElementById('type' +i).value;
+                var status = document.getElementById('status' +i).value;
+                document.getElementById('ECId').value = id;
+                document.getElementById('ECName').value = name;
+                document.getElementById('ECType').value = type;
+              }
+            </script>
+            <!-- Edit Model Get Function End-->
+
+      <!-- Edit Model End -->
+
+
+    <!-- Model End   -->
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -364,33 +480,61 @@
     <div class="card">
               <!-- Table part start -->
             <div class="card-body">
-              
+                <img src="{{asset('user.png')}}" width = "120px" height="120px" style = "float:left">
+                <p>
+                  <ul style = "float:left">
+                    <li><h6><b>Username: </b>{{$user->name}}</h6></li>
+                    <li><h6><b>E-mail: </b>{{$user->email}}</h6></li>
+                    <li><h6><b>Subject: </b>{{$user->subjectname}}</h6></li>
+                  </ul>
+                </p>
+            </div> 
+            <!-- /.card -->
+    </div>
 
-                <img src="{{asset('user.png')}}" width = "100px" height="100px" style = "float:left">
-                <h3 style = "float:left">{{$user->name}}</h3><br>
-                <h4 style = "float:left">{{$user->email}}</h4><br>
-                <h4 style = "float:left">{{$user->subjectname}}</h4><br>
-
-
+        <!-- Class Page Full Front View Part Start -->
+        <div class="card">
+              <!-- Table part start -->
+              <div class="card-body">
+                <!-- Add Button Part Start -->
+                <div class="row">
+                            <div class="col-md-12 text-end">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddClass">Add New Class</button>
+                            </div>
+                </div>
+                <br>
+                <!-- Add Button Part End -->
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th scope="col">Teacher ID</th>
+                    <th scope="col">Teacher Name</th>
+                    <th scope="col">Class Name</th>
+                    <th scope="col">Status</th>
+                    <th style="width:  12%">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <!-- content............... -->
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                  <th scope="col">Teacher ID</th>
+                    <th scope="col">Teacher Name</th>
+                    <th scope="col">Class Name</th>
+                    <th scope="col">Status</th>
+                    <th style="width:  12%">Action</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
-
-          
             <!-- /.card -->
   </div>
+  <!-- Class Page Full Front View Part End -->
 
-  <form action="/select" method="post">
-  @csrf
-      <input type="hidden" value = "{{$user->id}}" name = "id">
-      <label for="">Select Class(es)</label>
-      <select name="cls[]" id="" multiple>
-        @foreach($cls as $cs)
-          <option value="{{$cs->class_name}}">{{$cs->class_name}}</option>
-        @endforeach
-      </select>
-
-      <input type="submit" value="Select">
-
-  </form>
+  
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
@@ -420,6 +564,11 @@
 <script src="{{asset('template')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('template')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="{{asset('template')}}/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{asset('template')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{asset('template')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{asset('template')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('template')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -428,11 +577,86 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- Plugins -->
 <script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
 <!-- Global Init -->
 <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
+
+<!-- scrpt Start -->
+
+<!-- Data Table Start -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+<!-- Data Table End -->
+
+<!-- Alert Part Start -->
+
+  @if(Session::has('message'))
+  <script>
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    </script>
+  @endif
+
+        @if($errors->any())
+          @foreach($errors->all()  as $error)
+          <script>
+            toastr.info("{{$error}}");
+          </script>
+          @endforeach
+        @endif
+
+<!-- Alert Part End -->
+
+<!-- select 2 script start -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'classic'
+    })
+
+  })
+</script>
+<!-- select 2 script end -->
+<!-- scrpt End -->
 </body>
 </html>

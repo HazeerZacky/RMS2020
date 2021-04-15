@@ -216,7 +216,7 @@ class MyController extends Controller
     {
 
         $req->validate([
-            'UName'=>'required|min:8',
+            'UName'=>'required',
             'UEmail'=>'required|min:11',
             'UPassword'=>'required|min:8',
             'USubject'=>'required', //Nullable
@@ -225,7 +225,6 @@ class MyController extends Controller
         ],[
             //User name Add
             'UName.required'=>'User Name is must',
-            'UName.min'=>'User Name Minimum 8 letters must',
             //User Email Add
             'UEmail.required'=>'User E-mail is must',
             'UEmail.min'=>'User E-mail Minimum 12 letters must',
@@ -263,7 +262,7 @@ class MyController extends Controller
     public function edituser(Request $req) { //EDIT USER =======================
 
         $req->validate([
-            'EUName'=>'required|min:8',
+            'EUName'=>'required',
             'EUEmail'=>'required|min:12',
             'EUPassword'=>'required|min:8',
             'EUSubject'=>'required',
@@ -271,7 +270,6 @@ class MyController extends Controller
         ],[
             //User name Add
             'EUName.required'=>'User Name is must',
-            'EUName.min'=>'User Name Minimum 8 letters must',
             //User Email Add
             'EUEmail.required'=>'User E-mail is must',
             'EUEmail.min'=>'User E-mail Minimum 12 letters must',
