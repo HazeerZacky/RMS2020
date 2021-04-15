@@ -53,30 +53,35 @@ class MyController extends Controller
         }
     //==========================================
 
-    public function Contact(){
-            return view('Pages.contact');
+    public function Contact($id){
+        $user = DB::table('users')->where('id',$id)->first();
+            return view('Pages.contact',compact('user'));
         }
 
-    public function ClassForm(){
+    public function ClassForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
-        return view('Pages.Class',compact('class'));  //send all class details to class page(class.blad.php)
+        return view('Pages.Class',compact('class','user'));  //send all class details to class page(class.blad.php)
     }
 
-    public function Subjectform(){
+    public function Subjectform($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $subject = DB::table('subjects')->get();  //Get All class table contants from subject table(DB)
-        return view('Pages.Subject',compact('subject'));  //send all class details to subject page(class.blad.php)
+        return view('Pages.Subject',compact('subject','user'));  //send all class details to subject page(class.blad.php)
     }
 
-    public function UsersForm(){
+    public function UsersForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
         $subj = DB::table('subjects')->where('subjectstatus','Active')->orderBy('subjectname','asc')->get();
-        return view('Pages.Users',compact('users','subj'));  //send all class details to class page(class.blad.php)
+        return view('Pages.Users',compact('users','subj','user'));  //send all class details to class page(class.blad.php)
     }
     
-    public function StudentForm(){
+    public function StudentForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
-        return view('Pages.Student',compact('students','cls'));  //send all student details to student page(student.blad.php)
+        return view('Pages.Student',compact('students','cls','user'));  //send all student details to student page(student.blad.php)
     }
 
     public function EnterResults($id){
@@ -90,8 +95,13 @@ class MyController extends Controller
     }
 
     public function TeachersProfile($id){
+        $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
         $user = DB::table('users')->where('id',$id)->first();
-        return view('Pages.TeachersProfile',compact('user'));
+        return view('Pages.TeachersProfile',compact('user','cls'));
+    }
+
+    public function select(Request $req){
+        print $req->cls;
     }
 //=========================================================================================================
 
