@@ -5,18 +5,20 @@ use App\Http\Controllers\MyController;
 
 // Homepage Routes
 Route::get('/',[MyController::class, 'HomePage']);
-Route::get('/Dashboard',[MyController::class, 'Dashboard']);
-Route::get('/Contact',[MyController::class, 'Contact']);
+Route::get('Dashboard/{c}',[MyController::class, 'Dashboard'])->name('Dashboard');
+Route::get('/login',[MyController::class, 'login']);
+Route::get('/Contact/{c}',[MyController::class, 'Contact']);
 Route::get('/Results',[MyController::class, 'Results']);
+Route::post('/log',[MyController::class, 'log']);
 
 //Form List
-Route::get('/Dashboard/ClassPage',[MyController::class, 'ClassForm']); //Hazeer Done
-Route::get('/Dashboard/UsersPage',[MyController::class, 'UsersForm']); //Hazeer Done
-Route::get('/Dashboard/StudentPage',[MyController::class, 'StudentForm']); //Hazeer Done
-Route::get('/Dashboard/SubjectPage',[MyController::class, 'Subjectform']);//Hanan Done
-Route::get('/Dashboard/EnterResults',[MyController::class, 'EnterResults']);//Hazeer Done
-Route::get('/Dashboard/TeachersReport',[MyController::class, 'TeachersReport']);//Hazeer Done
-Route::get('/Dashboard/TeachersProfile',[MyController::class, 'TeachersProfile']);//Hazeer Done
+Route::get('/Dashboard/ClassPage/{c}',[MyController::class, 'ClassForm']); //Hazeer Done
+Route::get('/Dashboard/UsersPage/{c}',[MyController::class, 'UsersForm']); //Hazeer Done
+Route::get('/Dashboard/StudentPage/{c}',[MyController::class, 'StudentForm']); //Hazeer Done
+Route::get('/Dashboard/SubjectPage/{c}',[MyController::class, 'Subjectform']);//Hanan Done
+Route::get('/Dashboard/EnterResults/{c}',[MyController::class, 'EnterResults'])->name('Dashboard/EnterResults');//Hazeer Done
+Route::get('/Dashboard/TeachersReport/{c}',[MyController::class, 'TeachersReport'])->name('Dashboard/TeachersReport');//Hazeer Done
+Route::get('/Dashboard/TeachersProfile/{c}',[MyController::class, 'TeachersProfile'])->name('Dashboard/TeachersProfile');//Hazeer Done
 
 Route::get('/result',[MyController::class, 'result']);
 Route::get('/admin',[MyController::class, 'admin']);
@@ -50,3 +52,5 @@ Route::post('editsubject',[MyController::class,'editsubject']);
 Route::get('changesubjectsstatus/{c}',[MyController::class, 'changesubjectsstatus'])->name('changesubjectsstatus'); //Active Deactive Button
 Route::get('deletesubject/{c}',[MyController::class,'deletesubject'])->name('deletesubject'); //{c} = Passing variable
 //==========================================================================
+//=================
+Route::post('/select',[MyController::class,'select']);

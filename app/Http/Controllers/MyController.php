@@ -17,50 +17,91 @@ class MyController extends Controller
         public function HomePage(){
                 return view('HomePage');
             }
-        public function Dashboard(){
-                return view('Dashboard');
+        public function Dashboard($id){
+            $user = DB::table('users')->where('id',$id)->first();
+                return view('Dashboard',compact('user'));
             }
+        public function login(){
+            return view('login');
+        }
         public function Results(){
                 return view('Results');
             }
+        public function log(Request $req)
+        {
+            $user = DB::table('users')->where('email',$req->email)->first();
+            if($user){
+                if($user->password == $req->pw){
+                    return redirect()->route('Dashboard',['c'=>$user->id]);
+                
+                }else{
+                    $notification = array(
+                        'message' =>'Password wrong', 
+                        'alert-type' => 'warning'
+                    );
+            
+                    return redirect()->back()->with($notification);
+                }
+            }else{
+                $notification = array(
+                    'message' =>'User does not exist', 
+                    'alert-type' => 'warning'
+                );
+        
+                return redirect()->back()->with($notification);
+            }
+        }
     //==========================================
 
-    public function Contact(){
-            return view('Pages.contact');
+    public function Contact($id){
+        $user = DB::table('users')->where('id',$id)->first();
+            return view('Pages.contact',compact('user'));
         }
 
-    public function ClassForm(){
+    public function ClassForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
-        return view('Pages.Class',compact('class'));  //send all class details to class page(class.blad.php)
+        return view('Pages.Class',compact('class','user'));  //send all class details to class page(class.blad.php)
     }
 
-    public function Subjectform(){
+    public function Subjectform($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $subject = DB::table('subjects')->get();  //Get All class table contants from subject table(DB)
-        return view('Pages.Subject',compact('subject'));  //send all class details to subject page(class.blad.php)
+        return view('Pages.Subject',compact('subject','user'));  //send all class details to subject page(class.blad.php)
     }
 
-    public function UsersForm(){
+    public function UsersForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
         $subj = DB::table('subjects')->where('subjectstatus','Active')->orderBy('subjectname','asc')->get();
-        return view('Pages.Users',compact('users','subj'));  //send all class details to class page(class.blad.php)
+        return view('Pages.Users',compact('users','subj','user'));  //send all class details to class page(class.blad.php)
     }
     
-    public function StudentForm(){
+    public function StudentForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
-        return view('Pages.Student',compact('students','cls'));  //send all student details to student page(student.blad.php)
+        return view('Pages.Student',compact('students','cls','user'));  //send all student details to student page(student.blad.php)
     }
 
-    public function EnterResults(){
-        return view('Pages.EnterResults');
+    public function EnterResults($id){
+        $user = DB::table('users')->where('id',$id)->first();
+        return view('Pages.EnterResults',compact('user'));
     }
 
-    public function TeachersReport(){
-        return view('Pages.TeachersReport');
+    public function TeachersReport($id){
+        $user = DB::table('users')->where('id',$id)->first();
+        return view('Pages.TeachersReport',compact('user'));
     }
 
-    public function TeachersProfile(){
-        return view('Pages.TeachersProfile');
+    public function TeachersProfile($id){
+        $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
+        $user = DB::table('users')->where('id',$id)->first();
+        return view('Pages.TeachersProfile',compact('user','cls'));
+    }
+
+    public function select(Request $req){
+        print $req->cls;
     }
 //=========================================================================================================
 
@@ -176,7 +217,7 @@ class MyController extends Controller
 
         $req->validate([
             'UName'=>'required|min:8',
-            'UEmail'=>'required|min:12',
+            'UEmail'=>'required|min:11',
             'UPassword'=>'required|min:8',
             'USubject'=>'required', //Nullable
             'URole'=>'required',
