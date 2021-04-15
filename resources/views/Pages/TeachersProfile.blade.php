@@ -45,7 +45,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/Dashboard" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
+        <a href="/Dashboard/{{$user->id}}" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
@@ -112,7 +112,7 @@
           <img src="{{asset('template')}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{$user->name}}</a>
         </div>
       </div>
     <!-- -------------------------------------------Sidebar Profile Part End --------------------------------- -->
@@ -132,19 +132,19 @@
           </li>
           <li class="nav-header">ADMIN</li>
           <li class="nav-item has-treeview">
-            <a href="/Dashboard/EnterResults" class="nav-link">
+            <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersReport" class="nav-link">
+            <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersProfile" class="nav-link active">
+            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>Profile</p>
             </a>
@@ -359,6 +359,9 @@
               <!-- Table part start -->
             <div class="card-body">
               <h1 align="center"><b><i class="fas fa-tools"></i> UNDER CONSTRUCTION <i class="fas fa-tools"></i></b></h1>
+
+
+
             </div>
             <!-- /.card -->
   </div>

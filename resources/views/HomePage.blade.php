@@ -56,7 +56,7 @@ https://templatemo.com/tm-535-softy-pinko
                             <li><a href="#blog">Blog Entries</a></li>
                             <li><a href="#contact-us">Contact Us</a></li>
                             <li><a href="/Results">Results</a></li>
-                            <li><a href="/Dashboard">Login</a></li>
+                            <li><a href="/login">Login</a></li>
                         </ul>
                         <a class='menu-trigger'>
                             <span>Menu</span>

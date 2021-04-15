@@ -17,12 +17,40 @@ class MyController extends Controller
         public function HomePage(){
                 return view('HomePage');
             }
-        public function Dashboard(){
-                return view('Dashboard');
+        public function Dashboard($id){
+            $user = DB::table('users')->where('id',$id)->first();
+                return view('Dashboard',compact('user'));
             }
+        public function login(){
+            return view('login');
+        }
         public function Results(){
                 return view('Results');
             }
+        public function log(Request $req)
+        {
+            $user = DB::table('users')->where('email',$req->email)->first();
+            if($user){
+                if($user->password == $req->pw){
+                    return redirect()->route('Dashboard',['c'=>$user->id]);
+                
+                }else{
+                    $notification = array(
+                        'message' =>'Password wrong', 
+                        'alert-type' => 'warning'
+                    );
+            
+                    return redirect()->back()->with($notification);
+                }
+            }else{
+                $notification = array(
+                    'message' =>'User does not exist', 
+                    'alert-type' => 'warning'
+                );
+        
+                return redirect()->back()->with($notification);
+            }
+        }
     //==========================================
 
     public function Contact(){
@@ -51,16 +79,19 @@ class MyController extends Controller
         return view('Pages.Student',compact('students','cls'));  //send all student details to student page(student.blad.php)
     }
 
-    public function EnterResults(){
-        return view('Pages.EnterResults');
+    public function EnterResults($id){
+        $user = DB::table('users')->where('id',$id)->first();
+        return view('Pages.EnterResults',compact('user'));
     }
 
-    public function TeachersReport(){
-        return view('Pages.TeachersReport');
+    public function TeachersReport($id){
+        $user = DB::table('users')->where('id',$id)->first();
+        return view('Pages.TeachersReport',compact('user'));
     }
 
-    public function TeachersProfile(){
-        return view('Pages.TeachersProfile');
+    public function TeachersProfile($id){
+        $user = DB::table('users')->where('id',$id)->first();
+        return view('Pages.TeachersProfile',compact('user'));
     }
 //=========================================================================================================
 
@@ -176,7 +207,7 @@ class MyController extends Controller
 
         $req->validate([
             'UName'=>'required|min:8',
-            'UEmail'=>'required|min:12',
+            'UEmail'=>'required|min:11',
             'UPassword'=>'required|min:8',
             'USubject'=>'required', //Nullable
             'URole'=>'required',
