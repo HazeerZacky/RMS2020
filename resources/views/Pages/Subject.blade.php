@@ -151,8 +151,8 @@
           </li>
           @else
           <li class="nav-header">SUPER ADMIN</li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Forms
@@ -179,7 +179,9 @@
                 </a>
               </li>
               <li class="nav-item">
+
                 <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
+
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Form</p>
                 </a>
