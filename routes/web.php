@@ -61,3 +61,19 @@ Route::get('deletestudent/{c}',[MyController::class,'deletestudent'])->name('del
 
 //Data connection=subject Table==========================================
 Route::post('addsubject',[MyController::class,'addsubject']);
+<<<<<<< Updated upstream
+=======
+Route::post('editsubject',[MyController::class,'editsubject']);
+Route::get('changesubjectsstatus/{c}',[MyController::class, 'changesubjectsstatus'])->name('changesubjectsstatus'); //Active Deactive Button
+Route::get('deletesubject/{c}',[MyController::class,'deletesubject'])->name('deletesubject'); //{c} = Passing variable
+//==========================================================================
+//=================
+Route::post('/select',[MyController::class,'select']);
+
+//AFRID
+
+Route::get('delcls/{c}',[MyController::class,'delclass'])->name('delcls');
+Route::post('search/',[MyController::class,'search']);
+Route::post('searchsubj/',[MyController::class,'searchsubj']);
+Route::post('addresult/',[MyController::class,'addresult']);
+>>>>>>> Stashed changes
