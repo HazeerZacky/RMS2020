@@ -82,7 +82,7 @@
         </script>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
+        <a href="/logout" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -404,8 +404,8 @@
         @endif
           <input type="hidden" name = "name" value = "{{$user->name}}">
           <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
-          <div class="row">
-            <div class="col-sm-6">
+          <div >
+            <div >
               <div class="form-group">
                 <label>Tearm :</label>
                 <select class="form-control" name="term" data-placeholder="Select an option">
@@ -416,21 +416,21 @@
                 </select>
               </div>
             </div>
-            <div class="col-sm-6">
+            <div >
               <div class="form-group">
                 <label>Year :</label>
                 <select class="form-control" name="year" data-placeholder="Select an option">
                   <option value="" selected disabled hidden>(Select Year)</option>
-                  <option value="2010">2019</option>
+                  <option value="2019">2019</option>
                   <option value="2020">2020</option>
                   <option value="2021">2021</option>
                 </select>
               </div>
             </div>
           </div>
-          <div class="row">
+          <div >
             
-            <div class="col-sm-6">
+            <div  style=" float:left; width:40%; margin-right:5%;">
               <div class="form-group">
                 <!-- Marks Entering table Start -->
                   @if($msg = session()->get('st'))
@@ -447,9 +447,9 @@
                         <td id="index<?php echo $z; ?>">{{$s->index_no}}</td>
                         <td onclick = "box(<?php echo $z; ?>)" id="name<?php echo $z; ?>">{{$s->student_name}}</td>
                         <td style = "width:60%;">
-                            <input type="button" id = "button<?php echo $z; ?>" onclick ="box(<?php echo $z; ?>)" value = "click" style="float:left;">
+                            <input class = "btn btn-success btn-sm"type="button" id = "button<?php echo $z; ?>" onclick ="box(<?php echo $z; ?>)" value = "click" style="float:left;">
                             <input type="number" style="display:none; width:30%; float:left;" id="mr<?php echo $z; ?>">
-                            <input id = "but<?php echo $z; ?>" style="display:none; float:left;" type="button" onclick="add(<?php echo $z; ?>)" value="Add">
+                            <input class = "btn btn-primary btn-sm" id = "but<?php echo $z; ?>" style="display:none; float:left;" type="button" onclick="add(<?php echo $z; ?>)" value="Add">
                         </td>
                       </tr>
                       <?php $z++; ?>
@@ -459,7 +459,7 @@
                   <!-- Marks Entering table End -->
               </div>
             </div>
-            <div class="col-sm-6">
+            <div style="float:left; width:40%; margin-right:1%;">
               <div class="form-group">
                 <input type="hidden" name = "list[]" id = "list" >
 
@@ -521,7 +521,7 @@
       input1.setAttribute("value",index);
       input1.setAttribute("readonly",true);
    
-      input1.setAttribute("style","margin-right:5px; width:8%; float:left;");
+      // input1.setAttribute("style"," width:8%; float:left;");
                                    
       var input2 = document.createElement("input");
       input2.setAttribute("type","number");
@@ -530,7 +530,7 @@
       input2.setAttribute("value",marks);
       input2.setAttribute("readonly",true);
  
-      input2.setAttribute("style","margin-right:5px; width:5%;");
+      // input2.setAttribute("style","margin-right:5px; width:5%;");
 
       var br = document.createElement("br");
 
@@ -540,9 +540,10 @@
         var rem = document.createElement("button");
       
         rem.setAttribute("type", "button");
-        rem.setAttribute("style"," float:right; margin-right:81%; ");
+        // rem.setAttribute("style"," float:right; margin-right:81%; ");
         rem.setAttribute("id", "del"+id);
         rem.setAttribute("value", "Clear");
+        
         rem.innerHTML = "Clear";
         rem.setAttribute("onclick", "remove("+id+")");
         div.appendChild(rem);

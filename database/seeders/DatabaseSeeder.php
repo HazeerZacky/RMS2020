@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name'=>'HAZKY Admin',
             'email'=>'admin@hazky.com',
-            'password'=>'admin',
+            'password'=>Hash::make('admin'),
             'role'=>'Admin',
             'user_status'=>'Active'
         ]);

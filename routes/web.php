@@ -63,4 +63,6 @@ Route::get('delcls/{c}',[MyController::class,'delclass'])->name('delcls');
 Route::post('search/',[MyController::class,'search']);
 Route::post('searchsubj/',[MyController::class,'searchsubj']);
 Route::post('addresult/',[MyController::class,'addresult']);
+Route::post('stresult/',[MyController::class,'stresult']);
+Route::get('logout/',[MyController::class, 'logout']);
 

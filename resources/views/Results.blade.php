@@ -2,7 +2,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Not Found</title>
+        <title>Finf Your Result Here</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -22,14 +22,83 @@
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
             <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex items-center pt-8 sm:justify-start sm:pt-0">
-                    <div class="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
-                        HAZKY                    </div>
-
-                    <div class="ml-4 text-lg text-gray-500 uppercase tracking-wider">
-                        Under Construction Results Page           </div>
+                <form action="/stresult" method="post">
+                @csrf
+                
+                <div class="row">
+                  <!-- class -->
+                  <div class="col-sm-4">
+                    <label>Your Index</label>
+                    <input type="number" name = "index" class="form-control"><br>
+                    
+                  </div>
+                  <!-- Year -->
+                  <div class="col-sm-4">
+                    <label>Select a Year</label>
+                    <select class="form-control select2" name="year" data-placeholder="Select an option">
+                          <option value="" selected disabled hidden>(select an option)</option>
+                       
+                          <option value="2019">2019</option>
+                          <option value="2020">2020</option>
+                          <option value="2021">2021</option>
+                       
+                    </select>
+                    
+                  </div>
+                  <!-- Tearm -->
+                  <div class="col-sm-4">
+                    <label>Select a Tearm</label>
+                    <select class="form-control select2" name="term" data-placeholder="Select an option">
+                          <option value="" selected disabled hidden>(select an option)</option>
+                        
+                          <option value="1st Term">1st Term</option>
+                          <option value="2nd Term">2nd Term</option>
+                          <option value="3rd Term">3rd Term</option>
+                        
+                    </select>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary ">Search</button>
+                    </div>
+                  </div>
                 </div>
-            </div>
+             </form> 
+                </div>
+
+                @if($result = session()->get('result'))
+                    <h4>Index: {{session()->get('index')}}</h4>
+                    <h4>Name: {{session()->get('name')}}</h4>
+                    <h4>Class: {{session()->get('class')}}</h4>
+
+                    <table border = "1px">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                        <th>Grade</th>
+                    </tr>
+
+                    @foreach($result as $re)
+                        <tr>
+                            <td>{{$re->subject}}</td>
+                            <td>{{$re->result}}</td>
+                            <td>
+                                @if($re->result >= 75)
+                                <p><b>A</b></p>
+                                @elseif($re->result >= 65)
+                                <p><b>B</b></p>
+                                @elseif($re->result >= 55)
+                                <p><b>C</b></p>
+                                @elseif($re->result >= 35)
+                                <p><b>S</b></p>
+                                @else
+                                <p><b>F</b></p>
+                                @endif
+
+                            </td>
+                        </tr>
+                    @endforeach
+                    </table>
+                @endif
         </div>
-    
+        </div>
 
 </body></html>

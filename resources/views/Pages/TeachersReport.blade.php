@@ -82,7 +82,7 @@
         </script>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
+        <a href="/logout" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -384,37 +384,37 @@
                   <!-- class -->
                   <div class="col-sm-4">
                     <label>Select a Class</label>
-                    <select class="form-control select2" name="search" data-placeholder="Select an option">
+                    <select class="form-control select2" name="class" data-placeholder="Select an option">
                           <option value="" selected disabled hidden>(select an option)</option>
                         @foreach ($cs as $c)
                           <option value="{{$c->classname}}">{{$c->classname}}</option>
                         @endforeach
                     </select>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary ">Search</button>
-                    </div>
+                    
                   </div>
                   <!-- Year -->
                   <div class="col-sm-4">
                     <label>Select a Year</label>
-                    <select class="form-control select2" name="search" data-placeholder="Select an option">
+                    <select class="form-control select2" name="year" data-placeholder="Select an option">
                           <option value="" selected disabled hidden>(select an option)</option>
-                        @foreach ($cs as $c)
-                          <option value="{{$c->classname}}">{{$c->classname}}</option>
-                        @endforeach
+                       
+                          <option value="2019">2019</option>
+                          <option value="2020">2020</option>
+                          <option value="2021">2021</option>
+                       
                     </select>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary ">Search</button>
-                    </div>
+                    
                   </div>
                   <!-- Tearm -->
                   <div class="col-sm-4">
                     <label>Select a Tearm</label>
-                    <select class="form-control select2" name="search" data-placeholder="Select an option">
+                    <select class="form-control select2" name="term" data-placeholder="Select an option">
                           <option value="" selected disabled hidden>(select an option)</option>
-                        @foreach ($cs as $c)
-                          <option value="{{$c->classname}}">{{$c->classname}}</option>
-                        @endforeach
+                        
+                          <option value="1st Term">1st Term</option>
+                          <option value="2nd Term">2nd Term</option>
+                          <option value="3rd Term">3rd Term</option>
+                        
                     </select>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-primary ">Search</button>
@@ -430,7 +430,9 @@
             @if($result = session()->get('result'))
               <h4><b>CLASS: </b>{{session()->get('class')}}
               <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <!-- Space -->
-                TERM: </b>{{session()->get('term')}}</h4>
+                TERM: </b>{{session()->get('term')}}
+                <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  YEAR:  </b>{{session()->get('year')}}</h4>
               <table class="table table-bordered table-striped">
                 <tr>
                   <th>Index</th>

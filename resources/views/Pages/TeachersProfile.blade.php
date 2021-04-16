@@ -86,7 +86,7 @@
         </script>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
+        <a href="/logout" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">

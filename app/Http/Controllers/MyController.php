@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 //==========================================================    USE PART    ===============================
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\clas;
 use App\Models\students;
@@ -20,10 +21,21 @@ class MyController extends Controller
                 return view('HomePage');
             }
         public function Dashboard($id){
+            $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
             $user = DB::table('users')->where('id',$id)->first();
                 return view('Dashboard',compact('user'));
             }
         public function login(){
+            if(session()->get('session') == session()->getId()){
+                return redirect()->route('Dashboard',session()->get('userid'));
+            }
+    
+            session()->regenerate();
             return view('login');
         }
         public function Results(){
@@ -33,7 +45,11 @@ class MyController extends Controller
         {
             $user = DB::table('users')->where('email',$req->email)->first();
             if($user){
-                if($user->password == $req->pw){
+                if(Hash::check($req->pw ,$user->password )){
+                    session()->regenerate();
+                    $sid = session()->getId();
+                    session(['session'=>$sid]);
+                    session(['userid'=>$user->id]);
                     return redirect()->route('Dashboard',['c'=>$user->id]);
                 
                 }else{
@@ -56,23 +72,48 @@ class MyController extends Controller
     //==========================================
 
     public function Contact($id){
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
         $user = DB::table('users')->where('id',$id)->first();
             return view('Pages.contact',compact('user'));
         }
 
     public function ClassForm($id){
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $user = DB::table('users')->where('id',$id)->first();
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
         return view('Pages.Class',compact('class','user'));  //send all class details to class page(class.blad.php)
     }
 
     public function Subjectform($id){
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $user = DB::table('users')->where('id',$id)->first();
         $subject = DB::table('subjects')->get();  //Get All class table contants from subject table(DB)
         return view('Pages.Subject',compact('subject','user'));  //send all class details to subject page(class.blad.php)
     }
 
     public function UsersForm($id){
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $user = DB::table('users')->where('id',$id)->first();
         $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
         $subj = DB::table('subjects')->where('subjectstatus','Active')->orderBy('subjectname','asc')->get();
@@ -80,6 +121,12 @@ class MyController extends Controller
     }
     
     public function StudentForm($id){
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $user = DB::table('users')->where('id',$id)->first();
         $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
@@ -88,6 +135,12 @@ class MyController extends Controller
     }
 
     public function EnterResults($id){
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $user = DB::table('users')->where('id',$id)->first();
 
         $cs = DB::table('teachings')->where('trid',$id)->get();
@@ -96,6 +149,12 @@ class MyController extends Controller
     }
 
     public function TeachersReport($id){
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $user = DB::table('users')->where('id',$id)->first();
 
         $cs = DB::table('teachings')->where('trid',$id)->get();
@@ -103,6 +162,13 @@ class MyController extends Controller
     }
 
     public function TeachersProfile($id){
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $teach = DB::table('teachings')->where('trid',$id)->get();
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
         $user = DB::table('users')->where('id',$id)->first();
@@ -110,6 +176,13 @@ class MyController extends Controller
     }
 
     public function select(Request $req){
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $ts = new teaching;
         $ts->trid = $req->id;
         $ts->classname = $req->cls;
@@ -125,6 +198,12 @@ class MyController extends Controller
 //=============================================     Class Table Database Connections    ====================
 
     public function getclass(){
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $cs = DB::table('clas')->get();
 
         return view('viewclass',compact('cs'));
@@ -132,6 +211,12 @@ class MyController extends Controller
 
     public function addclass(Request $req)
     {
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $req->validate([
             'CName'=>'required|min:4',
             'CType'=>'required',
@@ -167,6 +252,12 @@ class MyController extends Controller
 
     public function editclass(Request $req) {
 
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $req->validate([
             'ECName'=>'required|min:4',
             'ECType'=>'required',
@@ -195,6 +286,11 @@ class MyController extends Controller
 
     public function deleteclass($i)  //passing variable
     {
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
         DB::table('clas')->where('id',$i)->delete();
         
         $notification = array(
@@ -206,6 +302,12 @@ class MyController extends Controller
     }
 
     public function changeclassstatus($id){  //STATUS BUTTON PART ================
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
 
         $status = DB::table('clas')->where('id',$id)->value('class_status');
         if($status ==  "Active"){
@@ -223,6 +325,12 @@ class MyController extends Controller
 
 //=============================================     Users Table Database Connections    ====================
     public function getusers(){
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $us = DB::table('users')->get();
 
         return view('viewusers',compact('us'));
@@ -230,6 +338,11 @@ class MyController extends Controller
 
     public function adduser(Request $req)  //Daa USER ======================
     {
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
 
         $req->validate([
             'UName'=>'required',
@@ -260,7 +373,7 @@ class MyController extends Controller
         $use = new users;
         $use->name = $req->UName;
         $use->email = $req->UEmail;
-        $use->password = $req->UPassword;
+        $use->password = Hash::make($req->UPassword);
         $use->subjectname = $req->USubject;
         $use->role = $req->URole;
         $use->user_status = $req->UStatus;
@@ -276,6 +389,12 @@ class MyController extends Controller
     }
 
     public function edituser(Request $req) { //EDIT USER =======================
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
 
         $req->validate([
             'EUName'=>'required',
@@ -316,6 +435,12 @@ class MyController extends Controller
 
     public function deleteuser($i)  //DELETE USER ==========================
     {
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
         DB::table('users')->where('id',$i)->delete();
         
         $notification = array(
@@ -327,6 +452,12 @@ class MyController extends Controller
     }
 
     public function changeusersstatus($id){  //STATUS BUTTON PART ================
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
 
         $status = DB::table('users')->where('id',$id)->value('user_status');
         if($status ==  "Active"){
@@ -343,12 +474,24 @@ class MyController extends Controller
 //==========================================================================================================
 //=============================================     Student Table Database Connections    ====================
     public function getstudent(){
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
         $st = DB::table('students')->get();
         return view('viewstudent',compact('st'));
     }
 
     public function addstudent(Request $req)  //Daa USER ======================
     {
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
         $req->validate([
             'SIndexNo'=>'required|digits:5',
             'SName'=>'required',
@@ -400,6 +543,12 @@ class MyController extends Controller
 
     public function editstudent(Request $req) { //EDIT USER =======================
 
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
         $req->validate([
             'ESIndexNo'=>'numeric|required|digits:5',
             'ESName'=>'required|min:12',
@@ -440,6 +589,12 @@ class MyController extends Controller
 
     public function deletestudent($i)  //DELETE USER ==========================
     {
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
         DB::table('students')->where('index_no',$i)->delete();
         
         $notification = array(
@@ -451,6 +606,12 @@ class MyController extends Controller
     }
 
     public function changestudentstatus($index_no){  //STATUS BUTTON PART ================
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
 
         $status = DB::table('students')->where('index_no',$index_no)->value('student_status');
         if($status ==  "Active"){
@@ -467,6 +628,12 @@ class MyController extends Controller
 //==========================================================================================================
 //=============================================     Subject Table Database Connections    ====================
     public function getSubject(){
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
         $su = DB::table('subjects')->get();
 
         return view('viewsubject',compact('su'));
@@ -474,6 +641,11 @@ class MyController extends Controller
 
     public function addsubject(Request $req)
     {
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
 
         $req->validate([
             'SName'=>'required|min:3',
@@ -504,6 +676,11 @@ class MyController extends Controller
 
     public function editsubject(Request $req)
     {
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
     
         $req->validate([
             'ESName'=>'required|min:3',
@@ -528,6 +705,11 @@ class MyController extends Controller
 
     public function deletesubject($i)  //passing variable
     {
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
         DB::table('subjects')->where('id',$i)->delete();
         
         $notification = array(
@@ -539,6 +721,12 @@ class MyController extends Controller
     }
 
     public function changesubjectsstatus($id){  //STATUS BUTTON PART ================
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
 
         $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
         if($status ==  "Active"){
@@ -558,18 +746,33 @@ class MyController extends Controller
 //Afrid
 
 public function delclass($id){
+    $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
     DB::table('teachings')->where('id',$id)->delete();
 
     return redirect()->back();
 }
 
 public function search(Request $req){
+    $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
     $user = DB::table('users')->where('id',$req->id)->first();
     $st = DB::table('students')->where('class_name',$req->search)->get();
     
     return redirect()->route('Dashboard/EnterResults',['c'=>$req->id])->with('st',$st)->with('class',$req->search);
 }
 public function addresult(Request $req){
+    $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
    $a = implode($req->list);
    $a = explode(',',$a);
 
@@ -591,8 +794,37 @@ public function addresult(Request $req){
    
 }
 public function searchsubj(Request $req){
-    $result = DB::table('results')->where('trname',$req->name)->where('class',$req->search)->where('subject',$req->subject)->get();
-    return redirect()->back()->with('result',$result)->with('class',$req->search)->with('term',$req->search);
+    $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+    $result = DB::table('results')->where('trname',$req->name)->where('class',$req->class)->where('year',$req->year)->where('subject',$req->subject)->where('term',$req->term)->get();
+    return redirect()->back()->with('result',$result)->with('class',$req->class)->with('term',$req->term)->with('year',$req->year);
+}
+public function stresult(Request $req){
+    $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+    $result = DB::table('results')->where('index',$req->index)->where('year',$req->year)->where('term',$req->term)->get();
+    $name = DB::table('students')->where('index_no',$req->index)->value('student_name');
+    $class = DB::table('students')->where('index_no',$req->index)->value('class_name');
+    if(count($result) == 0){
+        return redirect()->back()->with('msg','Result is not updated');
+    }
+    else{
+        return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index);
+    }
+    
+}
+public function logout(){
+    session()->flush();
+    session()->regenerate();
+
+    return view('HomePage');
+   
 }
 
 
