@@ -392,75 +392,93 @@
             </div>
             <!-- /.card -->
   </div>
-  @if($msg = session()->get('st'))
-  <table border=1px; style = " width:40%; margin-right:5%; float:left">
-    <tr>
-      <th>Index</th>
-      <th>Name</th>
-      <th>Marks</th>
-    </tr>
-    <?php $z = 0; ?>
-    @foreach ($msg as $s)
-      <tr>
-        <td id="index<?php echo $z; ?>">{{$s->index_no}}</td>
-        <td onclick = "box(<?php echo $z; ?>)" id="name<?php echo $z; ?>">{{$s->student_name}}</td>
-        <td style = "width:60%;">
-            <input type="button" id = "button<?php echo $z; ?>" onclick ="box(<?php echo $z; ?>)" value = "click" style="float:left;">
-            <input type="number" style="display:none; width:30%; float:left;" id="mr<?php echo $z; ?>">
-            <input id = "but<?php echo $z; ?>" style="display:none; float:left;" type="button" onclick="add(<?php echo $z; ?>)" value="Add">
-        </td>
-      </tr>
-      <?php $z++; ?>
-    @endforeach
-  </table>
 
   
-  <div  style = "width:40%; margin-left:5%; float:left">
-      <form id = "form" action  = "/addresult" method = "post" onsubmit ="submitting()">
-      @csrf
-      @if($cls = session()->get('class'))
-      <input type = "hidden" name = "class" value="{{$cls}}"/>
-      @endif
-        <input type="hidden" name = "name" value = "{{$user->name}}">
-        <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Select</label>
-              <select class="form-control" name="term" data-placeholder="Select an option">
-                <option value="" selected disabled hidden>(Select Tearm)</option>
-                <option value="1st Term">1st Term</option>
-                <option value="2nd Term">2nd Term</option>
-                <option value="3rd Term">3rd Term</option>
-              </select>
+  
+  <div class="card">
+    <div class="card-body">
+        <form id = "form" action  = "/addresult" method = "post" onsubmit ="submitting()">
+        @csrf
+        @if($cls = session()->get('class'))
+        <input type = "hidden" name = "class" value="{{$cls}}"/>
+        @endif
+          <input type="hidden" name = "name" value = "{{$user->name}}">
+          <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tearm :</label>
+                <select class="form-control" name="term" data-placeholder="Select an option">
+                  <option value="" selected disabled hidden>(Select Tearm)</option>
+                  <option value="1st Term">1st Term</option>
+                  <option value="2nd Term">2nd Term</option>
+                  <option value="3rd Term">3rd Term</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Year :</label>
+                <select class="form-control" name="year" data-placeholder="Select an option">
+                  <option value="" selected disabled hidden>(Select Year)</option>
+                  <option value="2010">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <input type="hidden" name = "list[]" id = "list" >
+
+                <div id="div">
+                  <!--  -->
+                </div>
+                <button id="sub" type = "submit" >Send</button>
+              </div>
+            
+              
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <!-- Marks Entering table Start -->
+                  @if($msg = session()->get('st'))
+                  <table class="table table-bordered table-striped">
+                    <tr>
+                      <th>Index</th>
+                      <th>Name</th>
+                      <th>Marks</th>
+                    </tr>
+                    <?php $z = 0; ?>
+                    @foreach ($msg as $s)
+                      <tr>
+                        <td id="index<?php echo $z; ?>">{{$s->index_no}}</td>
+                        <td onclick = "box(<?php echo $z; ?>)" id="name<?php echo $z; ?>">{{$s->student_name}}</td>
+                        <td style = "width:60%;">
+                            <input type="button" id = "button<?php echo $z; ?>" onclick ="box(<?php echo $z; ?>)" value = "click" style="float:left;">
+                            <input type="number" style="display:none; width:30%; float:left;" id="mr<?php echo $z; ?>">
+                            <input id = "but<?php echo $z; ?>" style="display:none; float:left;" type="button" onclick="add(<?php echo $z; ?>)" value="Add">
+                        </td>
+                      </tr>
+                      <?php $z++; ?>
+                    @endforeach
+                  </table>
+
+                  <!-- Marks Entering table End -->
+              </div>
+            
+              
             </div>
           </div>
 
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label>Select</label>
-              <select class="form-control" name="year" data-placeholder="Select an option">
-                <option value="" selected disabled hidden>(Select Year)</option>
-                <option value="2010">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        </form>
 
-        <br>
-        <input type="hidden" name = "list[]" id = "list" >
-
-        <div id="div">
         
-        </div>
-
-        <button id="sub" type = "submit" style="display:none; overflow-y:fixed;">Send</button>
 
 
-      </form>
-
+    </div>
   </div>
   @endif
   <script type="text/javascript">
@@ -504,7 +522,7 @@
       input1.setAttribute("value",index);
       input1.setAttribute("readonly",true);
    
-      input1.setAttribute("style","margin-right:5px; width:40%; float:left;");
+      // input1.setAttribute("style","margin-right:5px; width:40%; float:left;");
                                    
       var input2 = document.createElement("input");
       input2.setAttribute("type","number");
@@ -513,7 +531,7 @@
       input2.setAttribute("value",marks);
       input2.setAttribute("readonly",true);
  
-      input2.setAttribute("style","margin-right:5px; width:15%;");
+      // input2.setAttribute("style","margin-right:5px; width:15%;");
 
       var br = document.createElement("br");
 
@@ -523,7 +541,7 @@
         var rem = document.createElement("button");
       
         rem.setAttribute("type", "button");
-        rem.setAttribute("style"," float:right; margin-right:25%; ");
+        // rem.setAttribute("style"," float:right; margin-right:25%; ");
         rem.setAttribute("id", "del"+id);
         rem.setAttribute("value", "X");
         rem.innerHTML = "X";
