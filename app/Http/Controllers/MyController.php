@@ -555,19 +555,6 @@ class MyController extends Controller
     }
 //==========================================================================================================
 
-     public function changesubjectsstatus($id){
-        $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
-        if($status ==  "Active"){
-            DB::table('subjects')->where('id',$id)->update([
-                'subjectstatus'=>'Deactive'
-            ]);
-        }else{
-            DB::table('subjects')->where('id',$id)->update([
-                'subjectstatus'=>'Active'
-            ]);
-        }
-        return redirect()->back();
-    }
 //==========================================================================================================
 //Afrid
 
