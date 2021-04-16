@@ -372,7 +372,7 @@
               <!-- Table part start -->
             <div class="card-body">
 
-             <h3>{{$user->subjectname}}</h3><br>
+             <h4><b>SUBJECT: </b>{{$user->subjectname}}</h4><br>
              <form action="/search" method="post">
                 @csrf
                 <input type="hidden" name="id" value = "{{$user->id}}">
@@ -429,22 +429,12 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <input type="hidden" name = "list[]" id = "list" >
-
-                <div id="div">
-                  <!--  -->
-                </div>
-                <button id="sub" type = "submit" >Send</button>
-              </div>
             
-              
-            </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <!-- Marks Entering table Start -->
                   @if($msg = session()->get('st'))
+                  <label>Marks Enter Table :</label>
                   <table class="table table-bordered table-striped">
                     <tr>
                       <th>Index</th>
@@ -468,8 +458,17 @@
 
                   <!-- Marks Entering table End -->
               </div>
-            
-              
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <input type="hidden" name = "list[]" id = "list" >
+
+                <div class="table table-bordered table-striped" id="div">
+                  <!--  -->
+                </div>
+                <button class="btn btn-success " id="sub" type = "submit" >Send</button>
+
+              </div>
             </div>
           </div>
 
@@ -522,7 +521,7 @@
       input1.setAttribute("value",index);
       input1.setAttribute("readonly",true);
    
-      // input1.setAttribute("style","margin-right:5px; width:40%; float:left;");
+      input1.setAttribute("style","margin-right:5px; width:8%; float:left;");
                                    
       var input2 = document.createElement("input");
       input2.setAttribute("type","number");
@@ -531,7 +530,7 @@
       input2.setAttribute("value",marks);
       input2.setAttribute("readonly",true);
  
-      // input2.setAttribute("style","margin-right:5px; width:15%;");
+      input2.setAttribute("style","margin-right:5px; width:5%;");
 
       var br = document.createElement("br");
 
@@ -541,10 +540,10 @@
         var rem = document.createElement("button");
       
         rem.setAttribute("type", "button");
-        // rem.setAttribute("style"," float:right; margin-right:25%; ");
+        rem.setAttribute("style"," float:right; margin-right:81%; ");
         rem.setAttribute("id", "del"+id);
-        rem.setAttribute("value", "X");
-        rem.innerHTML = "X";
+        rem.setAttribute("value", "Clear");
+        rem.innerHTML = "Clear";
         rem.setAttribute("onclick", "remove("+id+")");
         div.appendChild(rem);
         div.appendChild(br);

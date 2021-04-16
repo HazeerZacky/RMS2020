@@ -351,7 +351,7 @@ class MyController extends Controller
     {
         $req->validate([
             'SIndexNo'=>'required|digits:5',
-            'SName'=>'required|min:12',
+            'SName'=>'required',
             'SGender'=>'required',
             'SDOB'=>'required',
             'SStatus'=>'required',
@@ -365,7 +365,6 @@ class MyController extends Controller
             
             //Student name Add
             'SName.required'=>'Student name is must',
-            'SName.min'=>'Student name is minimum 12 leters',
 
              //Student gender Add
             'SGender.required'=>'Please select Student Gender',
@@ -593,7 +592,7 @@ public function addresult(Request $req){
 }
 public function searchsubj(Request $req){
     $result = DB::table('results')->where('trname',$req->name)->where('class',$req->search)->where('subject',$req->subject)->get();
-    return redirect()->back()->with('result',$result)->with('class',$req->search);
+    return redirect()->back()->with('result',$result)->with('class',$req->search)->with('term',$req->search);
 }
 
 

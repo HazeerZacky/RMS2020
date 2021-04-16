@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
   <!-- Preloader CSS -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -371,41 +374,81 @@
               <!-- Table part start -->
             <div class="card-body">
 
-             <h3>{{$user->subjectname}}</h3><br>
+             <h4><b>SUBJECT: </b>{{$user->subjectname}}</h4><br>
              <form action="/searchsubj" method="post">
                 @csrf
                 <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
                 <input type="hidden" name="id" value = "{{$user->id}}">
                 <input type="hidden" name="name" value = "{{$user->name}}">
-               
-                    <select name="search" >
+                <div class="row">
+                  <!-- class -->
+                  <div class="col-sm-4">
+                    <label>Select a Class</label>
+                    <select class="form-control select2" name="search" data-placeholder="Select an option">
+                          <option value="" selected disabled hidden>(select an option)</option>
                         @foreach ($cs as $c)
                           <option value="{{$c->classname}}">{{$c->classname}}</option>
                         @endforeach
                     </select>
-
-                    <input type="submit" value="Search">
-               
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary ">Search</button>
+                    </div>
+                  </div>
+                  <!-- Year -->
+                  <div class="col-sm-4">
+                    <label>Select a Year</label>
+                    <select class="form-control select2" name="search" data-placeholder="Select an option">
+                          <option value="" selected disabled hidden>(select an option)</option>
+                        @foreach ($cs as $c)
+                          <option value="{{$c->classname}}">{{$c->classname}}</option>
+                        @endforeach
+                    </select>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary ">Search</button>
+                    </div>
+                  </div>
+                  <!-- Tearm -->
+                  <div class="col-sm-4">
+                    <label>Select a Tearm</label>
+                    <select class="form-control select2" name="search" data-placeholder="Select an option">
+                          <option value="" selected disabled hidden>(select an option)</option>
+                        @foreach ($cs as $c)
+                          <option value="{{$c->classname}}">{{$c->classname}}</option>
+                        @endforeach
+                    </select>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary ">Search</button>
+                    </div>
+                  </div>
+                </div>
              </form>
-            </div>
-            <!-- /.card -->
-  </div>
-  @if($result = session()->get('result'))
-  <h3>{{session()->get('class')}}</h3>
-  <table border = "1px">
-    <tr>
-      <th>Index</th>
-      <th>Marks</th>
-    </tr>
 
-    @foreach ($result as $re)
-      <tr>
-        <td>{{$re->index}}</td>
-        <td>{{$re->result}}</td>
-      </tr>
-    @endforeach
-  </table>
-  @endif
+            </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            @if($result = session()->get('result'))
+              <h4><b>CLASS: </b>{{session()->get('class')}}
+              <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <!-- Space -->
+                TERM: </b>{{session()->get('term')}}</h4>
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th>Index</th>
+                  <th>Marks</th>
+                </tr>
+
+                @foreach ($result as $re)
+                  <tr>
+                    <td>{{$re->index}}</td>
+                    <td>{{$re->result}}</td>
+                  </tr>
+                @endforeach
+              </table>
+            @endif
+        </div>
+            <!-- /.card -->
+    </div>
+  </div>
 
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
@@ -444,11 +487,86 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- Plugins -->
 <script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
 <!-- Global Init -->
 <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
+
+<!-- scrpt Start -->
+
+<!-- Data Table Start -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+<!-- Data Table End -->
+
+<!-- Alert Part Start -->
+
+  @if(Session::has('message'))
+  <script>
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    </script>
+  @endif
+
+        @if($errors->any())
+          @foreach($errors->all()  as $error)
+          <script>
+            toastr.info("{{$error}}");
+          </script>
+          @endforeach
+        @endif
+
+<!-- Alert Part End -->
+
+<!-- select 2 script start -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'classic'
+    })
+
+  })
+</script>
+<!-- select 2 script end -->
+<!-- scrpt End -->
 </body>
 </html>
