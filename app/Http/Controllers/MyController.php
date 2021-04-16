@@ -42,9 +42,7 @@ public function Contact(){
     public function StudentForm(){
         $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
-<<<<<<< Updated upstream
-        return view('Pages.Student',compact('students','cls'));  //send all student details to student page(student.blad.php)
-=======
+
         return view('Pages.Student',compact('students','cls','user'));  //send all student details to student page(student.blad.php)
     }
 
@@ -73,7 +71,7 @@ public function Contact(){
         $ts->classname = $req->cls;
         $ts->save();
         return redirect()->route('Dashboard/TeachersProfile',['c'=>$req->id]);
->>>>>>> Stashed changes
+
     }
 //=========================================================================================================
 
@@ -407,8 +405,8 @@ public function addsubject(Request $req)
 
 
 
-<<<<<<< Updated upstream
-=======
+
+     public function changesubjectsstatus($id){
         $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
         if($status ==  "Active"){
             DB::table('subjects')->where('id',$id)->update([
@@ -461,6 +459,6 @@ public function searchsubj(Request $req){
     $result = DB::table('results')->where('trname',$req->name)->where('class',$req->search)->where('subject',$req->subject)->get();
     return redirect()->back()->with('result',$result)->with('class',$req->search);
 }
->>>>>>> Stashed changes
+
 
 }
