@@ -456,7 +456,7 @@
                     <input type="hidden" value = "{{$user->id}}" name = "id">
                     <label>Select Class(es)</label>
                     <select class="form-control select2" name="cls" data-placeholder="Select an option">
-                      <option value="" selected disabled hidden>(select an option)</option>
+                    <option value="" selected disabled hidden>(select an option)</option>
                       @foreach($cls as $cs)
                         <option value="{{$cs->class_name}}">{{$cs->class_name}}</option>
                       @endforeach
@@ -546,10 +546,8 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
 <!-- Select2 -->
 <script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
-
 <!-- Plugins -->
 <script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
 <!-- Global Init -->

@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
   <!-- Preloader CSS -->
@@ -373,14 +376,17 @@
              <form action="/search" method="post">
                 @csrf
                 <input type="hidden" name="id" value = "{{$user->id}}">
-               
-                    <select name="search" >
-                        @foreach ($cs as $c)
-                          <option value="{{$c->classname}}">{{$c->classname}}</option>
-                        @endforeach
+                <label>Select a Class</label>
+                    <select class="form-control select2" name="search" data-placeholder="Select an option">
+                        <option value="" selected disabled hidden>(select an option)</option>
+                      @foreach ($cs as $c)
+                        <option value="{{$c->classname}}">{{$c->classname}}</option>
+                      @endforeach
                     </select>
 
-                    <input type="submit" value="Search">
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary ">Select</button>
+                    </div>
                
              </form>
             </div>
@@ -415,19 +421,35 @@
       @if($cls = session()->get('class'))
       <input type = "hidden" name = "class" value="{{$cls}}"/>
       @endif
-      <input type="hidden" name = "name" value = "{{$user->name}}">
+        <input type="hidden" name = "name" value = "{{$user->name}}">
         <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
-        <select name="term" >
-          <option value="1st Term">1st Term</option>
-          <option value="2nd Term">2nd Term</option>
-          <option value="3rd Term">3rd Term</option>
-        </select>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Select</label>
+              <select class="form-control" name="term" data-placeholder="Select an option">
+                <option value="" selected disabled hidden>(Select Tearm)</option>
+                <option value="1st Term">1st Term</option>
+                <option value="2nd Term">2nd Term</option>
+                <option value="3rd Term">3rd Term</option>
+              </select>
+            </div>
+          </div>
 
-        <select name="year" >
-          <option value="2010">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-        </select><br>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Select</label>
+              <select class="form-control" name="year" data-placeholder="Select an option">
+                <option value="" selected disabled hidden>(Select Year)</option>
+                <option value="2010">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <br>
         <input type="hidden" name = "list[]" id = "list" >
 
         <div id="div">
@@ -575,6 +597,8 @@
 <script src="{{asset('template')}}/dist/js/demo.js"></script>
 <!-- Toastr -->
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- Plugins -->
@@ -583,5 +607,79 @@
 <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
+
+
+<!-- scrpt Start -->
+
+<!-- Data Table Start -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+<!-- Data Table End -->
+
+<!-- Alert Part Start -->
+
+  @if(Session::has('message'))
+  <script>
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    </script>
+  @endif
+
+        @if($errors->any())
+          @foreach($errors->all()  as $error)
+          <script>
+            toastr.info("{{$error}}");
+          </script>
+          @endforeach
+        @endif
+
+<!-- Alert Part End -->
+
+<!-- select 2 script start -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'classic'
+    })
+
+  })
+</script>
+<!-- select 2 script end -->
+<!-- scrpt End -->
 </body>
 </html>
