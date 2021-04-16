@@ -9,6 +9,8 @@ use App\Models\students;
 use App\Models\subjects;
 use App\Models\User;
 use App\Models\users;
+use App\Models\teaching;
+use App\Models\result;
 //=========================================================================================================
 class MyController extends Controller
 {
@@ -81,27 +83,41 @@ class MyController extends Controller
         $user = DB::table('users')->where('id',$id)->first();
         $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
+
         return view('Pages.Student',compact('students','cls','user'));  //send all student details to student page(student.blad.php)
     }
 
     public function EnterResults($id){
         $user = DB::table('users')->where('id',$id)->first();
-        return view('Pages.EnterResults',compact('user'));
+
+        $cs = DB::table('teachings')->where('trid',$id)->get();
+        return view('Pages.EnterResults',compact('user','cs'));
+
     }
 
     public function TeachersReport($id){
         $user = DB::table('users')->where('id',$id)->first();
-        return view('Pages.TeachersReport',compact('user'));
+
+        $cs = DB::table('teachings')->where('trid',$id)->get();
+        return view('Pages.TeachersReport',compact('user','cs'));
     }
 
     public function TeachersProfile($id){
+        $teach = DB::table('teachings')->where('trid',$id)->get();
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
         $user = DB::table('users')->where('id',$id)->first();
-        return view('Pages.TeachersProfile',compact('user','cls'));
+        return view('Pages.TeachersProfile',compact('user','cls','teach'));
     }
 
     public function select(Request $req){
-        print $req->cls;
+        $ts = new teaching;
+        $ts->trid = $req->id;
+        $ts->classname = $req->cls;
+        $ts->save();
+        return redirect()->route('Dashboard/TeachersProfile',['c'=>$req->id]);
+
+
+       
     }
 //=========================================================================================================
 
@@ -538,5 +554,60 @@ class MyController extends Controller
         return redirect()->back();
     }
 //==========================================================================================================
+
+     public function changesubjectsstatus($id){
+        $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
+        if($status ==  "Active"){
+            DB::table('subjects')->where('id',$id)->update([
+                'subjectstatus'=>'Deactive'
+            ]);
+        }else{
+            DB::table('subjects')->where('id',$id)->update([
+                'subjectstatus'=>'Active'
+            ]);
+        }
+        return redirect()->back();
+    }
+//==========================================================================================================
+//Afrid
+
+public function delclass($id){
+    DB::table('teachings')->where('id',$id)->delete();
+
+    return redirect()->back();
+}
+
+public function search(Request $req){
+    $user = DB::table('users')->where('id',$req->id)->first();
+    $st = DB::table('students')->where('class_name',$req->search)->get();
+    
+    return redirect()->route('Dashboard/EnterResults',['c'=>$req->id])->with('st',$st)->with('class',$req->search);
+}
+public function addresult(Request $req){
+   $a = implode($req->list);
+   $a = explode(',',$a);
+
+   for($i = 0; $i < count($a); $i++){
+       $re = new result;
+       $re->trname = $req->name;
+       $re->year = $req->year;
+       $re->class = $req->class;
+       $re->term = $req->term;
+       $re->subject = $req->subject;
+       $re->index = $a[$i];
+       $re->result = $a[$i+1];
+       $re->save();
+    $i++;
+    
+       
+   }
+  return redirect()->back();
+   
+}
+public function searchsubj(Request $req){
+    $result = DB::table('results')->where('trname',$req->name)->where('class',$req->search)->where('subject',$req->subject)->get();
+    return redirect()->back()->with('result',$result)->with('class',$req->search);
+}
+
 
 }

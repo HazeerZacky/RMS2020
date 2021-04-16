@@ -130,7 +130,9 @@
             </a>
           </li>
           @if($user->role == "Teacher")
+
           <li class="nav-header">TEACHER</li>
+
           <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
@@ -138,7 +140,9 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
+
             <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link active">
+
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
             </a>
@@ -150,7 +154,9 @@
             </a>
           </li>
           @else
+
           <li class="nav-header">ADMIN</li>
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -247,7 +253,6 @@
           </li>
           @endif
           
-
           <li class="nav-header">OTHER UTILITY(Un.Con..)</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -333,6 +338,7 @@
             </ul>
           </li>
 
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -364,10 +370,43 @@
     <div class="card">
               <!-- Table part start -->
             <div class="card-body">
-              <h1 align="center"><b><i class="fas fa-tools"></i> UNDER CONSTRUCTION <i class="fas fa-tools"></i></b></h1>
+
+             <h3>{{$user->subjectname}}</h3><br>
+             <form action="/searchsubj" method="post">
+                @csrf
+                <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+                <input type="hidden" name="id" value = "{{$user->id}}">
+                <input type="hidden" name="name" value = "{{$user->name}}">
+               
+                    <select name="search" >
+                        @foreach ($cs as $c)
+                          <option value="{{$c->classname}}">{{$c->classname}}</option>
+                        @endforeach
+                    </select>
+
+                    <input type="submit" value="Search">
+               
+             </form>
             </div>
             <!-- /.card -->
   </div>
+  @if($result = session()->get('result'))
+  <h3>{{session()->get('class')}}</h3>
+  <table border = "1px">
+    <tr>
+      <th>Index</th>
+      <th>Marks</th>
+    </tr>
+
+    @foreach ($result as $re)
+      <tr>
+        <td>{{$re->index}}</td>
+        <td>{{$re->result}}</td>
+      </tr>
+    @endforeach
+  </table>
+  @endif
+
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
