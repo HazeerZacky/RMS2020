@@ -15,31 +15,72 @@ use App\Models\result;
 class MyController extends Controller
 {
 //==========================================================    Navigation parts    =======================
-public function HomePage(){
-        return view('Dashboard');
-    }
-    
-public function Contact(){
-        return view('Pages.contact');
-    }
+    // =============HOME PAGE FUNCTIONS================
+        public function HomePage(){
+                return view('HomePage');
+            }
+        public function Dashboard($id){
+            $user = DB::table('users')->where('id',$id)->first();
+                return view('Dashboard',compact('user'));
+            }
+        public function login(){
+            return view('login');
+        }
+        public function Results(){
+                return view('Results');
+            }
+        public function log(Request $req)
+        {
+            $user = DB::table('users')->where('email',$req->email)->first();
+            if($user){
+                if($user->password == $req->pw){
+                    return redirect()->route('Dashboard',['c'=>$user->id]);
+                
+                }else{
+                    $notification = array(
+                        'message' =>'Password wrong', 
+                        'alert-type' => 'warning'
+                    );
+            
+                    return redirect()->back()->with($notification);
+                }
+            }else{
+                $notification = array(
+                    'message' =>'User does not exist', 
+                    'alert-type' => 'warning'
+                );
+        
+                return redirect()->back()->with($notification);
+            }
+        }
+    //==========================================
 
-    public function ClassForm(){
+    public function Contact($id){
+        $user = DB::table('users')->where('id',$id)->first();
+            return view('Pages.contact',compact('user'));
+        }
+
+    public function ClassForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
-        return view('Pages.Class',compact('class'));  //send all class details to class page(class.blad.php)
+        return view('Pages.Class',compact('class','user'));  //send all class details to class page(class.blad.php)
     }
 
-    public function Subjectform(){
+    public function Subjectform($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $subject = DB::table('subjects')->get();  //Get All class table contants from subject table(DB)
-        return view('Pages.Subject',compact('subject'));  //send all class details to subject page(class.blad.php)
+        return view('Pages.Subject',compact('subject','user'));  //send all class details to subject page(class.blad.php)
     }
 
-
-    public function UsersForm(){
+    public function UsersForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
-        return view('Pages.Users',compact('users'));  //send all class details to class page(class.blad.php)
+        $subj = DB::table('subjects')->where('subjectstatus','Active')->orderBy('subjectname','asc')->get();
+        return view('Pages.Users',compact('users','subj','user'));  //send all class details to class page(class.blad.php)
     }
     
-    public function StudentForm(){
+    public function StudentForm($id){
+        $user = DB::table('users')->where('id',$id)->first();
         $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
         $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
 
@@ -48,12 +89,15 @@ public function Contact(){
 
     public function EnterResults($id){
         $user = DB::table('users')->where('id',$id)->first();
+
         $cs = DB::table('teachings')->where('trid',$id)->get();
         return view('Pages.EnterResults',compact('user','cs'));
+
     }
 
     public function TeachersReport($id){
         $user = DB::table('users')->where('id',$id)->first();
+
         $cs = DB::table('teachings')->where('trid',$id)->get();
         return view('Pages.TeachersReport',compact('user','cs'));
     }
@@ -72,6 +116,8 @@ public function Contact(){
         $ts->save();
         return redirect()->route('Dashboard/TeachersProfile',['c'=>$req->id]);
 
+
+       
     }
 //=========================================================================================================
 
@@ -186,16 +232,15 @@ public function Contact(){
     {
 
         $req->validate([
-            'UName'=>'required|min:8',
-            'UEmail'=>'required|min:12',
+            'UName'=>'required',
+            'UEmail'=>'required|min:11',
             'UPassword'=>'required|min:8',
-            'USubject'=>'required',
+            'USubject'=>'required', //Nullable
             'URole'=>'required',
             'UStatus'=>'required',
         ],[
             //User name Add
             'UName.required'=>'User Name is must',
-            'UName.min'=>'User Name Minimum 8 letters must',
             //User Email Add
             'UEmail.required'=>'User E-mail is must',
             'UEmail.min'=>'User E-mail Minimum 12 letters must',
@@ -203,7 +248,7 @@ public function Contact(){
             'UPassword.required'=>'User Password is must',
             'UPassword.min'=>'User Name Password Minimum 8 letters must',
             //User Subject Add
-            'USubject.required'=>'Please select a class',
+            // 'USubject.required'=>'Please select a class', NULLable
             //User Role Add
             'URole.required'=>'Please select a role',
              //User Status Add
@@ -216,7 +261,7 @@ public function Contact(){
         $use->name = $req->UName;
         $use->email = $req->UEmail;
         $use->password = $req->UPassword;
-        $use->subject = $req->USubject;
+        $use->subjectname = $req->USubject;
         $use->role = $req->URole;
         $use->user_status = $req->UStatus;
 
@@ -233,7 +278,7 @@ public function Contact(){
     public function edituser(Request $req) { //EDIT USER =======================
 
         $req->validate([
-            'EUName'=>'required|min:8',
+            'EUName'=>'required',
             'EUEmail'=>'required|min:12',
             'EUPassword'=>'required|min:8',
             'EUSubject'=>'required',
@@ -241,7 +286,6 @@ public function Contact(){
         ],[
             //User name Add
             'EUName.required'=>'User Name is must',
-            'EUName.min'=>'User Name Minimum 8 letters must',
             //User Email Add
             'EUEmail.required'=>'User E-mail is must',
             'EUEmail.min'=>'User E-mail Minimum 12 letters must',
@@ -258,7 +302,7 @@ public function Contact(){
             'name' => $req->EUName,
             'email' => $req->EUEmail,
             'password' => $req->EUPassword,
-            'subject' => $req->EUSubject,
+            'subjectname' => $req->EUSubject,
             'role' => $req->EURole,
         ]);
 
@@ -305,6 +349,33 @@ public function Contact(){
 
     public function addstudent(Request $req)  //Daa USER ======================
     {
+        $req->validate([
+            'SIndexNo'=>'required|digits:5',
+            'SName'=>'required|min:12',
+            'SGender'=>'required',
+            'SDOB'=>'required',
+            'SStatus'=>'required',
+            'SCName'=>'required',
+        ],[
+            //Student  name Add
+            'SIndexNo.required'=>'Index Number is must',
+            'SIndexNo.digits'=>'Index Number size 5',
+            // 'SIndexNo.digits'=>'Enter numeric Index Number',
+            'SIndexNo.unique'=>'Index Number not unique',
+            
+            //Student name Add
+            'SName.required'=>'Student name is must',
+            'SName.min'=>'Student name is minimum 12 leters',
+
+             //Student gender Add
+            'SGender.required'=>'Please select Student Gender',
+             //Student DOB Add
+            'SDOB.required'=>'Please select Student Date of birth',
+             //Student Status Add
+            'SStatus.required'=>'Please select Student Status',
+             //Student Class name Add
+            'SCName.required'=>'Please select Student Class name',
+        ]);
 
         $cnt = count(DB::table('students')->get());
         
@@ -330,7 +401,27 @@ public function Contact(){
 
     public function editstudent(Request $req) { //EDIT USER =======================
 
-       
+        $req->validate([
+            'ESIndexNo'=>'numeric|required|digits:5',
+            'ESName'=>'required|min:12',
+            'ESGender'=>'required',
+            'ESDOB'=>'required',
+            'ESCName'=>'required',
+        ],[
+            //Student  name Add
+            'ESIndexNo.required'=>'Index Number is must',
+            'ESIndexNo.digits:5'=>'Index Number size 5',
+            //Student name Add
+            'ESName.required'=>'Student name is must',
+            'ESName.min'=>'Student name is minimum 12 leters',
+
+             //Student gender Add
+            'ESGender.required'=>'Please select Student Gender',
+             //Student DOB Add
+            'ESDOB.required'=>'Please select Student Date of birth',
+             //Student Class name Add
+            'ESCName.required'=>'Please select Student Class name',
+        ]);
 
         DB::table('students')->where('index_no' , $req->ESIndexNo)->update([
             'student_name' => $req->ESName,
@@ -375,36 +466,94 @@ public function Contact(){
         return redirect()->back();
     }
 //==========================================================================================================
-//===========================class subject==========================================================
-public function getSubject(){
-    $su = DB::table('subjects')->get();
+//=============================================     Subject Table Database Connections    ====================
+    public function getSubject(){
+        $su = DB::table('subjects')->get();
 
-    return view('viewsubject',compact('su'));
-}
+        return view('viewsubject',compact('su'));
+    }
 
-public function addsubject(Request $req)
-{
+    public function addsubject(Request $req)
+    {
 
+        $req->validate([
+            'SName'=>'required|min:3',
+            'SStatus'=>'required',
+        ],[
+            //Student name Add
+            'SName.required'=>'Subject name is must',
+            'SName.min'=>'Subject name is minimum 3 leters',
+             //Student Status Add
+            'SStatus.required'=>'Please select Subject Status',
+        ]);
 
-    $cnt = count(DB::table('subjects')->get());
+        $cnt = count(DB::table('subjects')->get());
+        
+        $sub = new subjects;
+        $sub->subjectname = $req->SName;
+        $sub->subjectstatus = $req->SStatus;
+
+        $sub->save();
+
+        $notification = array(
+            'message' => 'Successfully Saved', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function editsubject(Request $req)
+    {
     
-    $sub = new subjects;
-    $sub->subjectname = $req->SName;
-    $sub->subjectstatus = $req->SStatus;
+        $req->validate([
+            'ESName'=>'required|min:3',
+        ],[
+            //Student name Add
+            'ESName.required'=>'Subject name is must',
+            'ESName.min'=>'Subject name is minimum 3 leters',
+        ]);
     
-
-    $sub->save();
+    DB::table('subjects')->where('id' , $req->ESId)->update([
+        'subjectname' => $req->ESName,
+        
+    ]);
 
     $notification = array(
-        'message' => 'Successfully Saved', 
+        'message' => 'Successfully Updated', 
         'alert-type' => 'success'
     );
 
     return redirect()->back()->with($notification);
-}
+    }
 
+    public function deletesubject($i)  //passing variable
+    {
+        DB::table('subjects')->where('id',$i)->delete();
+        
+        $notification = array(
+            'message' => 'Successfully Deleted', 
+            'alert-type' => 'success'
+        );
 
+        return redirect()->back()->with($notification);
+    }
 
+    public function changesubjectsstatus($id){  //STATUS BUTTON PART ================
+
+        $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
+        if($status ==  "Active"){
+            DB::table('subjects')->where('id',$id)->update([
+                'subjectstatus'=>'Deactive'
+            ]);
+        }else{
+            DB::table('subjects')->where('id',$id)->update([
+                'subjectstatus'=>'Active'
+            ]);
+        }
+        return redirect()->back();
+    }
+//==========================================================================================================
 
      public function changesubjectsstatus($id){
         $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');

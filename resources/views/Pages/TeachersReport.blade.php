@@ -130,7 +130,9 @@
             </a>
           </li>
           @if($user->role == "Teacher")
-          <li class="nav-header">ADMIN</li>
+
+          <li class="nav-header">TEACHER</li>
+
           <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
@@ -138,7 +140,9 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link">
+
+            <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link active">
+
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
             </a>
@@ -150,7 +154,9 @@
             </a>
           </li>
           @else
-          <li class="nav-header">SUPER ADMIN</li>
+
+          <li class="nav-header">ADMIN</li>
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -247,6 +253,92 @@
           </li>
           @endif
           
+          <li class="nav-header">OTHER UTILITY(Un.Con..)</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Gallery
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-envelope"></i>
+              <p>
+                Mailbox
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item" >
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p >Inbox</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Compose</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Read</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Pages
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Test</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Test</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-plus-square"></i>
+              <p>
+                Extras
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Test</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Test</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -278,6 +370,7 @@
     <div class="card">
               <!-- Table part start -->
             <div class="card-body">
+
              <h3>{{$user->subjectname}}</h3><br>
              <form action="/searchsubj" method="post">
                 @csrf
@@ -313,6 +406,7 @@
     @endforeach
   </table>
   @endif
+
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 

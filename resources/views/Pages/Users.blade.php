@@ -22,10 +22,22 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Preloader CSS -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixedy layout-footer-fixed layout-navbar-fixed">
+
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+         <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>  
+<!-- ***** Preloader End ***** -->
 
 <div class="wrapper">
   <!-- Navbar -->
@@ -36,7 +48,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
+        <a href="/Dashboard" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
@@ -87,7 +99,7 @@
 
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-purple elevation-4">
     <!-- Brand Logo -->
     <a href="{{asset('template')}}/index3.html" class="brand-link">
       <img src="{{asset('template')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -104,14 +116,13 @@
           <img src="{{asset('template')}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{$user->name}}</a>
         </div>
       </div>
-    <!-- -------------------------------------------Sidebar Profile Part End --------------------------------- -->
 
-    <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
+      <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
@@ -122,28 +133,30 @@
               </p>
             </a>
           </li>
-          <li class="nav-header">ADMIN</li>
+          @if($user->role == "Teacher")
+          <li class="nav-header">TEACHER</li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>Profile</p>
             </a>
           </li>
-          <li class="nav-header">SUPER ADMIN</li>
+          @else
+          <li class="nav-header">ADMIN</li>
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Forms
@@ -152,31 +165,32 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link">
+                <a href="/Dashboard/ClassPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Users" class="nav-link active">
+                <a href="/Dashboard/UsersPage/{{$user->id}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Dashboard/StudentPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/subjectform.html" class="nav-link">
+                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Form</p>
                 </a>
               </li>
             </ul>
           </li>
+          
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
@@ -235,7 +249,10 @@
               </li>
             </ul>
           </li>
-          <li class="nav-header">EXAMPLES</li>
+          @endif
+          
+
+          <li class="nav-header">OTHER UTILITY(Un.Con..)</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-image"></i>
@@ -253,10 +270,10 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" >
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Inbox</p>
+                  <p >Inbox</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -319,6 +336,7 @@
               </li>
             </ul>
           </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -355,7 +373,12 @@
                         </div>
                         <div class="form-group">
                             <label for="USubject" class="form-label">Subject</label>
-                            <input type="text" class="form-control"name="USubject" placeholder="Enter subject">
+                            <select class="custom-select select2" data-placeholder="Select an option" name="USubject">
+                                <option value="" selected disabled hidden>(select an option)</option>
+                                @foreach($subj as $su)
+                                  <option value="{{$su->subjectname}}"><b>{{$su->subjectname}}</b></option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                         <label for="URole" class="form-label">Role</label>
@@ -416,11 +439,15 @@
                         </div>
                         <div class="form-group">
                             <label for="EUPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="EUPassword" name="EUPassword" placeholder="Enter password">
+                            <input type="password" class="form-control" id="EUPassword" name="EUPassword" placeholder="Enter password" readonly>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputText" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="EUSubject" name="EUSubject" placeholder="Enter subject">
+                            <select class="form-control select2" id="EUSubject" name="EUSubject">
+                                @foreach($subj as $su)
+                                  <option value="{{$su->subjectname}}"><b>{{$su->subjectname}}</b></option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Role</label>
@@ -446,7 +473,7 @@
             var name = document.getElementById('name' +i).value;
             var email = document.getElementById('email' +i).value;
             var pw = document.getElementById('pw' +i).value;
-            var subj = document.getElementById('subj' +i).value;
+            var subjectname = document.getElementById('subjectname' +i).value;
             var type = document.getElementById('type' +i).value;
 
 
@@ -454,7 +481,7 @@
             document.getElementById('EUName').value = name;
             document.getElementById('EUEmail').value = email;
             document.getElementById('EUPassword').value = pw;
-            document.getElementById('EUSubject').value = subj;
+            document.getElementById('EUSubject').value = subjectname;
             document.getElementById('EURole').value = type;
           }
         </script>
@@ -474,7 +501,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
               <li class="breadcrumb-item active">Users</li>
             </ol>
           </div><!-- /.col -->
@@ -516,7 +543,7 @@
                         <td>{{$use->name}}</td>
                         <td>{{$use->email}}</td>
                         <td><b><center><i class='fas fa-eye-slash'></i></center></b></td> <!-- {{$use->password}} -->
-                        <td>{{$use->subject}}</td>
+                        <td>{{$use->subjectname}}</td>
                         <td>{{$use->role}}</td>
                         <td>
                           @if($use->user_status == "Deactive")
@@ -531,7 +558,7 @@
                           <input type="hidden" id="name<?php echo $k; ?>" value="{{$use->name}}">
                           <input type="hidden" id="email<?php echo $k; ?>" value="{{$use->email}}">
                           <input type="hidden" id="pw<?php echo $k; ?>" value="{{$use->password}}">
-                          <input type="hidden" id="subj<?php echo $k; ?>" value="{{$use->subject}}">
+                          <input type="hidden" id="subjectname<?php echo $k; ?>" value="{{$use->subjectname}}">
                           <input type="hidden" id="type<?php echo $k; ?>" value="{{$use->role}}">
                           <input type="hidden" id="status<?php echo $k; ?>" value="{{$use->user_status}}">
                             
@@ -588,7 +615,7 @@
   <!-- /.content-wrapper -->
 
   <!-- footer contant Start -->
-  <footer class="main-footer">
+  <footer class="main-footer text-sm">
     <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
@@ -628,6 +655,11 @@
 <script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Plugins -->
+<script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
+<!-- Global Init -->
+<script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
+
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 <!-- page script Part Start-->

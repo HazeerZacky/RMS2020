@@ -17,12 +17,24 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Preloader CSS -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixedy layout-footer-fixed layout-navbar-fixed">
+
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+         <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>  
+<!-- ***** Preloader End ***** -->
 
 <div class="wrapper">
   <!-- Navbar -->
@@ -33,7 +45,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
+        <a href="/Dashboard" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
@@ -83,7 +95,7 @@
 
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-purple elevation-4">
     <!-- Brand Logo -->
     <a href="{{asset('template')}}/index3.html" class="brand-link">
       <img src="{{asset('template')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -100,14 +112,13 @@
           <img src="{{asset('template')}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{$user->name}}</a>
         </div>
       </div>
-    <!-- -------------------------------------------Sidebar Profile Part End --------------------------------- -->
 
-    <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
+      <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
@@ -118,27 +129,29 @@
               </p>
             </a>
           </li>
-          <li class="nav-header">ADMIN</li>
+          @if($user->role == "Teacher")
+          <li class="nav-header">TEACHER</li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>Profile</p>
             </a>
           </li>
-          <li class="nav-header">SUPER ADMIN</li>
-          <li class="nav-item has-treeview">
+          @else
+          <li class="nav-header">ADMIN</li>
+          <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -148,31 +161,32 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Class" class="nav-link">
+                <a href="/Dashboard/ClassPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/usersform.html" class="nav-link">
+                <a href="/Dashboard/UsersPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Student" class="nav-link">
+                <a href="/Dashboard/StudentPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{asset('template')}}/pages/forms/subjectform.html" class="nav-link">
+                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Subject Form</p>
                 </a>
               </li>
             </ul>
           </li>
+          
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
@@ -231,7 +245,10 @@
               </li>
             </ul>
           </li>
-          <li class="nav-header">EXAMPLES</li>
+          @endif
+          
+
+          <li class="nav-header">OTHER UTILITY(Un.Con..)</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-image"></i>
@@ -249,10 +266,10 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" >
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Inbox</p>
+                  <p >Inbox</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -315,6 +332,7 @@
               </li>
             </ul>
           </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -365,7 +383,50 @@
         </div>
   <!-- Add Model End -->
 
+ <!-- Edit Model Start -->
+ <div class="modal fade" id="editsubject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">&#9776; Subject Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <!-- form start -->
+                    <form role="form" action="/editsubject" method="post">
+                    @csrf
+                        <div class="form-group">
+                            <label for="exampleInputText" class="form-label">Subject ID</label>
+                            <input type="text" class="form-control" id="ESId" name="ESId" placeholder="Enter Subject Id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputText" class="form-label">Subject Name</label>
+                            <input type="text" class="form-control" id="ESName" name="ESName" placeholder="Enter Subject Name">
+                        </div>
+              </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div> 
+                            </div>
+                    </form>
+        </div>
+        </div>
 
+        <!-- Edit Model Get Function Start-->
+        <script>
+          function edit(i) {
+            var id = document.getElementById('id' +i).value;
+            var subjectname = document.getElementById('subjectname' +i).value;
+
+
+            document.getElementById('ESId').value = id;
+            document.getElementById('ESName').value = subjectname;
+          }
+        </script>
+        <!-- Edit Model Get Function End-->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -374,12 +435,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">&#9745; <b>Contact Page</b></h1>
+            <h1 class="m-0 text-dark">&#9745; <b>Subject Page</b></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Contact</li>
+              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
+              <li class="breadcrumb-item active">Subject</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -408,19 +469,67 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type</th>
+                    <th scope="col">Subject ID</th>
+                    <th scope="col">Subject Name</th>
                     <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
                   </thead>
-                  
+                  <tbody>
+                    <?php $k = 0; ?> <!-- identify row number -->
+                      @foreach($subject as $sub)
+                      <tr>
+                        <td>{{$sub->id}}</td>
+                        <td>{{$sub->subjectname}}</td>
+                    
+                        <td>
+                          @if($sub->subjectstatus== "Deactive")
+                          <a type = "button" href = "{{route('changesubjectsstatus',$sub->id)}}"  class ="btn btn-success btn-sm">&nbsp;&nbsp;&nbsp;Active&nbsp;&nbsp;</a>
+                          @else
+                          <a type = "button" href = "{{route('changesubjectsstatus',$sub->id)}}" class ="btn btn-danger btn-sm">Deactive</a>
+                          @endif
+                        
+                        </td>
+                        <td>
+                          <input type="hidden" id="id<?php echo $k; ?>" value="{{$sub->id}}">
+                          <input type="hidden" id="subjectname<?php echo $k; ?>" value="{{$sub->subjectname}}">
+                          <input type="hidden" id="status<?php echo $k; ?>" value="{{$sub->subjectstatus}}">
+                            
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deletesubject">Delete</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#editsubject">Edit</button>
+                        </td>
+                      </tr>
+                      <?php $k++; ?>
+                        <!-- Delete Conformation Model Start -->
+                        <div class="modal fade" id="deletesubject">
+                                <div class="modal-dialog modal-sm">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">&#11088;Delete Confirmation</h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p><b>Are you sure you want to delete?</b></p>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                      <a  href="{{route('deletesubject',$sub->id)}}" class="btn btn-danger">Yes</a> <!-- $sub->id = passing variable-->
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                              </div>
+                              <!-- /.modal -->
+                          <!-- Delete Conformation Model End-->
+                      @endforeach
+                  </tbody>
                   <tfoot>
                   <tr>
-                    <th scope="col">Class ID</th>
-                    <th scope="col">Class Name</th>
-                    <th scope="col">Class Type</th>
+                    <th scope="col">Subject ID</th>
+                    <th scope="col">Subject Name</th>
                     <th scope="col">Status</th>
                     <th style="width:  12%">Action</th>
                   </tr>
@@ -440,7 +549,7 @@
 
 
   <!-- footer contant Start -->
-  <footer class="main-footer">
+  <footer class="main-footer text-sm">
     <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
@@ -478,6 +587,10 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Plugins -->
+<script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
+<!-- Global Init -->
+<script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 <!-- page script Part Start-->
