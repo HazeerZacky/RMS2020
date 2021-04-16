@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>AdminLTE 3 | DataTables</title>
@@ -18,9 +21,11 @@
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
   <!-- Preloader CSS -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
+
   <!-- Select2 -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -132,7 +137,9 @@
             </a>
           </li>
           @if($user->role == "Teacher")
+
           <li class="nav-header">TEACHER</li>
+
           <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
@@ -146,13 +153,17 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
+
             <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link active">
+
               <i class="nav-icon fas fa-user-circle"></i>
               <p>Profile</p>
             </a>
           </li>
           @else
+
           <li class="nav-header">ADMIN</li>
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -250,6 +261,7 @@
           @endif
           
 
+
           <li class="nav-header">OTHER UTILITY(Un.Con..)</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -335,12 +347,14 @@
             </ul>
           </li>
 
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- -------------------------------------------Sidebar Navigation Part End --------------------------------- -->
   </aside>
+
 
     <!-- Model Start   -->
       <!-- Add Model Start -->
@@ -456,6 +470,7 @@
 
     <!-- Model End   -->
 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -480,6 +495,7 @@
     <div class="card">
               <!-- Table part start -->
             <div class="card-body">
+
                 <img src="{{asset('user.png')}}" width = "120px" height="120px" style = "float:left">
                 <p>
                   <ul style = "float:left">
@@ -491,6 +507,38 @@
             </div> 
             <!-- /.card -->
     </div>
+    
+     <table>
+  <tr>
+    <th>Class Name</th>
+    <th>Action</th>
+  </tr>
+  @foreach ($teach as $tc)
+  <tr>
+    <td>{{$tc->classname}}</td>
+    <td>
+      <a href="{{route('delcls',$tc->id)}}">Delete</a>
+    
+    
+    </td>
+  </tr>
+     
+    @endforeach
+  </table>
+
+  <form action="/select" method="post">
+  @csrf
+      <input type="hidden" value = "{{$user->id}}" name = "id">
+      <label for="">Select Class(es)</label>
+      <select class= "form-control" name="cls" id="">
+        @foreach($cls as $cs)
+          <option value="{{$cs->class_name}}">{{$cs->class_name}}</option>
+        @endforeach
+      </select>
+
+      <input type="submit" value="Select">
+
+  </form>
 
         <!-- Class Page Full Front View Part Start -->
         <div class="card">
@@ -535,6 +583,7 @@
   <!-- Class Page Full Front View Part End -->
 
   
+
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
@@ -564,11 +613,13 @@
 <script src="{{asset('template')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('template')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- DataTables -->
 <script src="{{asset('template')}}/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="{{asset('template')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="{{asset('template')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="{{asset('template')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
 <!-- AdminLTE App -->
 <script src="{{asset('template')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -577,13 +628,16 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
 <!-- Select2 -->
 <script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
+
 <!-- Plugins -->
 <script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
 <!-- Global Init -->
 <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
+
 
 
 <!-- scrpt Start -->
@@ -658,5 +712,6 @@
 </script>
 <!-- select 2 script end -->
 <!-- scrpt End -->
+
 </body>
 </html>

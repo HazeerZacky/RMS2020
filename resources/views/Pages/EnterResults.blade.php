@@ -130,9 +130,11 @@
             </a>
           </li>
           @if($user->role == "Teacher")
+
           <li class="nav-header">TEACHER</li>
           <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link active">
+
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
             </a>
@@ -150,7 +152,9 @@
             </a>
           </li>
           @else
+
           <li class="nav-header">ADMIN</li>
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -248,6 +252,7 @@
           @endif
           
 
+
           <li class="nav-header">OTHER UTILITY(Un.Con..)</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -332,7 +337,6 @@
               </li>
             </ul>
           </li>
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -364,10 +368,178 @@
     <div class="card">
               <!-- Table part start -->
             <div class="card-body">
-              <h1 align="center"><b><i class="fas fa-tools"></i> UNDER CONSTRUCTION <i class="fas fa-tools"></i></b></h1>
+
+             <h3>{{$user->subjectname}}</h3><br>
+             <form action="/search" method="post">
+                @csrf
+                <input type="hidden" name="id" value = "{{$user->id}}">
+               
+                    <select name="search" >
+                        @foreach ($cs as $c)
+                          <option value="{{$c->classname}}">{{$c->classname}}</option>
+                        @endforeach
+                    </select>
+
+                    <input type="submit" value="Search">
+               
+             </form>
             </div>
             <!-- /.card -->
   </div>
+  @if($msg = session()->get('st'))
+  <table border=1px; style = " width:40%; margin-right:5%; float:left">
+    <tr>
+      <th>Index</th>
+      <th>Name</th>
+      <th>Marks</th>
+    </tr>
+    <?php $z = 0; ?>
+    @foreach ($msg as $s)
+      <tr>
+        <td id="index<?php echo $z; ?>">{{$s->index_no}}</td>
+        <td onclick = "box(<?php echo $z; ?>)" id="name<?php echo $z; ?>">{{$s->student_name}}</td>
+        <td style = "width:60%;">
+            <input type="button" id = "button<?php echo $z; ?>" onclick ="box(<?php echo $z; ?>)" value = "click" style="float:left;">
+            <input type="number" style="display:none; width:30%; float:left;" id="mr<?php echo $z; ?>">
+            <input id = "but<?php echo $z; ?>" style="display:none; float:left;" type="button" onclick="add(<?php echo $z; ?>)" value="Add">
+        </td>
+      </tr>
+      <?php $z++; ?>
+    @endforeach
+  </table>
+
+  
+  <div  style = "width:40%; margin-left:5%; float:left">
+      <form id = "form" action  = "/addresult" method = "post" onsubmit ="submitting()">
+      @csrf
+      @if($cls = session()->get('class'))
+      <input type = "hidden" name = "class" value="{{$cls}}"/>
+      @endif
+      <input type="hidden" name = "name" value = "{{$user->name}}">
+        <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+        <select name="term" >
+          <option value="1st Term">1st Term</option>
+          <option value="2nd Term">2nd Term</option>
+          <option value="3rd Term">3rd Term</option>
+        </select>
+
+        <select name="year" >
+          <option value="2010">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+        </select><br>
+        <input type="hidden" name = "list[]" id = "list" >
+
+        <div id="div">
+        
+        </div>
+
+        <button id="sub" type = "submit" style="display:none; overflow-y:fixed;">Send</button>
+
+
+      </form>
+
+  </div>
+  @endif
+  <script type="text/javascript">
+  function box(id){
+    
+    var q = document.getElementById('mr'+id).style.display;
+    var p = document.getElementById('but'+id).style.display;
+    console.log(q);
+    if(q == "none"){
+        document.getElementById('mr'+id).style.display = "block";
+        document.getElementById('but'+id).style.display = "block";
+        document.getElementById('button'+id).value = "Close";
+    }else{
+       document.getElementById('mr'+id).style.display = "none";
+        document.getElementById('but'+id).style.display = "none";
+         document.getElementById('button'+id).value = "Click";
+    }
+  }
+  var div = document.getElementById('div');
+   window.setInterval( function(){
+       var c = div.getElementsByTagName("input").length;
+        var z = document.getElementById("sub");
+    if (c > 0){
+        z.style.display = "block";
+    }else{
+         z.style.display = "none";
+     }
+   },10)
+
+  function add(id) {
+    var index = document.getElementById('index'+id).innerHTML;
+    var marks = document.getElementById('mr'+id).value;
+    
+    var form = document.getElementById('form');
+
+    if(marks <= 100 && marks > 0 ){
+      var input1 = document.createElement("input");
+      input1.setAttribute("type","text");
+      input1.setAttribute("name","ind"+id);
+      input1.setAttribute("id","ind"+id);
+      input1.setAttribute("value",index);
+      input1.setAttribute("readonly",true);
+   
+      input1.setAttribute("style","margin-right:5px; width:40%; float:left;");
+                                   
+      var input2 = document.createElement("input");
+      input2.setAttribute("type","number");
+      input2.setAttribute("name","mk"+id);
+      input2.setAttribute("id","mk"+id);
+      input2.setAttribute("value",marks);
+      input2.setAttribute("readonly",true);
+ 
+      input2.setAttribute("style","margin-right:5px; width:15%;");
+
+      var br = document.createElement("br");
+
+       div.appendChild(input1);
+       div.appendChild(input2);
+
+        var rem = document.createElement("button");
+      
+        rem.setAttribute("type", "button");
+        rem.setAttribute("style"," float:right; margin-right:25%; ");
+        rem.setAttribute("id", "del"+id);
+        rem.setAttribute("value", "X");
+        rem.innerHTML = "X";
+        rem.setAttribute("onclick", "remove("+id+")");
+        div.appendChild(rem);
+        div.appendChild(br);
+        form.appendChild(div);
+
+         form.appendChild(document.getElementById("sub"));
+
+        document.getElementById('mr'+id).style.display = "none";
+        document.getElementById('but'+id).style.display = "none";
+         document.getElementById('button'+id).value = "Click";
+    }
+  }
+
+     function remove(id){
+        var a = document.getElementById("ind"+id);
+        var b = document.getElementById("mk"+id);
+        var c = document.getElementById("del"+id);
+
+        a.remove();
+        b.remove();
+        c.remove();
+    }
+
+    function submitting(){
+      var x = div.getElementsByTagName("input").length;
+      var arr = Array();
+      for(var i = 0 ; i < x ; i++){
+          console.log(div.getElementsByTagName("input")[i].value);
+          arr[i] = div.getElementsByTagName("input")[i].value;
+      }
+    document.getElementById('list').value = arr;
+    }
+
+  </script>
+
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
