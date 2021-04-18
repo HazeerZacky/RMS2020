@@ -804,11 +804,11 @@ public function searchsubj(Request $req){
     return redirect()->back()->with('result',$result)->with('class',$req->class)->with('term',$req->term)->with('year',$req->year);
 }
 public function stresult(Request $req){
-    $a = session()->getId();
+    // $a = session()->getId();
             
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
+    //         if(session()->get('session') != $a ){
+    //             return redirect('/login')->with('msg','Login First');
+    //         }
     $result = DB::table('results')->where('index',$req->index)->where('year',$req->year)->where('term',$req->term)->get();
     $name = DB::table('students')->where('index_no',$req->index)->value('student_name');
     $class = DB::table('students')->where('index_no',$req->index)->value('class_name');
