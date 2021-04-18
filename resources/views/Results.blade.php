@@ -30,14 +30,8 @@
  
     }
     .footer {
-      position: fixed;
-      left: 0;
-      bottom: -15px;
-      width: 100%;
-      color: black;
       text-align: center;
-      border: 1px solid black;
-      background-color: blue;
+      color: #3d3d3d;
     }
     .bgc {
       background-color: #E6E6FA
@@ -103,9 +97,9 @@
           </div>
         </form> 
             @if($result = session()->get('result'))
-                <h4>Index: {{session()->get('index')}}</h4>
-                <h4>Name: {{session()->get('name')}}</h4>
-                <h4>Class: {{session()->get('class')}}</h4>
+                <h5 align="gestify"><b>Index No: </b> {{session()->get('index')}}</h5>
+                <h5 align="gestify"><b>Name: </b>{{session()->get('name')}}</h5>
+                <h5 align="gestify"><b>Class: </b> {{session()->get('class')}}</h5>
 
                 <table  class="table table-bordered table-striped modal-content modal-dialog card-body">
                 <tr>
@@ -149,13 +143,7 @@
       </div>
   </div>
 
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-      <div class="card"> 
+      <div class="modal-content modal-dialog modal-lg card-body"> 
         <div class=""> 
         <!-- footer contant Start -->
         <footer class="footer">
@@ -165,9 +153,7 @@
             All rights reserved.
             </div>
             <div class="float-right d-none d-sm-inline-block">
-              (<a href="#">HAZKY EDITS</a>)
-            </div>
-            <div class="float-right d-none d-sm-inline-block">
+              <a href="#">HAZKY EDITS</a> &nbsp; | &nbsp;
               <b>Version</b> 0.2.2
             </div>
           </div>
