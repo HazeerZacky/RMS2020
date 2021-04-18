@@ -132,6 +132,12 @@
           </li>
           <li class="nav-header">ADMIN</li>
           <li class="nav-item has-treeview">
+            <a href="/Dashboard/TeachersProfile" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
@@ -141,12 +147,6 @@
             <a href="/Dashboard/TeachersReport" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersProfile" class="nav-link">
-              <i class="nav-icon fas fa-user-circle"></i>
-              <p>Profile</p>
             </a>
           </li>
           <li class="nav-header">SUPER ADMIN</li>
@@ -159,6 +159,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/Dashboard/SubjectPage" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Subject Form</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="/Dashboard/ClassPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -175,12 +181,6 @@
                 <a href="/Dashboard/StudentPage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/Dashboard/SubjectPage" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Subject Form</p>
                 </a>
               </li>
             </ul>
@@ -393,15 +393,18 @@
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
-  <!-- footer contant Start -->
+  <!-- Footer Start -->
   <footer class="main-footer text-sm">
-    <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.1.2
-    </div>
-  </footer>
-  <!-- footer contant End -->
+      <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
+      All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 0.2.2
+      </div>
+      <div class="float-right d-none d-sm-inline-block">
+            <a href="#"><b>HAZKY EDITS &nbsp;<b></a> | &nbsp;
+      </div>
+    </footer>
+  <!-- Footer End -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark"> 

@@ -135,7 +135,12 @@
           @if($user->role == "Teacher")
 
           <li class="nav-header">TEACHER</li>
-
+          <li class="nav-item has-treeview">
+            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>Profile</p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
@@ -143,17 +148,9 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-
             <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link active">
-
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
-              <i class="nav-icon fas fa-user-circle"></i>
-              <p>Profile</p>
             </a>
           </li>
           @else
@@ -170,6 +167,12 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Subject Form</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/Dashboard/ClassPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
@@ -185,12 +188,6 @@
                 <a href="/Dashboard/StudentPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Subject Form</p>
                 </a>
               </li>
             </ul>
@@ -455,16 +452,19 @@
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
-  <!-- footer contant Start -->
+  <!-- Footer Start -->
   <footer class="main-footer text-sm">
-    <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.1.2
-    </div>
-  </footer>
-  <!-- footer contant End -->
-
+      <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
+      All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 0.2.2
+      </div>
+      <div class="float-right d-none d-sm-inline-block">
+            <a href="#"><b>HAZKY EDITS &nbsp;<b></a> | &nbsp;
+      </div>
+    </footer>
+  <!-- Footer End -->
+  
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark"> 
     <!-- color, type change  -->
