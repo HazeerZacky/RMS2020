@@ -80,6 +80,7 @@ class MyController extends Controller
             }
         $user = DB::table('users')->where('id',$id)->first();
             return view('Pages.contact',compact('user'));
+            
         }
 
     public function ClassForm($id){

@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
   <!-- Preloader CSS -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
+  <!-- Toastr (Message) -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 <!-- CSS END -->
@@ -94,7 +96,7 @@
         </div>
         <br>
         <div class="float-left d-none d-sm-inline-block">
-          <b>Version</b> 0.1.2
+          <b>Version</b> 0.2.2
         </div>
       </footer>
       <!-- footer contant End -->
@@ -118,6 +120,80 @@
   <script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
   <!-- Global Init -->
   <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
+  <!-- Toastr (Message Box) -->
+  <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- Script End -->
+
+<!-- page script Part Start-->
+<!-- Data Table Start -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+<!-- Data Table End -->
+
+<!-- Alert Part Start -->
+
+  @if(Session::has('message'))
+  <script>
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    </script>
+  @endif
+
+        @if($errors->any())
+          @foreach($errors->all()  as $error)
+          <script>
+            toastr.info("{{$error}}");
+          </script>
+          @endforeach
+        @endif
+
+<!-- Alert Part End -->
+<!-- select 2 script start -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'classic'
+    })
+
+  })
+</script>
+<!-- select 2 script end -->
+<!-- page script Part End-->
+
 </body>
 </html>

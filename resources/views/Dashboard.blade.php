@@ -102,7 +102,8 @@
       <span class="brand-text font-weight-light"><b>Resulect</b></span>
     </a>
 
-    <!-- Sidebar -->
+    <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
+    <!-- -------------------------------------------Sidebar Profile Part Start --------------------------------- -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -335,8 +336,8 @@
       </nav>
       <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
-  </aside>
+    <!-- -------------------------------------------Sidebar Navigation Part End --------------------------------- -->
+    </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
