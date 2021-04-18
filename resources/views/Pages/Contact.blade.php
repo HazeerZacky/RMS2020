@@ -45,10 +45,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/Dashboard" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
+        <a href="/Dashboard/{{$user->id}}" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
+        <a href="/Contact/{{$user->id}}" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
       </li>
     </ul>
 
@@ -79,7 +79,7 @@
         </script>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
+        <a href="/logout" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -103,8 +103,7 @@
       <span class="brand-text font-weight-light"><b>Resulect</b></span>
     </a>
 
-    <!-- Sidebar -->
-    <!-- -------------------------------------------Sidebar Profile Part Start --------------------------------- -->
+    <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -112,12 +111,11 @@
           <img src="{{asset('template')}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{$user->name}}</a>
         </div>
       </div>
-    <!-- -------------------------------------------Sidebar Profile Part End --------------------------------- -->
 
-    <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
+      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -130,26 +128,28 @@
               </p>
             </a>
           </li>
-          <li class="nav-header">ADMIN</li>
+          @if($user->role == "Teacher")
+          <li class="nav-header">TEACHER</li>
           <li class="nav-item has-treeview">
-            <a href="/Dashboard/EnterResults" class="nav-link">
+            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
               <p>Enter Results</p>
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersReport" class="nav-link">
+            <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersProfile" class="nav-link">
-              <i class="nav-icon fas fa-user-circle"></i>
-              <p>Profile</p>
-            </a>
-          </li>
-          <li class="nav-header">SUPER ADMIN</li>
+          @else
+          <li class="nav-header">ADMIN</li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -160,31 +160,32 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/Dashboard/ClassPage" class="nav-link">
+                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Subject Form</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/Dashboard/ClassPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Dashboard/UsersPage" class="nav-link">
+                <a href="/Dashboard/UsersPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users Form</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/Dashboard/StudentPage" class="nav-link">
+                <a href="/Dashboard/StudentPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/Dashboard/SubjectPage" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Subject Form</p>
-                </a>
-              </li>
             </ul>
           </li>
+          
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
@@ -243,7 +244,10 @@
               </li>
             </ul>
           </li>
-          <li class="nav-header">EXAMPLES</li>
+          @endif
+          
+
+          <li class="nav-header">OTHER UTILITY(Un.Con..)</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-image"></i>
@@ -261,10 +265,10 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" >
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Inbox</p>
+                  <p >Inbox</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -327,12 +331,13 @@
               </li>
             </ul>
           </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- -------------------------------------------Sidebar Navigation Part End --------------------------------- -->
-  </aside>
+    </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -345,7 +350,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/Dashboard/{{$user->id}}">Home</a></li>
               <li class="breadcrumb-item active">Contact</li>
             </ol>
           </div><!-- /.col -->
@@ -393,15 +398,18 @@
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
-  <!-- footer contant Start -->
+  <!-- Footer Start -->
   <footer class="main-footer text-sm">
-    <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.1.2
-    </div>
-  </footer>
-  <!-- footer contant End -->
+      <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
+      All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 0.2.2
+      </div>
+      <div class="float-right d-none d-sm-inline-block">
+            <a href="#"><b>HAZKY EDITS &nbsp;<b></a> | &nbsp;
+      </div>
+    </footer>
+  <!-- Footer End -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark"> 

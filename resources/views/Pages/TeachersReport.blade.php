@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
   <!-- Preloader CSS -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/preloader/preloader.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
@@ -48,7 +51,7 @@
         <a href="/Dashboard/{{$user->id}}" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
+        <a href="/Contact/{{$user->id}}" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
       </li>
     </ul>
 
@@ -79,7 +82,7 @@
         </script>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
+        <a href="/logout" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -103,7 +106,7 @@
       <span class="brand-text font-weight-light"><b>Resulect</b></span>
     </a>
 
-    <!-- Sidebar -->
+    <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
     <!-- -------------------------------------------Sidebar Profile Part Start --------------------------------- -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -132,7 +135,12 @@
           @if($user->role == "Teacher")
 
           <li class="nav-header">TEACHER</li>
-
+          <li class="nav-item has-treeview">
+            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>Profile</p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
@@ -140,17 +148,9 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-
             <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link active">
-
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
-              <i class="nav-icon fas fa-user-circle"></i>
-              <p>Profile</p>
             </a>
           </li>
           @else
@@ -167,6 +167,12 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Subject Form</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/Dashboard/ClassPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
@@ -182,12 +188,6 @@
                 <a href="/Dashboard/StudentPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Subject Form</p>
                 </a>
               </li>
             </ul>
@@ -357,7 +357,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/Dashboard/{{$user->id}}">Home</a></li>
               <li class="breadcrumb-item active">Teacher Report</li>
             </ol>
           </div><!-- /.col -->
@@ -371,55 +371,100 @@
               <!-- Table part start -->
             <div class="card-body">
 
-             <h3>{{$user->subjectname}}</h3><br>
+             <h4><b>SUBJECT: </b>{{$user->subjectname}}</h4><br>
              <form action="/searchsubj" method="post">
                 @csrf
                 <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
                 <input type="hidden" name="id" value = "{{$user->id}}">
                 <input type="hidden" name="name" value = "{{$user->name}}">
-               
-                    <select name="search" >
+                <div class="row">
+                  <!-- class -->
+                  <div class="col-sm-4">
+                    <label>Select a Class</label>
+                    <select class="form-control select2" name="class" data-placeholder="Select an option">
+                          <option value="" selected disabled hidden>(select an option)</option>
                         @foreach ($cs as $c)
                           <option value="{{$c->classname}}">{{$c->classname}}</option>
                         @endforeach
                     </select>
-
-                    <input type="submit" value="Search">
-               
+                    
+                  </div>
+                  <!-- Year -->
+                  <div class="col-sm-4">
+                    <label>Select a Year</label>
+                    <select class="form-control select2" name="year" data-placeholder="Select an option">
+                          <option value="" selected disabled hidden>(select an option)</option>
+                       
+                          <option value="2019">2019</option>
+                          <option value="2020">2020</option>
+                          <option value="2021">2021</option>
+                       
+                    </select>
+                    
+                  </div>
+                  <!-- Tearm -->
+                  <div class="col-sm-4">
+                    <label>Select a Tearm</label>
+                    <select class="form-control select2" name="term" data-placeholder="Select an option">
+                          <option value="" selected disabled hidden>(select an option)</option>
+                        
+                          <option value="1st Term">1st Term</option>
+                          <option value="2nd Term">2nd Term</option>
+                          <option value="3rd Term">3rd Term</option>
+                        
+                    </select>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary ">Search</button>
+                    </div>
+                  </div>
+                </div>
              </form>
-            </div>
-            <!-- /.card -->
-  </div>
-  @if($result = session()->get('result'))
-  <h3>{{session()->get('class')}}</h3>
-  <table border = "1px">
-    <tr>
-      <th>Index</th>
-      <th>Marks</th>
-    </tr>
 
-    @foreach ($result as $re)
-      <tr>
-        <td>{{$re->index}}</td>
-        <td>{{$re->result}}</td>
-      </tr>
-    @endforeach
-  </table>
-  @endif
+            </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            @if($result = session()->get('result'))
+              <h4><b>CLASS: </b>{{session()->get('class')}}
+              <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <!-- Space -->
+                TERM: </b>{{session()->get('term')}}
+                <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  YEAR:  </b>{{session()->get('year')}}</h4>
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th>Index</th>
+                  <th>Marks</th>
+                </tr>
+
+                @foreach ($result as $re)
+                  <tr>
+                    <td>{{$re->index}}</td>
+                    <td>{{$re->result}}</td>
+                  </tr>
+                @endforeach
+              </table>
+            @endif
+        </div>
+            <!-- /.card -->
+    </div>
+  </div>
 
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
-  <!-- footer contant Start -->
+  <!-- Footer Start -->
   <footer class="main-footer text-sm">
-    <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.1.2
-    </div>
-  </footer>
-  <!-- footer contant End -->
-
+      <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
+      All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 0.2.2
+      </div>
+      <div class="float-right d-none d-sm-inline-block">
+            <a href="#"><b>HAZKY EDITS &nbsp;<b></a> | &nbsp;
+      </div>
+    </footer>
+  <!-- Footer End -->
+  
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark"> 
     <!-- color, type change  -->
@@ -444,11 +489,86 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- Plugins -->
 <script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
 <!-- Global Init -->
 <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
+
+<!-- scrpt Start -->
+
+<!-- Data Table Start -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+<!-- Data Table End -->
+
+<!-- Alert Part Start -->
+
+  @if(Session::has('message'))
+  <script>
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    </script>
+  @endif
+
+        @if($errors->any())
+          @foreach($errors->all()  as $error)
+          <script>
+            toastr.info("{{$error}}");
+          </script>
+          @endforeach
+        @endif
+
+<!-- Alert Part End -->
+
+<!-- select 2 script start -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'classic'
+    })
+
+  })
+</script>
+<!-- select 2 script end -->
+<!-- scrpt End -->
 </body>
 </html>

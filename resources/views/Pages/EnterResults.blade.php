@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="{{asset('template')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
   <!-- Preloader CSS -->
@@ -48,7 +51,7 @@
         <a href="/Dashboard/{{$user->id}}" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
+        <a href="/Contact/{{$user->id}}" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
       </li>
     </ul>
 
@@ -79,7 +82,7 @@
         </script>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
+        <a href="/logout" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -103,7 +106,7 @@
       <span class="brand-text font-weight-light"><b>Resulect</b></span>
     </a>
 
-    <!-- Sidebar -->
+    <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
     <!-- -------------------------------------------Sidebar Profile Part Start --------------------------------- -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -133,6 +136,12 @@
 
           <li class="nav-header">TEACHER</li>
           <li class="nav-item has-treeview">
+            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link active">
 
               <i class="nav-icon fas fa-feather-alt"></i>
@@ -143,12 +152,6 @@
             <a href="/Dashboard/TeachersReport/{{$user->id}}" class="nav-link">
               <i class="nav-icon fab fa-accusoft"></i>
               <p>Report View</p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link">
-              <i class="nav-icon fas fa-user-circle"></i>
-              <p>Profile</p>
             </a>
           </li>
           @else
@@ -165,6 +168,12 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Subject Form</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="/Dashboard/ClassPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Class Form</p>
@@ -180,12 +189,6 @@
                 <a href="/Dashboard/StudentPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Subject Form</p>
                 </a>
               </li>
             </ul>
@@ -355,7 +358,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/Dashboard/{{$user->id}}">Home</a></li>
               <li class="breadcrumb-item active">Enter Results</li>
             </ol>
           </div><!-- /.col -->
@@ -369,76 +372,112 @@
               <!-- Table part start -->
             <div class="card-body">
 
-             <h3>{{$user->subjectname}}</h3><br>
+             <h4><b>SUBJECT: </b>{{$user->subjectname}}</h4><br>
              <form action="/search" method="post">
                 @csrf
                 <input type="hidden" name="id" value = "{{$user->id}}">
-               
-                    <select name="search" >
-                        @foreach ($cs as $c)
-                          <option value="{{$c->classname}}">{{$c->classname}}</option>
-                        @endforeach
+                <label>Select a Class</label>
+                    <select class="form-control select2" name="search" data-placeholder="Select an option">
+                        <option value="" selected disabled hidden>(select an option)</option>
+                      @foreach ($cs as $c)
+                        <option value="{{$c->classname}}">{{$c->classname}}</option>
+                      @endforeach
                     </select>
 
-                    <input type="submit" value="Search">
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary ">Select</button>
+                    </div>
                
              </form>
             </div>
             <!-- /.card -->
   </div>
-  @if($msg = session()->get('st'))
-  <table border=1px; style = " width:40%; margin-right:5%; float:left">
-    <tr>
-      <th>Index</th>
-      <th>Name</th>
-      <th>Marks</th>
-    </tr>
-    <?php $z = 0; ?>
-    @foreach ($msg as $s)
-      <tr>
-        <td id="index<?php echo $z; ?>">{{$s->index_no}}</td>
-        <td onclick = "box(<?php echo $z; ?>)" id="name<?php echo $z; ?>">{{$s->student_name}}</td>
-        <td style = "width:60%;">
-            <input type="button" id = "button<?php echo $z; ?>" onclick ="box(<?php echo $z; ?>)" value = "click" style="float:left;">
-            <input type="number" style="display:none; width:30%; float:left;" id="mr<?php echo $z; ?>">
-            <input id = "but<?php echo $z; ?>" style="display:none; float:left;" type="button" onclick="add(<?php echo $z; ?>)" value="Add">
-        </td>
-      </tr>
-      <?php $z++; ?>
-    @endforeach
-  </table>
 
   
-  <div  style = "width:40%; margin-left:5%; float:left">
-      <form id = "form" action  = "/addresult" method = "post" onsubmit ="submitting()">
-      @csrf
-      @if($cls = session()->get('class'))
-      <input type = "hidden" name = "class" value="{{$cls}}"/>
-      @endif
-      <input type="hidden" name = "name" value = "{{$user->name}}">
-        <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
-        <select name="term" >
-          <option value="1st Term">1st Term</option>
-          <option value="2nd Term">2nd Term</option>
-          <option value="3rd Term">3rd Term</option>
-        </select>
+  
+  <div class="card">
+    <div class="card-body">
+        <form id = "form" action  = "/addresult" method = "post" onsubmit ="submitting()">
+        @csrf
+        @if($cls = session()->get('class'))
+        <input type = "hidden" name = "class" value="{{$cls}}"/>
+        @endif
+          <input type="hidden" name = "name" value = "{{$user->name}}">
+          <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+          <div >
+            <div >
+              <div class="form-group">
+                <label>Tearm :</label>
+                <select class="form-control" name="term" data-placeholder="Select an option">
+                  <option value="" selected disabled hidden>(Select Tearm)</option>
+                  <option value="1st Term">1st Term</option>
+                  <option value="2nd Term">2nd Term</option>
+                  <option value="3rd Term">3rd Term</option>
+                </select>
+              </div>
+            </div>
+            <div >
+              <div class="form-group">
+                <label>Year :</label>
+                <select class="form-control" name="year" data-placeholder="Select an option">
+                  <option value="" selected disabled hidden>(Select Year)</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div >
+            
+            <div  style=" float:left; width:40%; margin-right:5%;">
+              <div class="form-group">
+                <!-- Marks Entering table Start -->
+                  @if($msg = session()->get('st'))
+                  <label>Marks Enter Table :</label>
+                  <table class="table table-bordered table-striped">
+                    <tr>
+                      <th>Index</th>
+                      <th>Name</th>
+                      <th>Marks</th>
+                    </tr>
+                    <?php $z = 0; ?>
+                    @foreach ($msg as $s)
+                      <tr>
+                        <td id="index<?php echo $z; ?>">{{$s->index_no}}</td>
+                        <td onclick = "box(<?php echo $z; ?>)" id="name<?php echo $z; ?>">{{$s->student_name}}</td>
+                        <td style = "width:60%;">
+                            <input class = "btn btn-success btn-sm"type="button" id = "button<?php echo $z; ?>" onclick ="box(<?php echo $z; ?>)" value = "click" style="float:left;">
+                            <input type="number" style="display:none; width:30%; float:left;" id="mr<?php echo $z; ?>">
+                            <input class = "btn btn-primary btn-sm" id = "but<?php echo $z; ?>" style="display:none; float:left;" type="button" onclick="add(<?php echo $z; ?>)" value="Add">
+                        </td>
+                      </tr>
+                      <?php $z++; ?>
+                    @endforeach
+                  </table>
 
-        <select name="year" >
-          <option value="2010">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-        </select><br>
-        <input type="hidden" name = "list[]" id = "list" >
+                  <!-- Marks Entering table End -->
+              </div>
+            </div>
+            <div style="float:left; width:40%; margin-right:1%;">
+              <div class="form-group">
+                <input type="hidden" name = "list[]" id = "list" >
 
-        <div id="div">
+                <div class="table table-bordered table-striped" id="div">
+                  <!--  -->
+                </div>
+                <button class="btn btn-success " id="sub" type = "submit" >Send</button>
+
+              </div>
+            </div>
+          </div>
+
+        </form>
+
         
-        </div>
-
-        <button id="sub" type = "submit" style="display:none; overflow-y:fixed;">Send</button>
 
 
-      </form>
-
+    </div>
   </div>
   @endif
   <script type="text/javascript">
@@ -482,7 +521,7 @@
       input1.setAttribute("value",index);
       input1.setAttribute("readonly",true);
    
-      input1.setAttribute("style","margin-right:5px; width:40%; float:left;");
+      // input1.setAttribute("style"," width:8%; float:left;");
                                    
       var input2 = document.createElement("input");
       input2.setAttribute("type","number");
@@ -491,7 +530,7 @@
       input2.setAttribute("value",marks);
       input2.setAttribute("readonly",true);
  
-      input2.setAttribute("style","margin-right:5px; width:15%;");
+      // input2.setAttribute("style","margin-right:5px; width:5%;");
 
       var br = document.createElement("br");
 
@@ -501,10 +540,11 @@
         var rem = document.createElement("button");
       
         rem.setAttribute("type", "button");
-        rem.setAttribute("style"," float:right; margin-right:25%; ");
+        // rem.setAttribute("style"," float:right; margin-right:81%; ");
         rem.setAttribute("id", "del"+id);
-        rem.setAttribute("value", "X");
-        rem.innerHTML = "X";
+        rem.setAttribute("value", "Clear");
+        
+        rem.innerHTML = "Clear";
         rem.setAttribute("onclick", "remove("+id+")");
         div.appendChild(rem);
         div.appendChild(br);
@@ -543,15 +583,18 @@
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
-  <!-- footer contant Start -->
+  <!-- Footer Start -->
   <footer class="main-footer text-sm">
-    <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.1.2
-    </div>
-  </footer>
-  <!-- footer contant End -->
+      <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
+      All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 0.2.2
+      </div>
+      <div class="float-right d-none d-sm-inline-block">
+            <a href="#"><b>HAZKY EDITS &nbsp;<b></a> | &nbsp;
+      </div>
+    </footer>
+  <!-- Footer End -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark"> 
@@ -575,6 +618,8 @@
 <script src="{{asset('template')}}/dist/js/demo.js"></script>
 <!-- Toastr -->
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- Plugins -->
@@ -583,5 +628,79 @@
 <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
+
+
+<!-- scrpt Start -->
+
+<!-- Data Table Start -->
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+<!-- Data Table End -->
+
+<!-- Alert Part Start -->
+
+  @if(Session::has('message'))
+  <script>
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    </script>
+  @endif
+
+        @if($errors->any())
+          @foreach($errors->all()  as $error)
+          <script>
+            toastr.info("{{$error}}");
+          </script>
+          @endforeach
+        @endif
+
+<!-- Alert Part End -->
+
+<!-- select 2 script start -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'classic'
+    })
+
+  })
+</script>
+<!-- select 2 script end -->
+<!-- scrpt End -->
 </body>
 </html>

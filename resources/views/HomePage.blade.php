@@ -1,31 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
-
-    <title>Resulect -Home Page</title>
-<!--
-SOFTY PINKO
-https://templatemo.com/tm-535-softy-pinko
--->
-
     <!-- Additional CSS Files -->
     <link rel="stylesheet" type="text/css" href="{{asset('homepage')}}/css/bootstrap.min.css">
-
     <link rel="stylesheet" type="text/css" href="{{asset('homepage')}}/css/font-awesome.css">
     <!-- Hazky CSS -->
     <link rel="stylesheet" href="{{asset('homepage')}}/css/templatemo-softy-pinko.css">
 
-    </head>
+    <title>Resulect - Home Page</title>
+</head>
     
-    <body>
-    
+<body>
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -86,8 +77,10 @@ https://templatemo.com/tm-535-softy-pinko
         <!-- ***** Header Text End ***** -->
     </div>
     <!-- ***** Welcome Area End ***** -->
-<br>
-<br>
+
+    <br>
+    <br>
+
     <!-- ***** Features Small Start ***** -->
     <section class="section home-feature">
         <div class="container">
@@ -105,7 +98,7 @@ https://templatemo.com/tm-535-softy-pinko
                             </div>
                         </div>
                         <!-- ***** Features Small Item End ***** -->
-
+                        <!-- ------------------------------------------Hazky----------------------------------->
                         <!-- ***** Features Small Item Start ***** -->
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
                             <div class="features-small-item">
@@ -117,7 +110,7 @@ https://templatemo.com/tm-535-softy-pinko
                             </div>
                         </div>
                         <!-- ***** Features Small Item End ***** -->
-
+                        <!-- ------------------------------------------Hazky----------------------------------->
                         <!-- ***** Features Small Item Start ***** -->
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s">
                             <div class="features-small-item">
@@ -135,7 +128,7 @@ https://templatemo.com/tm-535-softy-pinko
         </div>
     </section>
     <!-- ***** Features Small End ***** -->
-
+    <!-- ------------------------------------------Hazky----------------------------------->
     <!-- ***** Features Big Item Start ***** -->
     <section class="section padding-top-70 padding-bottom-0" id="features">
         <div class="container">
@@ -161,7 +154,7 @@ https://templatemo.com/tm-535-softy-pinko
         </div>
     </section>
     <!-- ***** Features Big Item End ***** -->
-
+    <!-- ------------------------------------------Hazky----------------------------------->
     <!-- ***** Features Big Item Start ***** -->
     <section class="section padding-bottom-100">
         <div class="container">
@@ -182,7 +175,7 @@ https://templatemo.com/tm-535-softy-pinko
         </div>
     </section>
     <!-- ***** Features Big Item End ***** -->
-
+    <!-- ------------------------------------------Hazky----------------------------------->
     <!-- ***** Home Parallax Start ***** -->
     <section class="mini" id="work-process">
         <div class="mini-content">
@@ -195,7 +188,6 @@ https://templatemo.com/tm-535-softy-pinko
                         </div>
                     </div>
                 </div>
-
                 <!-- ***** Mini Box Start ***** -->
                 <div class="row">
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
@@ -247,6 +239,7 @@ https://templatemo.com/tm-535-softy-pinko
     </section>
     <!-- ***** Home Parallax End ***** -->
     
+    <!-- ------------------------------------------Hazky----------------------------------->
 
     <!-- ***** Counter Parallax Start ***** -->
     <section class="counter">
@@ -446,21 +439,22 @@ https://templatemo.com/tm-535-softy-pinko
         </div>
     </footer>
     
+<!-- Script Start -->
+
     <!-- jQuery -->
     <script src="{{asset('homepage')}}/js/jquery-2.1.0.min.js"></script>
-
     <!-- Bootstrap -->
     <script src="{{asset('homepage')}}/js/popper.js"></script>
     <script src="{{asset('homepage')}}/js/bootstrap.min.js"></script>
-
     <!-- Plugins -->
     <script src="{{asset('homepage')}}/js/scrollreveal.min.js"></script>
     <script src="{{asset('homepage')}}/js/waypoints.min.js"></script>
     <script src="{{asset('homepage')}}/js/jquery.counterup.min.js"></script>
     <script src="{{asset('homepage')}}/js/imgfix.min.js"></script> 
-    
     <!-- Global Init -->
     <script src="{{asset('homepage')}}/js/custom.js"></script>
+
+<!-- Script End -->
 
   </body>
 </html>

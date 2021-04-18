@@ -55,7 +55,7 @@
         <a href="/Dashboard/{{$user->id}}" class="nav-link"><i class="fas fa-home"></i> <b>Home</b></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/Contact" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
+        <a href="/Contact/{{$user->id}}" class="nav-link"><i class="fas fa-id-card"></i> <b>Contact</b></a>
       </li>
     </ul>
 
@@ -86,7 +86,7 @@
         </script>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
+        <a href="/logout" class="nav-link"><b><i class="fas fa-sign-out-alt"></i> Logout</b></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -110,7 +110,7 @@
       <span class="brand-text font-weight-light"><b>Resulect</b></span>
     </a>
 
-    <!-- Sidebar -->
+    <!-- -------------------------------------------Sidebar Navigation Part Start --------------------------------- -->
     <!-- -------------------------------------------Sidebar Profile Part Start --------------------------------- -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -139,7 +139,12 @@
           @if($user->role == "Teacher")
 
           <li class="nav-header">TEACHER</li>
-
+          <li class="nav-item has-treeview">
+            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link active">
+              <i class="nav-icon fas fa-user-circle"></i>
+              <p>Profile</p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="/Dashboard/EnterResults/{{$user->id}}" class="nav-link">
               <i class="nav-icon fas fa-feather-alt"></i>
@@ -152,18 +157,8 @@
               <p>Report View</p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
-
-            <a href="/Dashboard/TeachersProfile/{{$user->id}}" class="nav-link active">
-
-              <i class="nav-icon fas fa-user-circle"></i>
-              <p>Profile</p>
-            </a>
-          </li>
           @else
-
           <li class="nav-header">ADMIN</li>
-
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -173,6 +168,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Subject Form</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="/Dashboard/ClassPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -189,12 +190,6 @@
                 <a href="/Dashboard/StudentPage/{{$user->id}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Student Form</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/Dashboard/SubjectPage/{{$user->id}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Subject Form</p>
                 </a>
               </li>
             </ul>
@@ -407,67 +402,6 @@
             </div>
             </div>
       <!-- Add Model End -->
-
-
-      <!-- Edit Model Start -->
-      <div class="modal fade" id="EditClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                <!-- form start -->
-                        <form role="form" action="/editclass" method="post">
-                        @csrf
-                            <div class="form-group">
-                                <label for="exampleInputText" class="form-label">Class ID</label>
-                                <input type="text" class="form-control" id="ECId" name="ECId" placeholder="Enter class id" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputText" class="form-label">Class Name</label>
-                                <input type="text" class="form-control" id="ECName" name="ECName" placeholder="Enter class name">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Class Type</label>
-                                <select class="form-control select2" id="ECType" name="ECType">
-                                    <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                    <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                    <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                    <option value="PrimaryLevel"><b>Primary Level</b></option>
-                                </select>
-                            </div>
-                                
-                            
-                  </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div> 
-                                </div>
-                        </form>
-            </div>
-            </div>
-            <!-- Edit Model Get Function Start-->
-            <script>
-              function edit(i) {
-                var id = document.getElementById('id' +i).value;
-                var name = document.getElementById('name' +i).value;
-                var type = document.getElementById('type' +i).value;
-                var status = document.getElementById('status' +i).value;
-                document.getElementById('ECId').value = id;
-                document.getElementById('ECName').value = name;
-                document.getElementById('ECType').value = type;
-              }
-            </script>
-            <!-- Edit Model Get Function End-->
-
-      <!-- Edit Model End -->
-
-
     <!-- Model End   -->
 
 
@@ -482,7 +416,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="">Home</a></li>
+              <li class="breadcrumb-item"><a href="/Dashboard/{{$user->id}}">Home</a></li>
               <li class="breadcrumb-item active">Teachers Profile</li>
             </ol>
           </div><!-- /.col -->
@@ -508,70 +442,49 @@
             <!-- /.card -->
     </div>
     
-     <table>
-  <tr>
-    <th>Class Name</th>
-    <th>Action</th>
-  </tr>
-  @foreach ($teach as $tc)
-  <tr>
-    <td>{{$tc->classname}}</td>
-    <td>
-      <a href="{{route('delcls',$tc->id)}}">Delete</a>
-    
-    
-    </td>
-  </tr>
-     
-    @endforeach
-  </table>
-
-  <form action="/select" method="post">
-  @csrf
-      <input type="hidden" value = "{{$user->id}}" name = "id">
-      <label for="">Select Class(es)</label>
-      <select class= "form-control" name="cls" id="">
-        @foreach($cls as $cs)
-          <option value="{{$cs->class_name}}">{{$cs->class_name}}</option>
-        @endforeach
-      </select>
-
-      <input type="submit" value="Select">
-
-  </form>
-
         <!-- Class Page Full Front View Part Start -->
         <div class="card">
               <!-- Table part start -->
               <div class="card-body">
-                <!-- Add Button Part Start -->
-                <div class="row">
-                            <div class="col-md-12 text-end">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddClass">Add New Class</button>
-                            </div>
-                </div>
-                <br>
+                <form action="/select" method="post">
+                @csrf
+                    <input type="hidden" value = "{{$user->id}}" name = "id">
+                    <label>Select Class(es)</label>
+                    <select class="form-control select2" name="cls" data-placeholder="Select an option">
+                    <option value="" selected disabled hidden>(select an option)</option>
+                      @foreach($cls as $cs)
+                        <option value="{{$cs->class_name}}">{{$cs->class_name}}</option>
+                      @endforeach
+                    </select>
+
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary ">Select</button>
+                    </div>
+                </form>
+
                 <!-- Add Button Part End -->
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th scope="col">Teacher ID</th>
-                    <th scope="col">Teacher Name</th>
                     <th scope="col">Class Name</th>
-                    <th scope="col">Status</th>
-                    <th style="width:  12%">Action</th>
+                    <th scope="col">Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <!-- content............... -->
+                    @foreach ($teach as $tc)
+                    <tr>
+                      <td>{{$tc->classname}}</td>
+                      <td>
+                        <a href="{{route('delcls',$tc->id)}}" class="btn btn-danger">Delete</a>
+                      </td>
+                    </tr>
+                      
+                      @endforeach
                   </tbody>
                   <tfoot>
                   <tr>
-                  <th scope="col">Teacher ID</th>
-                    <th scope="col">Teacher Name</th>
                     <th scope="col">Class Name</th>
-                    <th scope="col">Status</th>
-                    <th style="width:  12%">Action</th>
+                    <th scope="col">Action</th>
                   </tr>
                   </tfoot>
                 </table>
@@ -587,15 +500,18 @@
   <!-- Class Page Full Front View Part End -->
   <!-- /.content-wrapper -->
 
-  <!-- footer contant Start -->
+  <!-- Footer Start -->
   <footer class="main-footer text-sm">
-    <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 0.1.2
-    </div>
-  </footer>
-  <!-- footer contant End -->
+      <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>
+      All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 0.2.2
+      </div>
+      <div class="float-right d-none d-sm-inline-block">
+            <a href="#"><b>HAZKY EDITS &nbsp;<b></a> | &nbsp;
+      </div>
+    </footer>
+  <!-- Footer End -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark"> 
@@ -628,10 +544,8 @@
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
 <!-- Select2 -->
 <script src="{{asset('template')}}/plugins/select2/js/select2.full.min.js"></script>
-
 <!-- Plugins -->
 <script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
 <!-- Global Init -->

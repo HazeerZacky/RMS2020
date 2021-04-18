@@ -14,7 +14,6 @@ class CreateResultsTable extends Migration
     public function up()
     {
         Schema::create('results', function (Blueprint $table) {
-            
             $table->id();
             $table->text('trname');
             $table->text('year');
@@ -22,7 +21,7 @@ class CreateResultsTable extends Migration
             $table->text('subject');
             $table->text('class');
             $table->text('index');
-            $table->text('result');
+            $table->integer('result');
             $table->timestamps();
         });
     }
