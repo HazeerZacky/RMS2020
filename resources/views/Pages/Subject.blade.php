@@ -439,7 +439,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/Dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/Dashboard/{{$user->id}}">Home</a></li>
               <li class="breadcrumb-item active">Subject</li>
             </ol>
           </div><!-- /.col -->
