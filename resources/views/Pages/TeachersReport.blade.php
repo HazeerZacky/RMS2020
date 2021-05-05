@@ -13,7 +13,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <!-- Toastr -->
+  <!-- Toastr (Message) -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
@@ -485,7 +485,7 @@
 <script src="{{asset('template')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('template')}}/dist/js/demo.js"></script>
-<!-- Toastr -->
+<!-- Toastr (Message Box) -->
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>

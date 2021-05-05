@@ -184,11 +184,26 @@ class MyController extends Controller
                 return redirect('/login')->with('msg','Login First');
             }
 
-        $ts = new teaching;
-        $ts->trid = $req->id;
-        $ts->classname = $req->cls;
-        $ts->save();
-        return redirect()->route('Dashboard/TeachersProfile',['c'=>$req->id]);
+            $req->validate([
+                'cls'=>'required',
+                
+            ],[
+
+                //Class Type Add
+                'cls.required'=>'Please select a Class',
+            ]);
+
+            $ts = new teaching;
+            $ts->trid = $req->id;
+            $ts->classname = $req->cls;
+            $ts->save();
+
+        $notification = array
+        (
+            'message' => 'Successfully Added', 
+            'alert-type' => 'success'
+        );
+        return redirect()->route('Dashboard/TeachersProfile',['c'=>$req->id])->with($notification);
 
 
        
@@ -306,7 +321,8 @@ class MyController extends Controller
 
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
 
@@ -315,7 +331,9 @@ class MyController extends Controller
             DB::table('clas')->where('id',$id)->update([
                 'class_status'=>'Deactive'
             ]);
-        }else{
+        }
+        else
+        {
             DB::table('clas')->where('id',$id)->update([
                 'class_status'=>'Active'
             ]);
@@ -328,7 +346,8 @@ class MyController extends Controller
     public function getusers(){
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
 
@@ -341,7 +360,8 @@ class MyController extends Controller
     {
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
 
@@ -632,7 +652,8 @@ class MyController extends Controller
 
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
         $su = DB::table('subjects')->get();
@@ -691,24 +712,25 @@ class MyController extends Controller
             'ESName.min'=>'Subject name is minimum 3 leters',
         ]);
     
-    DB::table('subjects')->where('id' , $req->ESId)->update([
-        'subjectname' => $req->ESName,
-        
-    ]);
+        DB::table('subjects')->where('id' , $req->ESId)->update([
+            'subjectname' => $req->ESName,
+            
+        ]);
 
-    $notification = array(
-        'message' => 'Successfully Updated', 
-        'alert-type' => 'success'
-    );
+        $notification = array(
+            'message' => 'Successfully Updated', 
+            'alert-type' => 'success'
+        );
 
-    return redirect()->back()->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     public function deletesubject($i)  //passing variable
     {
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
         DB::table('subjects')->where('id',$i)->delete();
@@ -725,16 +747,20 @@ class MyController extends Controller
 
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
 
         $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
-        if($status ==  "Active"){
+        if($status ==  "Active")
+        {
             DB::table('subjects')->where('id',$id)->update([
                 'subjectstatus'=>'Deactive'
             ]);
-        }else{
+        }
+        else
+        {
             DB::table('subjects')->where('id',$id)->update([
                 'subjectstatus'=>'Active'
             ]);
@@ -746,87 +772,139 @@ class MyController extends Controller
 //==========================================================================================================
 //Afrid
 
-public function delclass($id){
-    $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
+    public function delclass($id)
+    {
+        $a = session()->getId();
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
-    DB::table('teachings')->where('id',$id)->delete();
+        DB::table('teachings')->where('id',$id)->delete();
 
-    return redirect()->back();
-}
-
-public function search(Request $req){
-    $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-    $user = DB::table('users')->where('id',$req->id)->first();
-    $st = DB::table('students')->where('class_name',$req->search)->get();
-    
-    return redirect()->route('Dashboard/EnterResults',['c'=>$req->id])->with('st',$st)->with('class',$req->search);
-}
-public function addresult(Request $req){
-    $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-   $a = implode($req->list);
-   $a = explode(',',$a);
-
-   for($i = 0; $i < count($a); $i++){
-       $re = new result;
-       $re->trname = $req->name;
-       $re->year = $req->year;
-       $re->class = $req->class;
-       $re->term = $req->term;
-       $re->subject = $req->subject;
-       $re->index = $a[$i];
-       $re->result = $a[$i+1];
-       $re->save();
-    $i++;
-    
-       
-   }
-  return redirect()->back();
-   
-}
-public function searchsubj(Request $req){
-    $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-    $result = DB::table('results')->where('trname',$req->name)->where('class',$req->class)->where('year',$req->year)->where('subject',$req->subject)->where('term',$req->term)->get();
-    return redirect()->back()->with('result',$result)->with('class',$req->class)->with('term',$req->term)->with('year',$req->year);
-}
-public function stresult(Request $req){
-    // $a = session()->getId();
-            
-    //         if(session()->get('session') != $a ){
-    //             return redirect('/login')->with('msg','Login First');
-    //         }
-    $result = DB::table('results')->where('index',$req->index)->where('year',$req->year)->where('term',$req->term)->get();
-    $name = DB::table('students')->where('index_no',$req->index)->value('student_name');
-    $class = DB::table('students')->where('index_no',$req->index)->value('class_name');
-    if(count($result) == 0){
-        return redirect()->back()->with('msg','Result is not updated');
+        $notification = array
+        (
+            'message' => 'Successfully Delete', 
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
-    else{
-        return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index);
-    }
-    
-}
-public function logout(){
-    session()->flush();
-    session()->regenerate();
 
-    return view('HomePage');
-   
-}
+    public function search(Request $req)
+    {
+        $a = session()->getId();
+            if(session()->get('session') != $a )
+            {
+                return redirect('/login')->with('msg','Login First');
+            }
+
+            $req->validate([
+                'search'=>'required',
+                
+            ],[
+
+                //Class Type Add
+                'search.required'=>'Please select a Class',
+            ]);
+
+        $user = DB::table('users')->where('id',$req->id)->first();
+        $st = DB::table('students')->where('class_name',$req->search)->get();
+
+        
+        return redirect()->route('Dashboard/EnterResults',['c'=>$req->id])->with('st',$st)->with('class',$req->search);
+    }
+
+    public function addresult(Request $req){
+        $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+        $a = implode($req->list);
+        $a = explode(',',$a);
+
+        $req->validate([
+            'year'=>'required',
+            'term'=>'required',            
+        ],[
+
+            'year.required'=>'Please select a year',
+            'term.required'=>'Please select a tearm',
+        ]);
+
+    for($i = 0; $i < count($a); $i++)
+        {
+            $re = new result;
+            $re->trname = $req->name;
+            $re->year = $req->year;
+            $re->class = $req->class;
+            $re->term = $req->term;
+            $re->subject = $req->subject;
+            $re->index = $a[$i];
+            $re->result = $a[$i+1];
+            $re->save();
+            $i++;
+        }
+        $notification = array
+        (
+            'message' => 'Successfully Saved', 
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    
+    }
+
+    
+    public function searchsubj(Request $req){
+        $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+        $result = DB::table('results')->where('trname',$req->name)->where('class',$req->class)->where('year',$req->year)->where('subject',$req->subject)->where('term',$req->term)->get();
+        return redirect()->back()->with('result',$result)->with('class',$req->class)->with('term',$req->term)->with('year',$req->year);
+    }
+
+
+    public function stresult(Request $req){
+        // $a = session()->getId();
+                
+        //         if(session()->get('session') != $a ){
+        //             return redirect('/login')->with('msg','Login First');
+        //         }
+
+        
+        
+        $result = DB::table('results')->where('index',$req->index)->where('year',$req->year)->where('term',$req->term)->get();
+        $name = DB::table('students')->where('index_no',$req->index)->value('student_name');
+        $class = DB::table('students')->where('index_no',$req->index)->value('class_name');
+        if(count($result) == 0)
+        {
+            return redirect()->back()->with('msg','Result is not updated');
+        }
+        else
+        {
+            $req->validate([
+                'term'=>'required',
+                'year'=>'required',
+                'class'=>'required',
+                
+            ],[
+                'term.required'=>'Please select a term',
+                'year.required'=>'Please select a year',
+                'class.required'=>'Please select a class',
+            ]);
+            return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index);
+        }
+        
+    }
+
+    public function logout()
+    {
+        session()->flush();
+        session()->regenerate();
+        return view('HomePage');
+    
+    }
 
 
 }
