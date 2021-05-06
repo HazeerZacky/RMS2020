@@ -861,12 +861,12 @@ class MyController extends Controller
             $req->validate([
                 'term'=>'required',
                 'year'=>'required',
-                'class'=>'required',
+                'index'=>'required',
                 
             ],[
                 'term.required'=>'Please select a term',
                 'year.required'=>'Please select a year',
-                'class.required'=>'Please select a class',
+                'index.required'=>'Please enter index',
             ]);
             return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index);
         }
