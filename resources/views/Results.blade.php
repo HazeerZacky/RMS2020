@@ -91,7 +91,8 @@
                   
               </select>
               <div class="modal-footer">
-                <button type="submit" class="btn btn-primary ">Search</button>
+                <button type="button" class="btn btn-outline-dark">Home</button>
+                <button type="submit" class="btn btn-outline-primary">Search</button>
               </div>
             </div>
           </div>

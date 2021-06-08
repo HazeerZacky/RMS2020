@@ -31,7 +31,6 @@ Route::get('/Dashboard/EnterResults/{c}',[MyController::class, 'EnterResults'])-
 Route::get('/Dashboard/TeachersReport/{c}',[MyController::class, 'TeachersReport'])->name('Dashboard/TeachersReport');//Hazeer Done
 Route::get('/Dashboard/TeachersProfile/{c}',[MyController::class, 'TeachersProfile'])->name('Dashboard/TeachersProfile');//Hazeer Done
 
-
 //Data Connection= Class Table ===========================================
 Route::post('addclass',[MyController::class,'addclass']);
 Route::post('editclass',[MyController::class,'editclass']);
