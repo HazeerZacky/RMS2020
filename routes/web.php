@@ -60,4 +60,5 @@ Route::get('changesubjectsstatus/{c}',[MyController::class, 'changesubjectsstatu
 Route::get('deletesubject/{c}',[MyController::class,'deletesubject'])->name('deletesubject'); //{c} = Passing variable
 //==========================================================================
 
-
+//Data connection= Subject Table============================================
+Route::get('/get-pdf-results',[MyController::class,'getResultsPDF']);

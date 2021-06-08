@@ -873,6 +873,11 @@ class MyController extends Controller
         
     }
 
+    public function getResultsPDF(){
+        $resultpdf = result::all();
+        return view('PDFResults',compact('resultpdf'));
+    }
+
     public function logout(){ //Logout
         session()->flush();
         session()->regenerate();
