@@ -854,6 +854,7 @@ class MyController extends Controller
         
         $result = DB::table('results')->where('index',$req->index)->where('year',$req->year)->where('term',$req->term)->get();
         $name = DB::table('students')->where('index_no',$req->index)->value('student_name');
+        
         $class = DB::table('students')->where('index_no',$req->index)->value('class_name');
         if(count($result) == 0)
         {
@@ -871,20 +872,28 @@ class MyController extends Controller
                 'year.required'=>'Please select a year',
                 'index.required'=>'Please enter index',
             ]);
-            return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index);
+            
+            return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index)->with('year',$req->year)->with('term',$req->term);
         }
         
     }
 
     public function getResultsPDF(){
         $resultpdf = result::all();
-        return view('PDFResults',compact('resultpdf'));
+        return $resultpdf;
+        //return view('PDFResults',compact('resultpdf'));
     }
 
-    public function downloadPDF(){
-        $resultpdf = result::all();
-        $pdf = PDF::loadView('PDFResults',compact('resultpdf'));
+    public function downloadPDF($index, $year, $term){
+        $result = DB::table('results')->where('index',$index)->where('year',$year)->where('term',$term)->get();
+        $name = DB::table('students')->where('index_no',$index)->value('student_name');
+        
+        $class = DB::table('students')->where('index_no',$index)->value('class_name');
+        //$result = result::all();
+        $pdf = PDF::loadView('PDFResults', ['result'=>$result,'name'=>$name,'class'=>$class,'index'=>$index,'year'=>$year,'term'=>$term]);
         return $pdf->download('ResultsPDF.pdf');
+
+        return $index.$year.$term;
     }
 
 

@@ -91,11 +91,12 @@
                   
               </select>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark">Home</button>
+                <a href = "/" type="button" class="btn btn-outline-dark">Home</a>
                 <button type="submit" class="btn btn-outline-primary">Search</button>
               </div>
             </div>
           </div>
+          <div id = "myprint">
         </form> 
             @if($result = session()->get('result'))
                 <h5 align="gestify"><b>Index No: </b> {{session()->get('index')}}</h5>
@@ -129,11 +130,12 @@
                       </tr>
                   @endforeach
                       <tr>
+                      </div>
                         <td colspan="3">
-                        <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>                        
-                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                        <a  onclick = "window.print()"class="btn btn-default"><i class="fas fa-print"></i> Print</a>                        
+                        <a href = "download-pdf/{{session()->get('index')}}/{{session()->get('year')}}/{{session()->get('term')}}" type="button" class="btn btn-primary float-right" style="margin-right:5px">
                           <i class="fas fa-download"></i> PDF
-                        </button>
+                        </a>
                         </td>
                       </tr>
                 </table>
@@ -143,6 +145,7 @@
             @endif
       </div>
   </div>
+
 
       <div class="modal-content modal-dialog modal-lg card-body"> 
         <div class=""> 
