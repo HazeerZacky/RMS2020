@@ -12,6 +12,9 @@ use App\Models\User;
 use App\Models\users;
 use App\Models\teaching;
 use App\Models\result;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Dompdf\Adapter\PDFLib;
+use PDF;
 //=========================================================================================================
 class MyController extends Controller
 {
@@ -877,6 +880,13 @@ class MyController extends Controller
         $resultpdf = result::all();
         return view('PDFResults',compact('resultpdf'));
     }
+
+    public function downloadPDF(){
+        $resultpdf = result::all();
+        $pdf = PDF::loadView('PDFResults',compact('resultpdf'));
+        return $pdf->download('ResultsPDF.pdf');
+    }
+
 
     public function logout(){ //Logout
         session()->flush();
