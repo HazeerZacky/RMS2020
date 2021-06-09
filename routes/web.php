@@ -3,27 +3,33 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
 
-// Homepage Routes
+// Main Routes
 Route::get('/',[MyController::class, 'HomePage']);
 Route::get('Dashboard/{c}',[MyController::class, 'Dashboard'])->name('Dashboard');
 Route::get('/login',[MyController::class, 'login']);
 Route::get('/Contact/{c}',[MyController::class, 'Contact']);
 Route::get('/Results',[MyController::class, 'Results']);
-Route::post('/log',[MyController::class, 'log']);
-
-//Form List
-Route::get('/Dashboard/ClassPage/{c}',[MyController::class, 'ClassForm']); //Hazeer Done
-Route::get('/Dashboard/UsersPage/{c}',[MyController::class, 'UsersForm']); //Hazeer Done
-Route::get('/Dashboard/StudentPage/{c}',[MyController::class, 'StudentForm']); //Hazeer Done
-Route::get('/Dashboard/SubjectPage/{c}',[MyController::class, 'Subjectform']);//Hanan Done
-Route::get('/Dashboard/EnterResults/{c}',[MyController::class, 'EnterResults'])->name('Dashboard/EnterResults');//Hazeer Done
-Route::get('/Dashboard/TeachersReport/{c}',[MyController::class, 'TeachersReport'])->name('Dashboard/TeachersReport');//Hazeer Done
-Route::get('/Dashboard/TeachersProfile/{c}',[MyController::class, 'TeachersProfile'])->name('Dashboard/TeachersProfile');//Hazeer Done
-
 Route::get('/result',[MyController::class, 'result']);
 Route::get('/admin',[MyController::class, 'admin']);
 Route::get('/about',[MyController::class, 'about']);
 
+Route::post('/log',[MyController::class, 'log']); //Login Function
+Route::get('delcls/{c}',[MyController::class,'delclass'])->name('delcls'); //Teacher Profile Delete Class
+Route::post('/select',[MyController::class,'select']); //Teacher Profile Select Class
+Route::post('search/',[MyController::class,'search']); //Enter Results Page
+Route::post('addresult/',[MyController::class,'addresult']); //Enter Results Page
+Route::post('searchsubj/',[MyController::class,'searchsubj']); //Teacher Report Page
+Route::post('stresult/',[MyController::class,'stresult']); //Students Results Page
+Route::get('logout/',[MyController::class, 'logout']);  //Logout
+
+// Form List
+Route::get('/Dashboard/ClassPage/{c}',[MyController::class, 'ClassForm']); //Hazeer Done
+Route::get('/Dashboard/UsersPage/{c}',[MyController::class, 'UsersForm']); //Hazeer Done
+Route::get('/Dashboard/StudentPage/{c}',[MyController::class, 'StudentForm']); //Hazeer Done
+Route::get('/Dashboard/SubjectPage/{c}',[MyController::class, 'Subjectform']);
+Route::get('/Dashboard/EnterResults/{c}',[MyController::class, 'EnterResults'])->name('Dashboard/EnterResults');//Hazeer Done
+Route::get('/Dashboard/TeachersReport/{c}',[MyController::class, 'TeachersReport'])->name('Dashboard/TeachersReport');//Hazeer Done
+Route::get('/Dashboard/TeachersProfile/{c}',[MyController::class, 'TeachersProfile'])->name('Dashboard/TeachersProfile');//Hazeer Done
 
 //Data Connection= Class Table ===========================================
 Route::post('addclass',[MyController::class,'addclass']);
@@ -53,16 +59,7 @@ Route::post('editsubject',[MyController::class,'editsubject']);
 Route::get('changesubjectsstatus/{c}',[MyController::class, 'changesubjectsstatus'])->name('changesubjectsstatus'); //Active Deactive Button
 Route::get('deletesubject/{c}',[MyController::class,'deletesubject'])->name('deletesubject'); //{c} = Passing variable
 //==========================================================================
-//=================
-Route::post('/select',[MyController::class,'select']);
 
-
-//AFRID
-
-Route::get('delcls/{c}',[MyController::class,'delclass'])->name('delcls');
-Route::post('search/',[MyController::class,'search']);
-Route::post('searchsubj/',[MyController::class,'searchsubj']);
-Route::post('addresult/',[MyController::class,'addresult']);
-Route::post('stresult/',[MyController::class,'stresult']);
-Route::get('logout/',[MyController::class, 'logout']);
-
+//Data connection= Subject Table============================================
+Route::get('/get-pdf-results',[MyController::class,'getResultsPDF']);
+Route::get('/download-pdf',[MyController::class,'downloadPDF']);

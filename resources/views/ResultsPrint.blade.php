@@ -252,5 +252,10 @@
   <!-- select 2 script end -->
   <!-- page script Part End-->
       </div>
+
+      <script type="text/javascript"> 
+        window.addEventListener("load", window.print());
+      </script>
+
   </body>
 </html>

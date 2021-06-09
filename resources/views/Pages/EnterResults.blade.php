@@ -13,7 +13,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <!-- Toastr -->
+  <!-- Toastr (Message) -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/select2/css/select2.min.css">
@@ -626,6 +626,8 @@
 <script src="{{asset('template')}}/plugins/preloader/scrollreveal.min.js""></script>
 <!-- Global Init -->
 <script src="{{asset('template')}}/plugins/preloader/custom.js"></script>
+<!-- Toastr (Message Box) -->
+<script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- ====================================      Include Scrips Part End      ========================================= -->
 
 

@@ -12,37 +12,36 @@ use App\Models\User;
 use App\Models\users;
 use App\Models\teaching;
 use App\Models\result;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Dompdf\Adapter\PDFLib;
+use PDF;
 //=========================================================================================================
 class MyController extends Controller
 {
-//==========================================================    Navigation parts    =======================
+//==========================================================    Navigation parts Start   =======================
     // =============HOME PAGE FUNCTIONS================
-        public function HomePage(){
-                return view('HomePage');
-            }
-        public function Dashboard($id){
-            $a = session()->getId();
-            
+        public function HomePage(){ //Home Page 
+            return view('HomePage');
+        }
+        public function Dashboard($id){  //Dashboard
+            $a = session()->getId(); 
             if(session()->get('session') != $a ){
                 return redirect('/login')->with('msg','Login First');
             }
-
             $user = DB::table('users')->where('id',$id)->first();
-                return view('Dashboard',compact('user'));
-            }
-        public function login(){
+            return view('Dashboard',compact('user'));
+        }
+        public function login(){  //Login Page
             if(session()->get('session') == session()->getId()){
                 return redirect()->route('Dashboard',session()->get('userid'));
-            }
-    
+                }
             session()->regenerate();
             return view('login');
         }
-        public function Results(){
-                return view('Results');
-            }
-        public function log(Request $req)
-        {
+        public function Results(){  //Results Page
+            return view('Results');
+        }
+        public function log(Request $req) { //Login Function
             $user = DB::table('users')->where('email',$req->email)->first();
             if($user){
                 if(Hash::check($req->pw ,$user->password )){
@@ -51,148 +50,118 @@ class MyController extends Controller
                     session(['session'=>$sid]);
                     session(['userid'=>$user->id]);
                     return redirect()->route('Dashboard',['c'=>$user->id]);
-                
-                }else{
-                    $notification = array(
-                        'message' =>'Password wrong', 
-                        'alert-type' => 'warning'
+                }   else{
+                        $notification = array(
+                            'message' =>'Password wrong', 
+                            'alert-type' => 'warning'
                     );
-            
                     return redirect()->back()->with($notification);
                 }
-            }else{
-                $notification = array(
-                    'message' =>'User does not exist', 
-                    'alert-type' => 'warning'
+            }   else{
+                    $notification = array(
+                        'message' =>'User does not exist', 
+                        'alert-type' => 'warning'
                 );
-        
                 return redirect()->back()->with($notification);
             }
         }
-    //==========================================
-
-    public function Contact($id){
-
-        $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-        $user = DB::table('users')->where('id',$id)->first();
-            return view('Pages.contact',compact('user'));
-            
+        public function Contact($id){  //Contact Page
+            $a = session()->getId();       
+                if(session()->get('session') != $a ){
+                    return redirect('/login')->with('msg','Login First');
+                }
+            $user = DB::table('users')->where('id',$id)->first();
+                return view('Pages.contact',compact('user'));              
         }
+        public function ClassForm($id){  //Class Page
 
-    public function ClassForm($id){
-
-        $a = session()->getId();
-            
+            $a = session()->getId();
+                if(session()->get('session') != $a ){
+                    return redirect('/login')->with('msg','Login First');
+                }
+            $user = DB::table('users')->where('id',$id)->first();
+            $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
+            return view('Pages.Class',compact('class','user'));  //send all class details to class page(class.blad.php)
+        }
+        public function Subjectform($id){  //Subject Page
+            $a = session()->getId();
+                
             if(session()->get('session') != $a ){
                 return redirect('/login')->with('msg','Login First');
             }
 
-        $user = DB::table('users')->where('id',$id)->first();
-        $class = DB::table('clas')->get();  //Get All class table contants from class table(DB)
-        return view('Pages.Class',compact('class','user'));  //send all class details to class page(class.blad.php)
-    }
+            $user = DB::table('users')->where('id',$id)->first();
+            $subject = DB::table('subjects')->get();  //Get All class table contants from subject table(DB)
+            return view('Pages.Subject',compact('subject','user'));  //send all class details to subject page(class.blad.php)
+        }
+        public function UsersForm($id){  //User Page
 
-    public function Subjectform($id){
-        $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-
-        $user = DB::table('users')->where('id',$id)->first();
-        $subject = DB::table('subjects')->get();  //Get All class table contants from subject table(DB)
-        return view('Pages.Subject',compact('subject','user'));  //send all class details to subject page(class.blad.php)
-    }
-
-    public function UsersForm($id){
-        $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-
-        $user = DB::table('users')->where('id',$id)->first();
-        $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
-        $subj = DB::table('subjects')->where('subjectstatus','Active')->orderBy('subjectname','asc')->get();
-        return view('Pages.Users',compact('users','subj','user'));  //send all class details to class page(class.blad.php)
-    }
+            $a = session()->getId();
+                
+                if(session()->get('session') != $a ){
+                    return redirect('/login')->with('msg','Login First');
+                }
     
-    public function StudentForm($id){
-        $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
+                $user = DB::table('users')->where('id',$id)->first();
+                $users = DB::table('users')->get();  //Get All class table contants from class table(DB)
+                $subj = DB::table('subjects')->where('subjectstatus','Active')->orderBy('subjectname','asc')->get();
+                return view('Pages.Users',compact('users','subj','user'));  //send all class details to class page(class.blad.php)
+        }
+        public function StudentForm($id){  //Student Page
 
-        $user = DB::table('users')->where('id',$id)->first();
-        $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
-        $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
+            $a = session()->getId();
+                
+                if(session()->get('session') != $a ){
+                    return redirect('/login')->with('msg','Login First');
+                }
+    
+            $user = DB::table('users')->where('id',$id)->first();
+            $students = DB::table('students')->get();  //Get All student table contants from student table(DB)
+            $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
+    
+            return view('Pages.Student',compact('students','cls','user'));  //send all student details to student page(student.blad.php)
+        }
+        public function EnterResults($id){  //Enter Results page
 
-        return view('Pages.Student',compact('students','cls','user'));  //send all student details to student page(student.blad.php)
-    }
+            $a = session()->getId();
+                
+                if(session()->get('session') != $a ){
+                    return redirect('/login')->with('msg','Login First');
+                }
+    
+            $user = DB::table('users')->where('id',$id)->first();
+    
+            $cs = DB::table('teachings')->where('trid',$id)->get();
+            return view('Pages.EnterResults',compact('user','cs'));
+        }
+        public function TeachersReport($id){  //Teacher Report Page
+            $a = session()->getId();
+                
+                if(session()->get('session') != $a ){
+                    return redirect('/login')->with('msg','Login First');
+                }
+    
+            $user = DB::table('users')->where('id',$id)->first();
+    
+            $cs = DB::table('teachings')->where('trid',$id)->get();
+            return view('Pages.TeachersReport',compact('user','cs'));
+        }
+        public function TeachersProfile($id){  //Teacher Profile Page
 
-    public function EnterResults($id){
-        $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
+            $a = session()->getId();
+                
+                if(session()->get('session') != $a ){
+                    return redirect('/login')->with('msg','Login First');
+                }
+    
+            $teach = DB::table('teachings')->where('trid',$id)->get();
+            $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
+            $user = DB::table('users')->where('id',$id)->first();
+            return view('Pages.TeachersProfile',compact('user','cls','teach'));
+        }
+    //==========================================
+//==========================================================    Navigation parts End    =======================
 
-        $user = DB::table('users')->where('id',$id)->first();
-
-        $cs = DB::table('teachings')->where('trid',$id)->get();
-        return view('Pages.EnterResults',compact('user','cs'));
-
-    }
-
-    public function TeachersReport($id){
-        $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-
-        $user = DB::table('users')->where('id',$id)->first();
-
-        $cs = DB::table('teachings')->where('trid',$id)->get();
-        return view('Pages.TeachersReport',compact('user','cs'));
-    }
-
-    public function TeachersProfile($id){
-
-        $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-
-        $teach = DB::table('teachings')->where('trid',$id)->get();
-        $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
-        $user = DB::table('users')->where('id',$id)->first();
-        return view('Pages.TeachersProfile',compact('user','cls','teach'));
-    }
-
-    public function select(Request $req){
-
-        $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-
-        $ts = new teaching;
-        $ts->trid = $req->id;
-        $ts->classname = $req->cls;
-        $ts->save();
-        return redirect()->route('Dashboard/TeachersProfile',['c'=>$req->id]);
-
-
-       
-    }
 //=========================================================================================================
 
 //==========================================================================================================
@@ -306,7 +275,8 @@ class MyController extends Controller
 
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
 
@@ -315,7 +285,9 @@ class MyController extends Controller
             DB::table('clas')->where('id',$id)->update([
                 'class_status'=>'Deactive'
             ]);
-        }else{
+        }
+        else
+        {
             DB::table('clas')->where('id',$id)->update([
                 'class_status'=>'Active'
             ]);
@@ -328,7 +300,8 @@ class MyController extends Controller
     public function getusers(){
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
 
@@ -337,11 +310,11 @@ class MyController extends Controller
         return view('viewusers',compact('us'));
     }
 
-    public function adduser(Request $req)  //Daa USER ======================
-    {
+    public function adduser(Request $req){  //Daa USER ======================
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
 
@@ -434,8 +407,7 @@ class MyController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function deleteuser($i)  //DELETE USER ==========================
-    {
+    public function deleteuser($i){  //DELETE USER ==========================
 
         $a = session()->getId();
             
@@ -485,9 +457,7 @@ class MyController extends Controller
         return view('viewstudent',compact('st'));
     }
 
-    public function addstudent(Request $req)  //Daa USER ======================
-    {
-
+    public function addstudent(Request $req){  //Daa USER ======================
         $a = session()->getId();
             
             if(session()->get('session') != $a ){
@@ -542,7 +512,7 @@ class MyController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function editstudent(Request $req) { //EDIT USER =======================
+    public function editstudent(Request $req){ //EDIT USER =======================
 
         $a = session()->getId();
             
@@ -588,9 +558,8 @@ class MyController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function deletestudent($i)  //DELETE USER ==========================
-    {
-
+    public function deletestudent($i){  //DELETE USER ==========================
+    
         $a = session()->getId();
             
             if(session()->get('session') != $a ){
@@ -632,7 +601,8 @@ class MyController extends Controller
 
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
         $su = DB::table('subjects')->get();
@@ -640,8 +610,8 @@ class MyController extends Controller
         return view('viewsubject',compact('su'));
     }
 
-    public function addsubject(Request $req)
-    {
+    public function addsubject(Request $req){
+    
         $a = session()->getId();
             
             if(session()->get('session') != $a ){
@@ -675,8 +645,8 @@ class MyController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function editsubject(Request $req)
-    {
+    public function editsubject(Request $req){
+    
         $a = session()->getId();
             
             if(session()->get('session') != $a ){
@@ -691,24 +661,25 @@ class MyController extends Controller
             'ESName.min'=>'Subject name is minimum 3 leters',
         ]);
     
-    DB::table('subjects')->where('id' , $req->ESId)->update([
-        'subjectname' => $req->ESName,
-        
-    ]);
+        DB::table('subjects')->where('id' , $req->ESId)->update([
+            'subjectname' => $req->ESName,
+            
+        ]);
 
-    $notification = array(
-        'message' => 'Successfully Updated', 
-        'alert-type' => 'success'
-    );
+        $notification = array(
+            'message' => 'Successfully Updated', 
+            'alert-type' => 'success'
+        );
 
-    return redirect()->back()->with($notification);
+        return redirect()->back()->with($notification);
     }
 
-    public function deletesubject($i)  //passing variable
-    {
+    public function deletesubject($i){  //passing variable
+    
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
         DB::table('subjects')->where('id',$i)->delete();
@@ -725,16 +696,20 @@ class MyController extends Controller
 
         $a = session()->getId();
             
-            if(session()->get('session') != $a ){
+            if(session()->get('session') != $a )
+            {
                 return redirect('/login')->with('msg','Login First');
             }
 
         $status = DB::table('subjects')->where('id',$id)->value('subjectstatus');
-        if($status ==  "Active"){
+        if($status ==  "Active")
+        {
             DB::table('subjects')->where('id',$id)->update([
                 'subjectstatus'=>'Deactive'
             ]);
-        }else{
+        }
+        else
+        {
             DB::table('subjects')->where('id',$id)->update([
                 'subjectstatus'=>'Active'
             ]);
@@ -744,89 +719,180 @@ class MyController extends Controller
 //==========================================================================================================
 
 //==========================================================================================================
-//Afrid
 
-public function delclass($id){
-    $a = session()->getId();
+//=============================================     Main Functions Part    =================================
+
+    public function select(Request $req){  //Teacher Profile Select Class Part
+
+        $a = session()->getId();
             
             if(session()->get('session') != $a ){
                 return redirect('/login')->with('msg','Login First');
             }
-    DB::table('teachings')->where('id',$id)->delete();
 
-    return redirect()->back();
-}
+            $req->validate([
+                'cls'=>'required',
+                
+            ],[
 
-public function search(Request $req){
-    $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-    $user = DB::table('users')->where('id',$req->id)->first();
-    $st = DB::table('students')->where('class_name',$req->search)->get();
-    
-    return redirect()->route('Dashboard/EnterResults',['c'=>$req->id])->with('st',$st)->with('class',$req->search);
-}
-public function addresult(Request $req){
-    $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-   $a = implode($req->list);
-   $a = explode(',',$a);
+                //Class Type Add
+                'cls.required'=>'Please select a Class',
+            ]);
 
-   for($i = 0; $i < count($a); $i++){
-       $re = new result;
-       $re->trname = $req->name;
-       $re->year = $req->year;
-       $re->class = $req->class;
-       $re->term = $req->term;
-       $re->subject = $req->subject;
-       $re->index = $a[$i];
-       $re->result = $a[$i+1];
-       $re->save();
-    $i++;
-    
-       
-   }
-  return redirect()->back();
-   
-}
-public function searchsubj(Request $req){
-    $a = session()->getId();
-            
-            if(session()->get('session') != $a ){
-                return redirect('/login')->with('msg','Login First');
-            }
-    $result = DB::table('results')->where('trname',$req->name)->where('class',$req->class)->where('year',$req->year)->where('subject',$req->subject)->where('term',$req->term)->get();
-    return redirect()->back()->with('result',$result)->with('class',$req->class)->with('term',$req->term)->with('year',$req->year);
-}
-public function stresult(Request $req){
-    // $a = session()->getId();
-            
-    //         if(session()->get('session') != $a ){
-    //             return redirect('/login')->with('msg','Login First');
-    //         }
-    $result = DB::table('results')->where('index',$req->index)->where('year',$req->year)->where('term',$req->term)->get();
-    $name = DB::table('students')->where('index_no',$req->index)->value('student_name');
-    $class = DB::table('students')->where('index_no',$req->index)->value('class_name');
-    if(count($result) == 0){
-        return redirect()->back()->with('msg','Result is not updated');
+            $ts = new teaching;
+            $ts->trid = $req->id;
+            $ts->classname = $req->cls;
+            $ts->save();
+
+        $notification = array
+        (
+            'message' => 'Successfully Added', 
+            'alert-type' => 'success'
+        );
+        return redirect()->route('Dashboard/TeachersProfile',['c'=>$req->id])->with($notification);
     }
-    else{
-        return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index);
+
+    public function delclass($id){ //Teacher Profile Delete Class Part
+
+        $a = session()->getId();
+            if(session()->get('session') != $a )
+            {
+                return redirect('/login')->with('msg','Login First');
+            }
+        DB::table('teachings')->where('id',$id)->delete();
+
+        $notification = array
+        (
+            'message' => 'Successfully Delete', 
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    public function search(Request $req){ //Enter Results Search Student Part
+
+        $a = session()->getId();
+            if(session()->get('session') != $a )
+            {
+                return redirect('/login')->with('msg','Login First');
+            }
+
+            $req->validate([
+                'search'=>'required',
+                
+            ],[
+
+                //Class Type Add
+                'search.required'=>'Please select a Class',
+            ]);
+
+        $user = DB::table('users')->where('id',$req->id)->first();
+        $st = DB::table('students')->where('class_name',$req->search)->get();
+
+        
+        return redirect()->route('Dashboard/EnterResults',['c'=>$req->id])->with('st',$st)->with('class',$req->search);
+    }
+
+    public function addresult(Request $req){ //Enter Results Results saving Part
+        $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+        $a = implode($req->list);
+        $a = explode(',',$a);
+
+        $req->validate([
+            'year'=>'required',
+            'term'=>'required',            
+        ],[
+
+            'year.required'=>'Please select a year',
+            'term.required'=>'Please select a tearm',
+        ]);
+
+        for($i = 0; $i < count($a); $i++)
+            {
+                $re = new result;
+                $re->trname = $req->name;
+                $re->year = $req->year;
+                $re->class = $req->class;
+                $re->term = $req->term;
+                $re->subject = $req->subject;
+                $re->index = $a[$i];
+                $re->result = $a[$i+1];
+                $re->save();
+                $i++;
+            }
+        $notification = array
+        (
+            'message' => 'Successfully Saved', 
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    
     }
     
-}
-public function logout(){
-    session()->flush();
-    session()->regenerate();
+    public function searchsubj(Request $req){ //Teacher Report Search Marks Part
+        $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+        $result = DB::table('results')->where('trname',$req->name)->where('class',$req->class)->where('year',$req->year)->where('subject',$req->subject)->where('term',$req->term)->get();
+        return redirect()->back()->with('result',$result)->with('class',$req->class)->with('term',$req->term)->with('year',$req->year);
+    }
 
-    return view('HomePage');
-   
-}
+    public function stresult(Request $req){ //Student Viwe Marks Part
+        // $a = session()->getId();
+                
+        //         if(session()->get('session') != $a ){
+        //             return redirect('/login')->with('msg','Login First');
+        //         }
+
+        
+        
+        $result = DB::table('results')->where('index',$req->index)->where('year',$req->year)->where('term',$req->term)->get();
+        $name = DB::table('students')->where('index_no',$req->index)->value('student_name');
+        $class = DB::table('students')->where('index_no',$req->index)->value('class_name');
+        if(count($result) == 0)
+        {
+            return redirect()->back()->with('msg','Result is not updated');
+        }
+        else
+        {
+            $req->validate([
+                'term'=>'required',
+                'year'=>'required',
+                'index'=>'required',
+                
+            ],[
+                'term.required'=>'Please select a term',
+                'year.required'=>'Please select a year',
+                'index.required'=>'Please enter index',
+            ]);
+            return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index);
+        }
+        
+    }
+
+    public function getResultsPDF(){
+        $resultpdf = result::all();
+        return view('PDFResults',compact('resultpdf'));
+    }
+
+    public function downloadPDF(){
+        $resultpdf = result::all();
+        $pdf = PDF::loadView('PDFResults',compact('resultpdf'));
+        return $pdf->download('ResultsPDF.pdf');
+    }
 
 
+    public function logout(){ //Logout
+        session()->flush();
+        session()->regenerate();
+        return view('HomePage');
+    
+    }
+//==========================================================================================================
 }

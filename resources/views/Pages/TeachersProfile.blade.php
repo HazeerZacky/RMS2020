@@ -15,7 +15,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{asset('template')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <!-- Toastr -->
+  <!-- Toastr (Message) -->
   <link rel="stylesheet" href="{{asset('template')}}/plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
@@ -351,60 +351,6 @@
   </aside>
 
 
-    <!-- Model Start   -->
-      <!-- Add Model Start -->
-      <div class="modal fade" id="AddClass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">&#9776; Add Class Form</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                <!-- form start -->
-                        <form role="form" action="/addclasstoteacher" method="post"> <!--Add new class to teacher-->
-                        @csrf
-                            <div class="form-group">
-                                <label for="exampleInputText" class="form-label">Teacher Name</label>
-                                <input type="text" class="form-control" name="CName" placeholder="Enter class name">
-                            </div>
-                            <div class="form-group">
-                            <label>Class Type</label>
-                                <select class="form-control select2" name="CType" data-placeholder="Select an option">
-                                    <option value="" selected disabled hidden>(select an option)</option>
-                                    <option value="GCE-A/L"><b>GCE Advanced Level</b></option>
-                                    <option value="GCE-O/L"><b>GCE Ordinary Level</b></option>
-                                    <option value="SecondaryLevel"><b>Secondary Level</b></option>
-                                    <option value="PrimaryLevel"><b>Primary Level</b></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputText" class="form-label">Status</label><br>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                  <input type="radio" id="customRadioInline1" value="Active" name="CStatus" class="custom-control-input">
-                                  <label class="custom-control-label" for="customRadioInline1">Active</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                  <input type="radio" id="customRadioInline2" value="Deactive" name="CStatus" class="custom-control-input">
-                                  <label class="custom-control-label" for="customRadioInline2">Deactive</label>
-                                </div>
-                            </div>
-                </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary ">Save changes</button>
-                                    </div> 
-                                </div>
-                        </form>
-                
-            </div>
-            </div>
-      <!-- Add Model End -->
-    <!-- Model End   -->
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -540,7 +486,7 @@
 <script src="{{asset('template')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('template')}}/dist/js/demo.js"></script>
-<!-- Toastr -->
+<!-- Toastr (Message Box) -->
 <script src="{{asset('template')}}/plugins/toastr/toastr.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('template')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
@@ -578,7 +524,7 @@
 
 <!-- Alert Part Start -->
 
-  @if(Session::has('message'))
+@if(Session::has('message'))
   <script>
     var type = "{{ Session::get('alert-type', 'info') }}";
     switch(type){
@@ -610,7 +556,6 @@
         @endif
 
 <!-- Alert Part End -->
-
 <!-- select 2 script start -->
 <script>
   $(function () {
