@@ -89,6 +89,11 @@
                       
                 </table>
                 </div>
+                <div align = "center">
+                <h4>Total Marks: <b>{{$total}}</b></h4>
+                    <h4>Average Marks: <b>{{$avg}}</b></h4>
+                    <h4>Rank: <b>{{$rank}}</b></h4>
+                    </div>
                 <br><br><br>
 
                         

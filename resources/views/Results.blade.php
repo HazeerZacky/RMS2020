@@ -129,11 +129,19 @@
                           </td>
                       </tr>
                   @endforeach
-                      <tr>
+                  
                       </div>
+                      <tr>
+                      <td colspan ="3" align = "center">
+                    <h6>Total Marks: <b>{{session()->get('total')}}</b></h6>
+                    <h6>Average Marks: <b>{{session()->get('avg')}}</b></h6>
+                    <h6>Rank: <b>{{session()->get('rank')}}</b></h6>
+                    </td>
+                    </tr>
+                      <tr>
                         <td colspan="3">
                         <a  onclick = "window.print()"class="btn btn-default"><i class="fas fa-print"></i> Print</a>                        
-                        <a href = "download-pdf/{{session()->get('index')}}/{{session()->get('year')}}/{{session()->get('term')}}" type="button" class="btn btn-primary float-right" style="margin-right:5px">
+                        <a href = "download-pdf/{{session()->get('index')}}/{{session()->get('year')}}/{{session()->get('term')}}/{{session()->get('total')}}/{{session()->get('avg')}}/{{session()->get('rank')}}" type="button" class="btn btn-primary float-right" style="margin-right:5px">
                           <i class="fas fa-download"></i> PDF
                         </a>
                         </td>

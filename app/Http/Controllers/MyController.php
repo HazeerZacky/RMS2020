@@ -850,6 +850,30 @@ class MyController extends Controller
         //             return redirect('/login')->with('msg','Login First');
         //         }
 
+    $cs = DB::table('students')->where('index_no', $req->index)->value('class_name'); 
+    $total = [];
+    $avg = [];
+   $Mymarks;
+   $Myavg;
+    $totresult =  DB::table('results')->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->select('index')->groupBy('index')->get();
+        
+        foreach($totresult as $tot){
+            $sum = DB::table('results')->where('index',$tot->index)->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->sum('result');
+            $avrg = DB::table('results')->where('index',$tot->index)->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->avg('result');
+            $total += [$tot->index => $sum];
+            $avg += [$tot->index => $avrg];
+
+            if($tot->index == $req->index){
+                $Mymarks = $sum;
+                $Myavg = $avrg;
+            }
+        }
+
+        arsort($total);
+        arsort($avg);
+
+       $rank =  array_search($req->index,array_keys($total)) + 1;
+
         
         
         $result = DB::table('results')->where('index',$req->index)->where('year',$req->year)->where('term',$req->term)->get();
@@ -873,7 +897,7 @@ class MyController extends Controller
                 'index.required'=>'Please enter index',
             ]);
             
-            return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index)->with('year',$req->year)->with('term',$req->term);
+            return redirect()->back()->with('result',$result)->with('name',$name)->with('class',$class)->with('index',$req->index)->with('year',$req->year)->with('term',$req->term)->with('total',$Mymarks)->with('avg',$Myavg)->with('rank',$rank);
         }
         
     }
@@ -884,14 +908,14 @@ class MyController extends Controller
         //return view('PDFResults',compact('resultpdf'));
     }
 
-    public function downloadPDF($index, $year, $term){
+    public function downloadPDF($index, $year, $term, $total, $avg, $rank){
         $result = DB::table('results')->where('index',$index)->where('year',$year)->where('term',$term)->get();
         $name = DB::table('students')->where('index_no',$index)->value('student_name');
         
         $class = DB::table('students')->where('index_no',$index)->value('class_name');
         //$result = result::all();
-        $pdf = PDF::loadView('PDFResults', ['result'=>$result,'name'=>$name,'class'=>$class,'index'=>$index,'year'=>$year,'term'=>$term]);
-        return $pdf->download('ResultsPDF.pdf');
+        $pdf = PDF::loadView('PDFResults', ['result'=>$result,'name'=>$name,'class'=>$class,'index'=>$index,'year'=>$year,'term'=>$term,'total'=>$total,'avg'=>$avg,'rank'=>$rank]);
+        return $pdf->download($name.' '.$term.' Result sheet.pdf');
 
         return $index.$year.$term;
     }

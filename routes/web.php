@@ -62,4 +62,4 @@ Route::get('deletesubject/{c}',[MyController::class,'deletesubject'])->name('del
 
 //Data connection= Subject Table============================================
 Route::get('/get-pdf-results',[MyController::class,'getResultsPDF']);
-Route::get('/download-pdf/{x}/{y}/{z}',[MyController::class,'downloadPDF']);
+Route::get('/download-pdf/{x}/{y}/{z}/{t}/{a}/{r}',[MyController::class,'downloadPDF']);
