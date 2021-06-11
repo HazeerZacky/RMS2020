@@ -366,6 +366,60 @@
     </div>
     <!-- /.content-header -->
 
+          <!-- Edit Model Start -->
+          <div class="modal fade" id="EditMarks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">&#9776; Class Form</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                      <!-- form start -->
+                              <form role="form" action="/editmarks" method="post">
+                              @csrf
+                                  <div class="form-group">
+                                      <label for="exampleInputText" class="form-label">Index No</label>
+                                      <input type="text" class="form-control" id="EINO" name="EINO" placeholder="Enter class id" readonly>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="exampleInputText" class="form-label">Marks</label>
+                                      <input type="text" class="form-control" id="EMarks" name="EMarks" placeholder="Enter marks">
+                                  </div>
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                              <button type="submit" class="btn btn-primary">Save changes</button>
+                                          </div> 
+                                      </div>
+                              </form>
+                  </div>
+                  </div>
+
+                  <!-- Edit Model Get Function Start-->
+                  <script>
+                    function edit(i) {
+                      var index = document.getElementById('index' +i).value;
+                      var marks = document.getElementById('marks' +i).value;
+
+                      document.getElementById('EINO').value = index;
+                      document.getElementById('EMarks').value = marks;
+                
+                      // if(status == "Active"){
+                      //   document.getElementById('customRadioInline3').checked = true;
+                      //   document.getElementById('customRadioInline4').checked = false;
+                      // }else{
+                      //   document.getElementById('customRadioInline4').checked = true;
+                      //   document.getElementById('customRadioInline3').checked = false;
+                      // }
+                    }
+                  </script>
+                  <!-- Edit Model Get Function End-->
+          </div>
+            <!-- Edit Model End -->
+
+
     <!-- Class Page Full Front View Part Start -->
     <div class="card">
               <!-- Table part start -->
@@ -404,7 +458,7 @@
                   </div>
                   <!-- Tearm -->
                   <div class="col-sm-4">
-                    <label>Select a Tearm</label>
+                    <label>Select a Term</label>
                     <select class="form-control select2" name="term" data-placeholder="Select an option">
                           <option value="" selected disabled hidden>(select an option)</option>
                         
@@ -434,14 +488,23 @@
                 <tr>
                   <th>Index</th>
                   <th>Marks</th>
+                  <th>Option</th>
                 </tr>
-
-                @foreach ($result as $re)
-                  <tr>
-                    <td>{{$re->index}}</td>
-                    <td>{{$re->result}}</td>
-                  </tr>
-                @endforeach
+                <tbody>
+                    <?php $k = 0; ?> <!-- identify row number -->
+                      @foreach($result as $re)
+                      <tr>
+                        <td>{{$re->index}}</td>
+                        <td>{{$re->result}}</td>
+                        <td>
+                          <input type="hidden" id="index<?php echo $k; ?>" value="{{$re->index}}">
+                          <input type="hidden" id="marks<?php echo $k; ?>" value="{{$re->result}}">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="edit(<?php echo $k; ?>)" data-target="#EditMarks">Edit</button>
+                        </td>
+                      </tr>
+                      <?php $k++; ?>
+                      @endforeach
+                  </tbody>
               </table>
             @endif
         </div>

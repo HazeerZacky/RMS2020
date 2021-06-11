@@ -358,7 +358,163 @@
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
+    <div class="card">
+                <!-- Table part start -->
+                <div class="card-body">
+                  <form action="/searchsubj" method="post">
+                    @csrf
+                    <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+                    <input type="hidden" name="id" value = "{{$user->id}}">
+                    <input type="hidden" name="name" value = "{{$user->name}}">
+                    <div class="row">
+                      <!-- class -->
+                      <div class="col-sm-3">
+                        <label>Select a Class</label>
+                        <select class="form-control select2" name="class" data-placeholder="Select an option">
+                              <option value="" selected disabled hidden>(select an option)</option>
+                              <option value="">   </option>
+                        </select>
+                      </div>
+                      <!-- Subject -->
+                      <div class="col-sm-3">
+                        <label>Select a Subject</label>
+                        <select class="form-control select2" name="class" data-placeholder="Select an option">
+                              <option value="" selected disabled hidden>(select an option)</option>
+                              <option value="">   </option>
+                        </select>
+                      </div>
+                      <!-- Year -->
+                      <div class="col-sm-3">
+                        <label>Select a Year</label>
+                        <select class="form-control select2" name="year" data-placeholder="Select an option">
+                              <option value="" selected disabled hidden>(select an option)</option>
+                            
+                              <option value="2019">2019</option>
+                              <option value="2020">2020</option>
+                              <option value="2021">2021</option>
+                            
+                        </select>
+                        
+                      </div>
+                      <!-- Tearm -->
+                      <div class="col-sm-3">
+                        <label>Select a Term</label>
+                        <select class="form-control select2" name="term" data-placeholder="Select an option">
+                              <option value="" selected disabled hidden>(select an option)</option>
+                            
+                              <option value="1st Term">1st Term</option>
+                              <option value="2nd Term">2nd Term</option>
+                              <option value="3rd Term">3rd Term</option>
+                            
+                        </select>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary ">Search</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+
+                  <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Marks</th>
+                      </tr>
+                      </thead>
+                        <tbody>
+                        
+                        </tbody>
+                      <tfoot>
+                      <tr>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Marks</th>
+                      </tr>
+                      </tfoot>
+                    </table>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary ">PDF</button>
+                      </div>
+                  </div>
+      </div>
+
+
+
+      <div class="card">
+                <!-- Table part start -->
+                <div class="card-body">
+                  <form action="/searchsubj" method="post">
+                    @csrf
+                    <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+                    <input type="hidden" name="id" value = "{{$user->id}}">
+                    <input type="hidden" name="name" value = "{{$user->name}}">
+                    <div class="row">
+                      <!-- class -->
+                      <div class="col-sm-4">
+                        <label>Select a Class</label>
+                        <select class="form-control select2" name="class" data-placeholder="Select an option">
+                              <option value="" selected disabled hidden>(select an option)</option>
+                              <option value="">   </option>
+                        </select>
+                      </div>
+                      <!-- Year -->
+                      <div class="col-sm-4">
+                        <label>Select a Year</label>
+                        <select class="form-control select2" name="year" data-placeholder="Select an option">
+                              <option value="" selected disabled hidden>(select an option)</option>
+                            
+                              <option value="2019">2019</option>
+                              <option value="2020">2020</option>
+                              <option value="2021">2021</option>
+                            
+                        </select>
+                        
+                      </div>
+                      <!-- Tearm -->
+                      <div class="col-sm-4">
+                        <label>Select a Term</label>
+                        <select class="form-control select2" name="term" data-placeholder="Select an option">
+                              <option value="" selected disabled hidden>(select an option)</option>
+                            
+                              <option value="1st Term">1st Term</option>
+                              <option value="2nd Term">2nd Term</option>
+                              <option value="3rd Term">3rd Term</option>
+                            
+                        </select>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary ">Search</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Toatal Marks</th>
+                        <th scope="col">Average</th>
+                        <th scope="col">Rank</th>
+                      </tr>
+                      </thead>
+                        <tbody>
+                        
+                        </tbody>
+                      <tfoot>
+                      <tr>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Toatal Marks</th>
+                        <th scope="col">Average</th>
+                        <th scope="col">Rank</th>
+                      </tr>
+                      </tfoot>
+                    </table>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary ">PDF</button>
+                      </div>
+                  </div>
+      </div>
+
+
     
     <!-- /.content -->
   </div>
