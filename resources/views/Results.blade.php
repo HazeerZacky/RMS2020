@@ -81,7 +81,7 @@
             </div>
             <!-- Tearm -->
             <div class="col-sm-4">
-              <label>Select a Tearm</label>
+              <label>Select a Term</label>
               <select class="form-control select2" name="term" data-placeholder="Select an option">
                     <option value="" selected disabled hidden>(select an option)</option>
                   
