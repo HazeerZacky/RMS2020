@@ -94,7 +94,7 @@
                                     <i><img src="{{asset('homepage')}}/images/featured-item-01.png" alt=""></i>
                                 </div>
                                 <h5 class="features-title">Modern Strategy</h5>
-                                <p>Customize anything in this template to fit your website needs</p>
+                                <p>We design in PHP language. Also use simple Js Language </p>
                             </div>
                         </div>
                         <!-- ***** Features Small Item End ***** -->
@@ -105,8 +105,8 @@
                                 <div class="icon">
                                     <i><img src="{{asset('homepage')}}/images/featured-item-01.png" alt=""></i>
                                 </div>
-                                <h5 class="features-title">Best Relationship</h5>
-                                <p>Contact us immediately if you have a question in mind</p>
+                                <h5 class="features-title">Best Dashboard</h5>
+                                <p>For best ADMIN usage we include AdminLTE template</p>
                             </div>
                         </div>
                         <!-- ***** Features Small Item End ***** -->
@@ -117,8 +117,8 @@
                                 <div class="icon">
                                     <i><img src="{{asset('homepage')}}/images/featured-item-01.png" alt=""></i>
                                 </div>
-                                <h5 class="features-title">Ultimate Marketing</h5>
-                                <p>You just need to tell your friends about our free templates</p>
+                                <h5 class="features-title">Best Framework</h5>
+                                <p>We have so many PHP frameworks in market. But we use LARAVEl, because it's easy to learn and advance technology</p>
                             </div>
                         </div>
                         <!-- ***** Features Small Item End ***** -->
@@ -139,10 +139,10 @@
                 <div class="col-lg-1"></div>
                 <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-top-fix">
                     <div class="left-heading">
-                        <h2 class="section-title">Let’s discuss about you project</h2>
+                        <h2 class="section-title">Let’s discuss about our project</h2>
                     </div>
                     <div class="left-text">
-                        <p>Nullam sit amet purus libero. Etiam ullamcorper nisl ut augue blandit, at finibus leo efficitur. Nam gravida purus non sapien auctor, ut aliquam magna ullamcorper.</p>
+                        <p>Reselect Results Management System</p>
                     </div>
                 </div>
             </div>
@@ -161,10 +161,10 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12 align-self-center mobile-bottom-fix">
                     <div class="left-heading">
-                        <h2 class="section-title">We can help you to grow your business</h2>
+                        <h2 class="section-title">We can help you to view your results</h2>
                     </div>
                     <div class="left-text">
-                        <p>Aenean pretium, ipsum et porttitor auctor, metus ipsum iaculis nisi, a bibendum lectus libero vitae urna. Sed id leo eu dolor luctus congue sed eget ipsum. Nunc nec luctus libero. Etiam quis dolor elit.</p>
+                        <p>Student and their parents</p>
                     </div>
                 </div>
                 <div class="col-lg-1"></div>
@@ -184,7 +184,7 @@
                     <div class="offset-lg-3 col-lg-6">
                         <div class="info">
                             <h1>Work Process (GitHub)</h1>
-                            <p>Aenean nec tempor metus. Maecenas ligula dolor, commodo in imperdiet interdum, vehicula ut ex. Donec ante diam.</p>
+                            <!-- <p>gg</p> -->
                         </div>
                     </div>
                 </div>
@@ -194,42 +194,42 @@
                         <a href="#" class="mini-box">
                             <i><img src="{{asset('homepage')}}/images/work-process-item-01.png" alt=""></i>
                             <strong>Get Ideas</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <!-- <span>Godard pabst prism fam cliche.</span> -->
                         </a>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <a href="#" class="mini-box">
                             <i><img src="{{asset('homepage')}}/images/work-process-item-01.png" alt=""></i>
                             <strong>Sketch Up</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <!-- <span>Godard pabst prism fam cliche.</span> -->
                         </a>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <a href="#" class="mini-box">
                             <i><img src="{{asset('homepage')}}/images/work-process-item-01.png" alt=""></i>
                             <strong>Discuss</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <!-- <span>Godard pabst prism fam cliche.</span> -->
                         </a>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <a href="#" class="mini-box">
                             <i><img src="{{asset('homepage')}}/images/work-process-item-01.png" alt=""></i>
                             <strong>Revise</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <!-- <span>Godard pabst prism fam cliche.</span> -->
                         </a>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <a href="#" class="mini-box">
                             <i><img src="{{asset('homepage')}}/images/work-process-item-01.png" alt=""></i>
                             <strong>Approve</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <!-- <span>Godard pabst prism fam cliche.</span> -->
                         </a>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <a href="#" class="mini-box">
                             <i><img src="{{asset('homepage')}}/images/work-process-item-01.png" alt=""></i>
                             <strong>Launch</strong>
-                            <span>Godard pabst prism fam cliche.</span>
+                            <!-- <span>Godard pabst prism fam cliche.</span> -->
                         </a>
                     </div>
                 </div>
@@ -248,25 +248,25 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-bottom">
-                            <strong>5</strong>
+                            <strong>4</strong>
                             <span>Total Branches</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-top">
-                            <strong>63</strong>
+                            <strong>104</strong>
                             <span>Total Commits</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item decoration-bottom">
-                            <strong>8000</strong>
+                            <strong>9954</strong>
                             <span>Total Files</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="count-item">
-                            <strong>92</strong>
+                            <strong>98</strong>
                             <span>Success Rate</span>
                         </div>
                     </div>
@@ -288,8 +288,8 @@
                 </div>
                 <div class="offset-lg-3 col-lg-6">
                     <div class="center-text">
-                        <p>Integer molestie aliquam gravida. Nullam nec arcu finibus, imperdiet nulla vitae, placerat nibh. Cras maximus venenatis molestie.</p>
-                    </div>
+                        <p>Under Construction</p>
+                </div>
                 </div>
             </div>
             <!-- ***** Section Title End ***** -->
@@ -305,7 +305,6 @@
                                 <a href="#">Thanking</a>
                             </h3>
                             <div class="text">
-                               Cras aliquet ligula dui, vitae fermentum velit tincidunt id. Praesent eu finibus nunc. Nulla in sagittis eros. Aliquam egestas augue.
                             </div>
                             <a href="#" class="main-button">Read More</a>
                         </div>
@@ -321,7 +320,6 @@
                                 <a href="#">Phasellus convallis augue</a>
                             </h3>
                             <div class="text">
-                                Aliquam commodo ornare nisl, et scelerisque nisl dignissim ac. Vestibulum finibus urna ut velit venenatis, vel ultrices sapien mattis.
                             </div>
                             <a href="#" class="main-button">Read More</a>
                         </div>
@@ -337,7 +335,6 @@
                                 <a href="#">Nam gravida purus non</a>
                             </h3>
                             <div class="text">
-                                Maecenas eu erat vitae dui convallis consequat vel gravida nulla. Vestibulum finibus euismod odio, ut tempus enim varius eu.
                             </div>
                             <a href="#" class="main-button">Read More</a>
                         </div>
@@ -375,9 +372,8 @@
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <h5 class="margin-bottom-30">Keep in touch</h5>
                     <div class="contact-text">
-                        <p>110-220 Quisque diam odio, maximus ac consectetur eu, 10260
-                        <br>auctor non lorem</p>
-                        <p>You are NOT allowed to re-distribute Softy Pinko template on any template collection websites. Thank you.</p>
+                        <p>160, Sahib road kalmunaikudy o6, Kalmunai. 32300
+                        <p>Wish you all the best. Thank you.</p>
                     </div>
                 </div>
                 <!-- ***** Contact Text End ***** -->
@@ -434,7 +430,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <p class="copyright">
-                    Copyright &copy; 2020-2021 Reselect.info.</strong>
+                    Copyright &copy; 2020-2021 Reselect.info. | HAZKY EDIS |</strong>
                     All rights reserved.
                     </p>
                     

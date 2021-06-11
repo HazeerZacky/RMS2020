@@ -23,7 +23,7 @@ Route::post('stresult/',[MyController::class,'stresult']); //Students Results Pa
 Route::get('logout/',[MyController::class, 'logout']);  //Logout
 
 // Form List
-Route::get('/Dashboard/ClassPage/{c}',[MyController::class, 'ClassForm']); //Hazeer Done
+Route::get('/Dashboard/ClassPage/{c}',[MyController::class, 'ClassForm']); //Hazeer Done 
 Route::get('/Dashboard/UsersPage/{c}',[MyController::class, 'UsersForm']); //Hazeer Done
 Route::get('/Dashboard/StudentPage/{c}',[MyController::class, 'StudentForm']); //Hazeer Done
 Route::get('/Dashboard/SubjectPage/{c}',[MyController::class, 'Subjectform']);
