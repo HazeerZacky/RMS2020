@@ -927,5 +927,38 @@ class MyController extends Controller
         return view('HomePage');
     
     }
+
+
+
+    public function editmarks(Request $req) {
+
+        $a = session()->getId();
+            
+            if(session()->get('session') != $a ){
+                return redirect('/login')->with('msg','Login First');
+            }
+
+        $req->validate([
+            'EINO'=>'required',
+            'EMarks'=>'required',
+            
+        ],[
+            'EINO.required'=>'Class Name is must',
+
+            'EMarks.required'=>'Please select Class Type',
+        ]);
+
+        DB::table('results')->where('id' , $req->ECId)->update([
+            'index' => $req->EINO,
+            'result' => $req->EMarks,
+        ]);
+
+        $notification = array(
+            'message' => 'Successfully Updated', 
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
 //==========================================================================================================
 }
