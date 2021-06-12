@@ -380,6 +380,12 @@
                       <!-- form start -->
                               <form role="form" action="/editmarks" method="post">
                               @csrf
+                                <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+                                <input type="hidden" name="id" value = "{{$user->id}}">
+                                <input type="hidden" name="name" value = "{{$user->name}}">
+                                <input type="hidden" name = "class" value = "{{session()->get('class')}}">
+                                <input type="hidden" name = "year" value = "{{session()->get('year')}}">
+                                <input type="hidden" name = "term" value = "{{session()->get('term')}}">
                                   <div class="form-group">
                                       <label for="exampleInputText" class="form-label">Index No</label>
                                       <input type="text" class="form-control" id="EINO" name="EINO" placeholder="Enter class id" readonly>
@@ -505,7 +511,11 @@
                       <?php $k++; ?>
                       @endforeach
                   </tbody>
+                   
               </table>
+              <div class="modal-footer">
+                        <a href = "/teacherreportprint/{{$user->name}}/{{session()->get('class')}}/{{session()->get('year')}}/{{$user->subjectname}}/{{session()->get('term')}}" type="submit" class="btn btn-primary ">Download PDF</a>
+                      </div>
             @endif
         </div>
             <!-- /.card -->

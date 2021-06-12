@@ -357,13 +357,14 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+    @if($user->role == "Admin")
 
     <div class="card">
                 <!-- Table part start -->
                 <div class="card-body">
-                  <form action="/searchsubj" method="post">
+                  <form action="/marksrep" method="post">
                     @csrf
-                    <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+                    
                     <input type="hidden" name="id" value = "{{$user->id}}">
                     <input type="hidden" name="name" value = "{{$user->name}}">
                     <div class="row">
@@ -372,15 +373,19 @@
                         <label>Select a Class</label>
                         <select class="form-control select2" name="class" data-placeholder="Select an option">
                               <option value="" selected disabled hidden>(select an option)</option>
-                              <option value="">   </option>
+                              @foreach($cls as $cs)
+                                <option value="{{$cs->class_name}}">{{$cs->class_name}}</option>
+                              @endforeach
                         </select>
                       </div>
                       <!-- Subject -->
                       <div class="col-sm-3">
                         <label>Select a Subject</label>
-                        <select class="form-control select2" name="class" data-placeholder="Select an option">
+                        <select class="form-control select2" name="subject" data-placeholder="Select an option">
                               <option value="" selected disabled hidden>(select an option)</option>
-                              <option value="">   </option>
+                              @foreach($subj as $sb)
+                                <option value="{{$sb->subjectname}}">{{$sb->subjectname}}</option>
+                              @endforeach
                         </select>
                       </div>
                       <!-- Year -->
@@ -413,8 +418,12 @@
                       </div>
                     </div>
                   </form>
-
-
+                  @if(session()->get('year1'))
+                  <h6>Year: <b>{{session()->get('year1')}}</b></h6>
+                  <h6>Term: <b>{{session()->get('term1')}}</b></h6>
+                  <h6>Subject: <b>{{session()->get('subject1')}}</b></h6>
+                  <h6>Class: <b>{{session()->get('class1')}}</b></h6>
+                  
                   <table id="example1" class="table table-bordered table-striped">
                       <thead>
                       <tr>
@@ -423,7 +432,16 @@
                       </tr>
                       </thead>
                         <tbody>
-                        
+                        @if ($result = session()->get('report1'))
+                          
+                               @foreach ($result as $re)
+                            <tr>
+                              <td>{{$re->index}}</td>
+                              <td>{{$re->result}}</td>
+                            </tr>
+                          @endforeach
+                          
+                        @endif
                         </tbody>
                       <tfoot>
                       <tr>
@@ -433,8 +451,9 @@
                       </tfoot>
                     </table>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary ">PDF</button>
+                        <a href = "/printmarksrep/{{session()->get('class1')}}/{{session()->get('subject1')}}/{{session()->get('year1')}}/{{session()->get('term1')}}"type="button" class="btn btn-primary ">Download PDF</a>
                       </div>
+                      @endif
                   </div>
       </div>
 
@@ -443,18 +462,20 @@
       <div class="card">
                 <!-- Table part start -->
                 <div class="card-body">
-                  <form action="/searchsubj" method="post">
+                  <form action="/classrep" method="post">
                     @csrf
-                    <input  type="hidden" name = "subject" value = "{{$user->subjectname}}"/>
+                    
                     <input type="hidden" name="id" value = "{{$user->id}}">
                     <input type="hidden" name="name" value = "{{$user->name}}">
                     <div class="row">
                       <!-- class -->
                       <div class="col-sm-4">
-                        <label>Select a Class</label>
+                       <label>Select a Class</label>
                         <select class="form-control select2" name="class" data-placeholder="Select an option">
                               <option value="" selected disabled hidden>(select an option)</option>
-                              <option value="">   </option>
+                              @foreach($cls as $cs)
+                                <option value="{{$cs->class_name}}">{{$cs->class_name}}</option>
+                              @endforeach
                         </select>
                       </div>
                       <!-- Year -->
@@ -487,6 +508,12 @@
                       </div>
                     </div>
                   </form>
+                  @if (session()->get('year2'))
+                  
+                    <h6>Year: <b>{{session()->get('year2')}}</b></h6>
+                    <h6>Class: <b>{{session()->get('class2')}}</b></h6>
+                    <h6>Term: <b>{{session()->get('term2')}}</b></h6>
+                  
                   <table id="example1" class="table table-bordered table-striped">
                       <thead>
                       <tr>
@@ -497,7 +524,27 @@
                       </tr>
                       </thead>
                         <tbody>
+                        <?php
+                          $c = 1
+                         ?>
+                          @if ($report = session()->get('tot'))
+                         
+                          @foreach ($report as $ind => $marks)
+
+                            <tr>
+                              <td>{{$ind}}</td>
+                              <td>{{$marks}}</td>
+                              <td>{{session()->get('avg')[$ind]}}</td>
+                              <td>{{$c}}</td>
+                            </tr>
+                            <?php 
+                              $c++;
+                            ?>
+                          @endforeach
+                          @endif
+                           
                         
+                
                         </tbody>
                       <tfoot>
                       <tr>
@@ -508,9 +555,12 @@
                       </tr>
                       </tfoot>
                     </table>
+                    
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary ">PDF</button>
+                        <a href = "/printclassrep/{{session()->get('class2')}}/{{session()->get('year2')}}/{{session()->get('term2')}}" type="submit" class="btn btn-primary ">Download PDF</a>
                       </div>
+                    @endif
+                      
                   </div>
       </div>
 
@@ -519,7 +569,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+@endif
   <!-- Footer Start -->
     <footer class="main-footer text-sm">
       <strong>Copyright &copy; 2020-2021 <a href="#">Reselect.info</a>.</strong>

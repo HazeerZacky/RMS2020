@@ -29,6 +29,11 @@ class MyController extends Controller
                 return redirect('/login')->with('msg','Login First');
             }
             $user = DB::table('users')->where('id',$id)->first();
+            if($user->role == "Admin"){
+                $cls = DB::table('clas')->where('class_status','Active')->orderBy('class_name','asc')->get();
+                $subj = DB::table('subjects')->where('subjectstatus','Active')->get();
+                return view('Dashboard',compact('user','cls','subj'));
+            }
             return view('Dashboard',compact('user'));
         }
         public function login(){  //Login Page
@@ -850,6 +855,11 @@ class MyController extends Controller
         //             return redirect('/login')->with('msg','Login First');
         //         }
 
+   $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
     $cs = DB::table('students')->where('index_no', $req->index)->value('class_name'); 
     $total = [];
     $avg = [];
@@ -909,6 +919,11 @@ class MyController extends Controller
     }
 
     public function downloadPDF($index, $year, $term, $total, $avg, $rank){
+           $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
         $result = DB::table('results')->where('index',$index)->where('year',$year)->where('term',$term)->get();
         $name = DB::table('students')->where('index_no',$index)->value('student_name');
         
@@ -917,7 +932,7 @@ class MyController extends Controller
         $pdf = PDF::loadView('PDFResults', ['result'=>$result,'name'=>$name,'class'=>$class,'index'=>$index,'year'=>$year,'term'=>$term,'total'=>$total,'avg'=>$avg,'rank'=>$rank]);
         return $pdf->download($name.' '.$term.' Result sheet.pdf');
 
-        return $index.$year.$term;
+        
     }
 
 
@@ -929,7 +944,7 @@ class MyController extends Controller
     }
 
 
-
+/* ============================================================================================================ */
     public function editmarks(Request $req) {
 
         $a = session()->getId();
@@ -940,15 +955,15 @@ class MyController extends Controller
 
         $req->validate([
             'EINO'=>'required',
-            'EMarks'=>'required',
-            
+            'EMarks'=>'required|integer|between:0,100'
+        
         ],[
-            'EINO.required'=>'Class Name is must',
+            'EINO.required'=>'Index is must',
 
-            'EMarks.required'=>'Please select Class Type',
+            'EMarks.required'=>'Select a valid marks',
         ]);
 
-        DB::table('results')->where('id' , $req->ECId)->update([
+        DB::table('results')->where('index' , $req->EINO)->where('year',$req->year)->where('term',$req->term)->where('subject',$req->subject)->update([
             'index' => $req->EINO,
             'result' => $req->EMarks,
         ]);
@@ -957,8 +972,93 @@ class MyController extends Controller
             'message' => 'Successfully Updated', 
             'alert-type' => 'success'
         );
+        $result = DB::table('results')->where('trname',$req->name)->where('class',$req->class)->where('year',$req->year)->where('subject',$req->subject)->where('term',$req->term)->get();
 
-        return redirect()->back()->with($notification);
+        return redirect()->back()->with('result',$result)->with($notification)->with('class',$req->class)->with('year',$req->year)->with('term',$req->term);
     }
 //==========================================================================================================
+    public function marksrep(Request $req){
+           $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+        $report = DB::table('results')->where('year',$req->year)->where('term',$req->term)->where('subject',$req->subject)->where('class',$req->class)->get();
+        
+        return redirect()->route('Dashboard',['c'=>$req->id])->with('report1',$report)->with('subject1',$req->subject)->with('year1',$req->year)->with('term1',$req->term)->with('class1',$req->class);
+    }
+    public function classrep(Request $req){
+           $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+    
+    $total = [];
+    $avg = [];
+    $totresult =  DB::table('results')->where('class',$req->class)->where('year',$req->year)->where('term',$req->term)->select('index')->groupBy('index')->get();
+        
+        foreach($totresult as $tot){
+            $sum = DB::table('results')->where('index',$tot->index)->where('class',$req->class)->where('year',$req->year)->where('term',$req->term)->sum('result');
+            $avrg = DB::table('results')->where('index',$tot->index)->where('class',$req->class)->where('year',$req->year)->where('term',$req->term)->avg('result');
+            $total += [$tot->index => $sum];
+            $avg += [$tot->index => $avrg];
+        }
+
+        arsort($total);
+        arsort($avg);
+
+       return redirect()->route('Dashboard',['c'=>$req->id])->with('tot',$total)->with('avg',$avg)->with('year2',$req->year)->with('term2',$req->term)->with('class2',$req->class);
+    }
+
+    public function printmarksrep($class, $subject, $year, $term){
+           $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+        $report = DB::table('results')->where('year',$year)->where('term',$term)->where('subject',$subject)->where('class',$class)->get();
+        $pdf = PDF::loadView('marksheet', ['report'=>$report,'class'=>$class,'year'=>$year,'term'=>$term,'subject'=>$subject]);
+        
+        return $pdf->download($subject.' '.$term.' '.$class.' '.$year.' Result sheet.pdf');
+    }
+    public function printclassrep($class, $year, $term){
+           $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+    $total = [];
+    $avg = [];
+    $totresult =  DB::table('results')->where('class',$class)->where('year',$year)->where('term',$term)->select('index')->groupBy('index')->get();
+        
+        foreach($totresult as $tot){
+            $sum = DB::table('results')->where('index',$tot->index)->where('class',$class)->where('year',$year)->where('term',$term)->sum('result');
+            $avrg = DB::table('results')->where('index',$tot->index)->where('class',$class)->where('year',$year)->where('term',$term)->avg('result');
+            $total += [$tot->index => $sum];
+            $avg += [$tot->index => $avrg];
+        }
+
+        arsort($total);
+        arsort($avg);
+
+       $pdf = PDF::loadView('classreport',['tot'=>$total, 'avg'=>$avg, 'year'=>$year, 'term'=>$term, 'class'=>$class]);
+       return $pdf->download($class.' '.$term.' '.$year.' Result sheet.pdf');
+    }
+
+     public function teacherreportprint($name, $class, $year, $subject, $term){ //Teacher Report Search Marks Part
+        $a = session()->getId();
+                if(session()->get('session') != $a )
+                {
+                    return redirect('/login')->with('msg','Login First');
+                }
+                
+       $result = DB::table('results')->where('trname',$name)->where('class',$class)->where('year',$year)->where('subject',$subject)->where('term',$term)->get();
+        $pdf = PDF::loadView('marksheet', ['report'=>$result,'class'=>$class,'year'=>$year,'term'=>$term,'subject'=>$subject]);
+       return $pdf->download($subject.' '.$term.' '.$class.' '.$year.' '.$name.' Result sheet.pdf');
+        //return redirect()->back()->with('result',$result)->with('class',$req->class)->with('term',$req->term)->with('year',$req->year);
+    
+    }
+
 }
+
