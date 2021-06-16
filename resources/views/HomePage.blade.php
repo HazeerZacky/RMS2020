@@ -241,40 +241,7 @@
     
     <!-- ------------------------------------------Hazky----------------------------------->
 
-    <!-- ***** Counter Parallax Start ***** -->
-    <section class="counter">
-        <div class="content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="count-item decoration-bottom">
-                            <strong>4</strong>
-                            <span>Total Branches</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="count-item decoration-top">
-                            <strong>104</strong>
-                            <span>Total Commits</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="count-item decoration-bottom">
-                            <strong>9954</strong>
-                            <span>Total Files</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="count-item">
-                            <strong>98</strong>
-                            <span>Success Rate</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Counter Parallax End ***** -->   
+  
 
     <!-- ***** Blog Start ***** -->
     <section class="section" id="blog">

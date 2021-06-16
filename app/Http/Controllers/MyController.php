@@ -855,21 +855,16 @@ class MyController extends Controller
         //             return redirect('/login')->with('msg','Login First');
         //         }
 
-   $a = session()->getId();
-                if(session()->get('session') != $a )
-                {
-                    return redirect('/login')->with('msg','Login First');
-                }
-    $cs = DB::table('students')->where('index_no', $req->index)->value('class_name'); 
-    $total = [];
-    $avg = [];
-   $Mymarks;
-   $Myavg;
-    $totresult =  DB::table('results')->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->select('index')->groupBy('index')->get();
-        
+        $cs = DB::table('students')->where('index_no', $req->index)->value('class_name'); 
+        $total = [];
+        $avg = [];
+        $Mymarks=0;
+        $Myavg=0;
+        $totresult =  DB::table('results')->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->select('index')->groupBy('index')->get();
+            
         foreach($totresult as $tot){
-            $sum = DB::table('results')->where('index',$tot->index)->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->sum('result');
-            $avrg = DB::table('results')->where('index',$tot->index)->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->avg('result');
+            $sum = DB::table('results')->where('index',$tot->index)->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->sum('result'); //to
+            $avrg = DB::table('results')->where('index',$tot->index)->where('class',$cs)->where('year',$req->year)->where('term',$req->term)->avg('result'); //av
             $total += [$tot->index => $sum];
             $avg += [$tot->index => $avrg];
 
@@ -945,7 +940,7 @@ class MyController extends Controller
 
 
 /* ============================================================================================================ */
-    public function editmarks(Request $req) {
+    public function editmarks(Request $req) { //Add Marks to Java Script
 
         $a = session()->getId();
             
@@ -977,7 +972,7 @@ class MyController extends Controller
         return redirect()->back()->with('result',$result)->with($notification)->with('class',$req->class)->with('year',$req->year)->with('term',$req->term);
     }
 //==========================================================================================================
-    public function marksrep(Request $req){
+    public function marksrep(Request $req){  //Admin Table 1 = Year | Term | Subject | Class
            $a = session()->getId();
                 if(session()->get('session') != $a )
                 {
@@ -987,7 +982,8 @@ class MyController extends Controller
         
         return redirect()->route('Dashboard',['c'=>$req->id])->with('report1',$report)->with('subject1',$req->subject)->with('year1',$req->year)->with('term1',$req->term)->with('class1',$req->class);
     }
-    public function classrep(Request $req){
+
+    public function classrep(Request $req){  //Admin Table 1 = Year | Term | Class
            $a = session()->getId();
                 if(session()->get('session') != $a )
                 {
@@ -1011,7 +1007,7 @@ class MyController extends Controller
        return redirect()->route('Dashboard',['c'=>$req->id])->with('tot',$total)->with('avg',$avg)->with('year2',$req->year)->with('term2',$req->term)->with('class2',$req->class);
     }
 
-    public function printmarksrep($class, $subject, $year, $term){
+    public function printmarksrep($class, $subject, $year, $term){ //1st
            $a = session()->getId();
                 if(session()->get('session') != $a )
                 {
@@ -1022,7 +1018,8 @@ class MyController extends Controller
         
         return $pdf->download($subject.' '.$term.' '.$class.' '.$year.' Result sheet.pdf');
     }
-    public function printclassrep($class, $year, $term){
+    
+    public function printclassrep($class, $year, $term){  //2nd
            $a = session()->getId();
                 if(session()->get('session') != $a )
                 {

@@ -385,7 +385,7 @@
                     </select>
 
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary ">Select</button>
+                      <button type="submit" class="btn btn-primary ">Search</button>
                     </div>
                
              </form>
@@ -481,102 +481,102 @@
   </div>
   @endif
   <script type="text/javascript">
-  function box(id){
-    
-    var q = document.getElementById('mr'+id).style.display;
-    var p = document.getElementById('but'+id).style.display;
-    console.log(q);
-    if(q == "none"){
-        document.getElementById('mr'+id).style.display = "block";
-        document.getElementById('but'+id).style.display = "block";
-        document.getElementById('button'+id).value = "Close";
-    }else{
-       document.getElementById('mr'+id).style.display = "none";
-        document.getElementById('but'+id).style.display = "none";
-         document.getElementById('button'+id).value = "Click";
-    }
-  }
-  var div = document.getElementById('div');
-   window.setInterval( function(){
-       var c = div.getElementsByTagName("input").length;
-        var z = document.getElementById("sub");
-    if (c > 0){
-        z.style.display = "block";
-    }else{
-         z.style.display = "none";
-     }
-   },10)
-
-  function add(id) {
-    var index = document.getElementById('index'+id).innerHTML;
-    var marks = document.getElementById('mr'+id).value;
-    
-    var form = document.getElementById('form');
-
-    if(marks <= 100 && marks > 0 ){
-      var input1 = document.createElement("input");
-      input1.setAttribute("type","text");
-      input1.setAttribute("name","ind"+id);
-      input1.setAttribute("id","ind"+id);
-      input1.setAttribute("value",index);
-      input1.setAttribute("readonly",true);
-   
-      // input1.setAttribute("style"," width:8%; float:left;");
-                                   
-      var input2 = document.createElement("input");
-      input2.setAttribute("type","number");
-      input2.setAttribute("name","mk"+id);
-      input2.setAttribute("id","mk"+id);
-      input2.setAttribute("value",marks);
-      input2.setAttribute("readonly",true);
- 
-      // input2.setAttribute("style","margin-right:5px; width:5%;");
-
-      var br = document.createElement("br");
-
-       div.appendChild(input1);
-       div.appendChild(input2);
-
-        var rem = document.createElement("button");
-      
-        rem.setAttribute("type", "button");
-        // rem.setAttribute("style"," float:right; margin-right:81%; ");
-        rem.setAttribute("id", "del"+id);
-        rem.setAttribute("value", "Clear");
+      function box(id){
         
-        rem.innerHTML = "Clear";
-        rem.setAttribute("onclick", "remove("+id+")");
-        div.appendChild(rem);
-        div.appendChild(br);
-        form.appendChild(div);
-
-         form.appendChild(document.getElementById("sub"));
-
-        document.getElementById('mr'+id).style.display = "none";
-        document.getElementById('but'+id).style.display = "none";
-         document.getElementById('button'+id).value = "Click";
-    }
-  }
-
-     function remove(id){
-        var a = document.getElementById("ind"+id);
-        var b = document.getElementById("mk"+id);
-        var c = document.getElementById("del"+id);
-
-        a.remove();
-        b.remove();
-        c.remove();
-    }
-
-    function submitting(){
-      var x = div.getElementsByTagName("input").length;
-      var arr = Array();
-      for(var i = 0 ; i < x ; i++){
-          console.log(div.getElementsByTagName("input")[i].value);
-          arr[i] = div.getElementsByTagName("input")[i].value;
+        var q = document.getElementById('mr'+id).style.display;
+        var p = document.getElementById('but'+id).style.display;
+        console.log(q);
+        if(q == "none"){
+            document.getElementById('mr'+id).style.display = "block";
+            document.getElementById('but'+id).style.display = "block";
+            document.getElementById('button'+id).value = "Close";
+        }else{
+          document.getElementById('mr'+id).style.display = "none";
+            document.getElementById('but'+id).style.display = "none";
+            document.getElementById('button'+id).value = "Click";
+        }
       }
-    document.getElementById('list').value = arr;
-    }
+      var div = document.getElementById('div');
+      window.setInterval( function(){
+          var c = div.getElementsByTagName("input").length;
+            var z = document.getElementById("sub");
+        if (c > 0){
+            z.style.display = "block";
+        }else{
+            z.style.display = "none";
+        }
+      },10)
+
+      function add(id) {
+        var index = document.getElementById('index'+id).innerHTML;
+        var marks = document.getElementById('mr'+id).value;
+        
+        var form = document.getElementById('form');
+
+        if(marks <= 100 && marks > 0 ){
+          var input1 = document.createElement("input");
+          input1.setAttribute("type","text");
+          input1.setAttribute("name","ind"+id);
+          input1.setAttribute("id","ind"+id);
+          input1.setAttribute("value",index);
+          input1.setAttribute("readonly",true);
+      
+          // input1.setAttribute("style"," width:8%; float:left;");
+                                      
+          var input2 = document.createElement("input");
+          input2.setAttribute("type","number");
+          input2.setAttribute("name","mk"+id);
+          input2.setAttribute("id","mk"+id);
+          input2.setAttribute("value",marks);
+          input2.setAttribute("readonly",true);
+    
+          // input2.setAttribute("style","margin-right:5px; width:5%;");
+
+          var br = document.createElement("br");
+
+          div.appendChild(input1);
+          div.appendChild(input2);
+
+            var rem = document.createElement("button");
+          
+            rem.setAttribute("type", "button");
+            // rem.setAttribute("style"," float:right; margin-right:81%; ");
+            rem.setAttribute("id", "del"+id);
+            rem.setAttribute("value", "Clear");
+            
+            rem.innerHTML = "Clear";
+            rem.setAttribute("onclick", "remove("+id+")");
+            div.appendChild(rem);
+            div.appendChild(br);
+            form.appendChild(div);
+
+            form.appendChild(document.getElementById("sub"));
+
+            document.getElementById('mr'+id).style.display = "none";
+            document.getElementById('but'+id).style.display = "none";
+            document.getElementById('button'+id).value = "Click";
+        }
+      }
+
+        function remove(id){
+            var a = document.getElementById("ind"+id);
+            var b = document.getElementById("mk"+id);
+            var c = document.getElementById("del"+id);
+
+            a.remove();
+            b.remove();
+            c.remove();
+        }
+
+        function submitting(){
+          var x = div.getElementsByTagName("input").length;
+          var arr = Array();
+          for(var i = 0 ; i < x ; i++){
+              console.log(div.getElementsByTagName("input")[i].value);
+              arr[i] = div.getElementsByTagName("input")[i].value;
+          }
+        document.getElementById('list').value = arr;
+        }
 
   </script>
 

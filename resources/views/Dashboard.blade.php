@@ -535,7 +535,7 @@
                               <td>{{$ind}}</td>
                               <td>{{$marks}}</td>
                               <td>{{session()->get('avg')[$ind]}}</td>
-                              <td>{{$c}}</td>
+                              <td>{{$c}}</td><!-- Rank -->
                             </tr>
                             <?php 
                               $c++;

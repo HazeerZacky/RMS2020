@@ -60,7 +60,7 @@ Route::get('changesubjectsstatus/{c}',[MyController::class, 'changesubjectsstatu
 Route::get('deletesubject/{c}',[MyController::class,'deletesubject'])->name('deletesubject'); //{c} = Passing variable
 //==========================================================================
 
-//Data connection= Subject Table============================================
+//Download PDF============================================
 Route::get('/get-pdf-results',[MyController::class,'getResultsPDF']);
 Route::get('/download-pdf/{x}/{y}/{z}/{t}/{a}/{r}',[MyController::class,'downloadPDF']);
 
@@ -68,6 +68,8 @@ Route::get('/download-pdf/{x}/{y}/{z}/{t}/{a}/{r}',[MyController::class,'downloa
 Route::post('editmarks',[MyController::class,'editmarks']);
 Route::post('marksrep',[MyController::class,'marksrep']);
 Route::post('classrep',[MyController::class,'classrep']);
+
+
 Route::get('/printmarksrep/{a}/{b}/{c}/{d}',[MyController::class, 'printmarksrep'])->name('printmarksrep');
 Route::get('/printclassrep/{a}/{b}/{c}',[MyController::class, 'printclassrep'])->name('printclassrep');
 Route::get('/teacherreportprint/{a}/{b}/{c}/{d}/{e}',[MyController::class, 'teacherreportprint'])->name('teacherreportprint');
