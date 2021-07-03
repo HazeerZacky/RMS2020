@@ -914,11 +914,8 @@ class MyController extends Controller
     }
 
     public function downloadPDF($index, $year, $term, $total, $avg, $rank){
-           $a = session()->getId();
-                if(session()->get('session') != $a )
-                {
-                    return redirect('/login')->with('msg','Login First');
-                }
+           
+                
         $result = DB::table('results')->where('index',$index)->where('year',$year)->where('term',$term)->get();
         $name = DB::table('students')->where('index_no',$index)->value('student_name');
         
