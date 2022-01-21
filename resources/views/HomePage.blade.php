@@ -319,15 +319,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center-heading">
-                        <h2 class="section-title">Talk To Us(Group Members)</h2>
+                        <h2 class="section-title">Talk To me</h2>
                     </div>
                 </div>
                 <div class="offset-lg-3 col-lg-6">
                     <div class="center-text">
-                    <li><center>M.H.M.HAZEER ZACKY (SAM/IT/2019/F/0022)</center> </li>
-                    <li><center>M.N.M.N.HANAN (SAM/IT/2019/F/0070)</center> </li>
-                    <li><center>A.H.MOHAEMD FAHATH (SAM/IT/2019/F/0057)</center> </li>
-                    <li><center>M.G.M.RINAS (SAM/IT/2019/F/0053)</center> </li>
+                    
                     <br>
                     </div>
                 </div>
